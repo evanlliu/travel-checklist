@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 89,
-  "updatedAt": "2026-05-07T09:47:15.363Z",
+  "revision": 90,
+  "updatedAt": "2026-05-07T09:47:27.850Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -607,6 +607,22 @@
       "note": "",
       "createdAt": "2026-05-07T09:47:13.907Z",
       "updatedAt": "2026-05-07T09:47:13.907Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_movayk8r_t4qgci",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "搅拌机",
+      "category": "other",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "optional",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-07T09:47:26.331Z",
+      "updatedAt": "2026-05-07T09:47:26.331Z",
       "doneAt": null,
       "deleted": false
     }
