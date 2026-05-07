@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.1.1",
   "schemaVersion": 2,
-  "revision": 18,
-  "updatedAt": "2026-05-07T07:33:09.691Z",
+  "revision": 19,
+  "updatedAt": "2026-05-07T07:33:11.975Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -465,13 +465,13 @@
       "title": "测试",
       "category": "documents",
       "type": "buy_and_carry",
-      "status": "bought",
+      "status": "packed",
       "priority": "must",
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T07:33:03.265Z",
-      "updatedAt": "2026-05-07T07:33:08.376Z",
-      "doneAt": null,
+      "updatedAt": "2026-05-07T07:33:10.586Z",
+      "doneAt": "2026-05-07T07:33:10.586Z",
       "deleted": false
     }
   ]
