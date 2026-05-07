@@ -1,0 +1,26 @@
+{
+  "appVersion": "v1.0.3",
+  "schemaVersion": 1,
+  "revision": 1,
+  "updatedAt": "2026-05-07T06:41:31.428Z",
+  "settings": {
+    "language": "zh-CN",
+    "hideDone": true,
+    "currentTripId": "mexico-2026",
+    "cloudflare": {
+      "apiBase": "https://travel-checklist-data-worker.287418456.workers.dev",
+      "appPassword": "1123"
+    }
+  },
+  "trips": [
+    {
+      "id": "mexico-2026",
+      "name": {
+        "zh-CN": "墨西哥出行清单",
+        "en-US": "Mexico Travel Checklist"
+      },
+      "createdAt": "1970-01-01T00:00:00.000Z"
+    }
+  ],
+  "items": []
+}
