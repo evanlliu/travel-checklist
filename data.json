@@ -1,8 +1,8 @@
 {
-  "appVersion": "v1.1.0",
+  "appVersion": "v1.1.1",
   "schemaVersion": 2,
-  "revision": 13,
-  "updatedAt": "2026-05-07T07:28:07.353Z",
+  "revision": 14,
+  "updatedAt": "2026-05-07T07:29:06.054Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -369,13 +369,13 @@
       "title": "常用药测试",
       "category": "medicine",
       "type": "buy_and_carry",
-      "status": "bought",
+      "status": "packed",
       "priority": "must",
       "quantity": 1,
       "note": "感冒药、肠胃药、止痛药等。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:28:05.742Z",
-      "doneAt": null,
+      "updatedAt": "2026-05-07T07:29:04.777Z",
+      "doneAt": "2026-05-07T07:29:04.777Z",
       "deleted": false
     },
     {
