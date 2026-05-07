@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 82,
-  "updatedAt": "2026-05-07T09:45:31.056Z",
+  "revision": 83,
+  "updatedAt": "2026-05-07T09:45:48.802Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -495,6 +495,22 @@
       "note": "",
       "createdAt": "2026-05-07T09:45:29.544Z",
       "updatedAt": "2026-05-07T09:45:29.544Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_movawfv0_s8yhi5",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "火锅底料",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 5,
+      "note": "",
+      "createdAt": "2026-05-07T09:45:47.340Z",
+      "updatedAt": "2026-05-07T09:45:47.340Z",
       "doneAt": null,
       "deleted": false
     }
