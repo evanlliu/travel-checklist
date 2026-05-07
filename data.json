@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.1",
   "schemaVersion": 2,
-  "revision": 35,
-  "updatedAt": "2026-05-07T08:24:37.457Z",
+  "revision": 36,
+  "updatedAt": "2026-05-07T08:24:51.217Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -470,9 +470,9 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T07:33:03.265Z",
-      "updatedAt": "2026-05-07T07:33:10.586Z",
+      "updatedAt": "2026-05-07T08:24:49.896Z",
       "doneAt": "2026-05-07T07:33:10.586Z",
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_mov79gju_sxa2hi",
