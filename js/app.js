@@ -1,10 +1,10 @@
-/* v1.3.4 */
+/* v1.3.5 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.3.4";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.3.5";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -853,9 +853,7 @@
       const priorityRank = { must: 0, optional: 1 };
       const statusRank = { need_buy: 0, bought: 1, to_pack: 1, packed: 2, done: 2 };
       const pinnedDiff = (isPinned(b) ? 1 : 0) - (isPinned(a) ? 1 : 0);
-      const pinnedTimeDiff = (Date.parse(b.pinnedAt || 0) || 0) - (Date.parse(a.pinnedAt || 0) || 0);
       return pinnedDiff
-        || (isPinned(a) && isPinned(b) ? pinnedTimeDiff : 0)
         || (priorityRank[a.priority] ?? 9) - (priorityRank[b.priority] ?? 9)
         || (statusRank[a.status] ?? 9) - (statusRank[b.status] ?? 9)
         || String(a.title || "").localeCompare(String(b.title || ""), getLang() === "zh-CN" ? "zh-Hans-CN" : "en-US");
