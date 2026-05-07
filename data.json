@@ -1,13 +1,13 @@
 {
   "appVersion": "v1.2.2",
   "schemaVersion": 2,
-  "revision": 41,
-  "updatedAt": "2026-05-07T08:39:14.734Z",
+  "revision": 42,
+  "updatedAt": "2026-05-07T08:39:29.395Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
-    "currentChecklistId": "mexico-2026",
-    "currentTripId": "mexico-2026",
+    "currentChecklistId": "checklist_mov5hpql_uafjfp",
+    "currentTripId": "checklist_mov5hpql_uafjfp",
     "cloudflare": {
       "apiBase": "https://travel-checklist-data-worker.287418456.workers.dev",
       "appPassword": "1123"
@@ -23,8 +23,8 @@
       "type": "travel",
       "status": "active",
       "createdAt": "2026-05-07T07:10:01.795Z",
-      "updatedAt": "2026-05-07T08:39:13.275Z",
-      "deleted": false
+      "updatedAt": "2026-05-07T08:39:27.990Z",
+      "deleted": true
     },
     {
       "id": "checklist_mov5hpql_uafjfp",
@@ -40,14 +40,6 @@
     }
   ],
   "trips": [
-    {
-      "id": "mexico-2026",
-      "name": {
-        "zh-CN": "墨西哥出行清单",
-        "en-US": "Mexico Travel Checklist"
-      },
-      "createdAt": "2026-05-07T07:10:01.795Z"
-    },
     {
       "id": "checklist_mov5hpql_uafjfp",
       "name": {
@@ -70,9 +62,9 @@
       "quantity": 1,
       "note": "确认有效期，建议准备护照复印件。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_evisa",
@@ -86,9 +78,9 @@
       "quantity": 1,
       "note": "黑白打印通常够用，建议和行程单放一起。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_cards",
@@ -102,9 +94,9 @@
       "quantity": 2,
       "note": "最好准备两张卡，避免一张无法使用。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_cash",
@@ -118,9 +110,9 @@
       "quantity": 1,
       "note": "准备少量美元或当地可兑换现金。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_adapter",
@@ -134,9 +126,9 @@
       "quantity": 1,
       "note": "墨西哥常用美标插头。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_charger",
@@ -150,9 +142,9 @@
       "quantity": 1,
       "note": "建议带备用数据线。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_powerbank",
@@ -166,9 +158,9 @@
       "quantity": 1,
       "note": "随身携带，不要托运。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_medicine",
@@ -182,9 +174,9 @@
       "quantity": 1,
       "note": "感冒药、肠胃药、止痛药等。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_toiletries",
@@ -198,9 +190,9 @@
       "quantity": 1,
       "note": "牙刷、牙膏、洗面奶、剃须用品。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_clothes",
@@ -214,9 +206,9 @@
       "quantity": 1,
       "note": "按出差天数准备，注意当地天气。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_laptop",
@@ -230,9 +222,9 @@
       "quantity": 1,
       "note": "检查充电器、VPN、必要文件。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_snacks",
@@ -246,9 +238,9 @@
       "quantity": 1,
       "note": "长途飞行或转机时备用。",
       "createdAt": "2026-05-07T00:00:00.000Z",
-      "updatedAt": "2026-05-07T00:00:00.000Z",
+      "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_mov5hpql_891npw",
