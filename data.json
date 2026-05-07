@@ -1,13 +1,13 @@
 {
   "appVersion": "v1.1.0",
   "schemaVersion": 2,
-  "revision": 5,
-  "updatedAt": "2026-05-07T07:14:23.520Z",
+  "revision": 6,
+  "updatedAt": "2026-05-07T07:14:27.635Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
-    "currentChecklistId": "checklist_mov5hpql_uafjfp",
-    "currentTripId": "checklist_mov5hpql_uafjfp",
+    "currentChecklistId": "mexico-2026",
+    "currentTripId": "mexico-2026",
     "cloudflare": {
       "apiBase": "https://travel-checklist-data-worker.287418456.workers.dev",
       "appPassword": "1123"
