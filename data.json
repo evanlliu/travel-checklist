@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.1",
   "schemaVersion": 2,
-  "revision": 30,
-  "updatedAt": "2026-05-07T08:23:08.857Z",
+  "revision": 31,
+  "updatedAt": "2026-05-07T08:23:29.919Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -438,9 +438,9 @@
       "quantity": 1,
       "note": "长途飞行或转机时备用。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T08:23:28.505Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_mov628b1_ez8fh4",
