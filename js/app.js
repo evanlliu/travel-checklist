@@ -1,10 +1,10 @@
-/* v1.2.4 */
+/* v1.2.6 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.4";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.6";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -729,6 +729,32 @@
 
   function closeActionMenu() { toggleActionMenu(false); }
 
+  function closeTransientPanels() {
+    closeActionMenu();
+    toggleFilterPanel(false);
+    $("#itemList .item-card.swiped").removeClass("swiped");
+  }
+
+  function setModalOpenState(isOpen) {
+    if (isOpen) {
+      $("body").addClass("modal-open");
+      return;
+    }
+    const hasOpenModal = $("#itemModal, #settingsModal, #checklistModal").filter(function () { return !this.hidden; }).length > 0;
+    if (!hasOpenModal) $("body").removeClass("modal-open");
+  }
+
+  function openModal($modal) {
+    closeTransientPanels();
+    $modal.prop("hidden", false);
+    setModalOpenState(true);
+  }
+
+  function closeModal($modal) {
+    $modal.prop("hidden", true);
+    setModalOpenState(false);
+  }
+
   function toggleFilterPanel(forceOpen) {
     const shouldOpen = typeof forceOpen === "boolean" ? forceOpen : $("#filterPanel").prop("hidden");
     $("#filterPanel").prop("hidden", !shouldOpen);
@@ -829,22 +855,22 @@
       $("#itemQuantity").val(1);
       $("#itemNote").val("");
     }
-    $("#itemModal").prop("hidden", false);
+    openModal($("#itemModal"));
     setTimeout(() => $("#itemTitle").trigger("focus"), 60);
   }
 
-  function closeItemModal() { $("#itemModal").prop("hidden", true); }
+  function closeItemModal() { closeModal($("#itemModal")); }
 
   function openSettings() {
     $("#hideDoneSwitch").prop("checked", Boolean(appData?.settings?.hideDone));
     applyConnectionToForms();
     setSettingsStatus("", false);
-    $("#settingsModal").prop("hidden", false);
+    openModal($("#settingsModal"));
   }
 
-  function closeSettings() { $("#settingsModal").prop("hidden", true); }
-  function openChecklistModal() { renderChecklistManager(); setChecklistStatus("", false); $("#checklistModal").prop("hidden", false); }
-  function closeChecklistModal() { $("#checklistModal").prop("hidden", true); }
+  function closeSettings() { closeModal($("#settingsModal")); }
+  function openChecklistModal() { renderChecklistManager(); setChecklistStatus("", false); openModal($("#checklistModal")); }
+  function closeChecklistModal() { closeModal($("#checklistModal")); }
 
   function initialStatus(type) { return type === "carry" ? "to_pack" : "need_buy"; }
 
@@ -1325,7 +1351,7 @@
     });
 
     $("#itemModal, #settingsModal, #checklistModal").on("click", function (event) {
-      if (event.target === this) $(this).prop("hidden", true);
+      if (event.target === this) closeModal($(this));
     });
   }
 
@@ -1334,6 +1360,7 @@
     applyI18n();
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
     $("#itemModal, #settingsModal, #checklistModal").prop("hidden", true);
+    $("body").removeClass("modal-open");
 
     await bootstrapConnectionFromStaticData();
     applyConnectionToForms();
