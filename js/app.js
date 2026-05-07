@@ -1,10 +1,10 @@
-/* v1.3.2 */
+/* v1.3.4 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.3.2";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.3.4";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -57,7 +57,18 @@
       boughtAction: "已购买",
       packedAction: "已打包",
       completeAction: "完成",
+      pin: "置顶",
+      unpin: "取消置顶",
+      pinned: "置顶",
       confirmDelete: "确定删除这个物品吗？",
+      actionAdded: "新增了",
+      actionUpdated: "修改了",
+      actionDeleted: "删除了",
+      actionRestored: "恢复了",
+      actionBought: "已购买",
+      actionPacked: "已打包",
+      actionPinned: "置顶了",
+      actionUnpinned: "取消置顶",
       saving: "正在保存...",
       saved: "已同步",
       localSaved: "已保存到本地，配置 Cloudflare 后可同步到 data.json。",
@@ -172,7 +183,18 @@
       boughtAction: "Bought",
       packedAction: "Packed",
       completeAction: "Complete",
+      pin: "Pin",
+      unpin: "Unpin",
+      pinned: "Pinned",
       confirmDelete: "Delete this item?",
+      actionAdded: "Added",
+      actionUpdated: "Updated",
+      actionDeleted: "Deleted",
+      actionRestored: "Restored",
+      actionBought: "Bought",
+      actionPacked: "Packed",
+      actionPinned: "Pinned",
+      actionUnpinned: "Unpinned",
       saving: "Saving...",
       saved: "Synced",
       localSaved: "Saved locally. Configure Cloudflare to sync to data.json.",
@@ -257,6 +279,7 @@
   let currentSearch = "";
   let saveTimer = null;
   let isSaving = false;
+  let pendingSaveMessage = "";
 
   function t(key) {
     const lang = getLang();
@@ -449,6 +472,8 @@
         createdAt: nowIso(),
         updatedAt: nowIso(),
         doneAt: null,
+        pinned: false,
+        pinnedAt: null,
         deleted: false
       }, item, { checklistId, tripId: checklistId });
     });
@@ -536,7 +561,15 @@
   }
 
   async function saveData(options = {}) {
-    if (!appData || isSaving) return;
+    if (!appData) return;
+    if (isSaving) {
+      if (options.actionMessage) pendingSaveMessage = options.actionMessage;
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => saveData({ actionMessage: pendingSaveMessage }), 500);
+      return;
+    }
+    const actionMessage = options.actionMessage || pendingSaveMessage || "";
+    pendingSaveMessage = "";
     appData.settings = appData.settings || {};
     appData.settings.currentTripId = appData.settings.currentChecklistId;
     appData.trips = (appData.checklists || []).filter(list => !list.deleted).map(list => ({ id: list.id, name: list.name, createdAt: list.createdAt }));
@@ -547,12 +580,12 @@
 
     const conn = getCurrentConnection();
     if (!conn.apiBase || !conn.appPassword) {
-      if (!options.silent) setSaveStatus(t("localSaved"));
+      if (!options.silent) setSaveStatus(formatSaveStatus(t("localSaved"), actionMessage));
       return;
     }
 
     isSaving = true;
-    if (!options.silent) setSaveStatus(t("saving"));
+    if (!options.silent) setSaveStatus(formatSaveStatus(t("saving"), actionMessage));
     try {
       const payload = await apiFetch("/api/data", {
         method: "PUT",
@@ -562,7 +595,7 @@
       const remoteConn = getDataConnection(appData);
       if (remoteConn.apiBase && remoteConn.appPassword) setConnection(remoteConn, true);
       localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(appData));
-      if (!options.silent) setSaveStatus(t("saved"));
+      if (!options.silent) setSaveStatus(formatSaveStatus(t("saved"), actionMessage));
       renderAll();
     } catch (err) {
       if (err.status === 409) {
@@ -577,12 +610,23 @@
     }
   }
 
-  function scheduleSave() {
+  function scheduleSave(actionMessage = "") {
+    if (actionMessage) pendingSaveMessage = actionMessage;
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveData, 250);
+    saveTimer = setTimeout(() => saveData({ actionMessage: pendingSaveMessage }), 250);
   }
 
   function setSaveStatus(text) { $("#saveStatus").text(text || ""); }
+
+  function formatActionMessage(actionKey, title) {
+    const cleanTitle = String(title || "").trim();
+    if (!cleanTitle) return "";
+    return getLang() === "zh-CN" ? `${t(actionKey)}${cleanTitle}` : `${t(actionKey)}: ${cleanTitle}`;
+  }
+
+  function formatSaveStatus(baseText, actionMessage) {
+    return actionMessage ? `${baseText}：${actionMessage}` : baseText;
+  }
   function setLoginStatus(text, isError) { $("#loginStatus").prop("hidden", !text).toggleClass("error-text", Boolean(isError)).text(text || ""); }
   function setSettingsStatus(text, isError) { $("#settingsStatus").prop("hidden", !text).toggleClass("error-text", Boolean(isError)).text(text || ""); }
   function setChecklistStatus(text, isError) { $("#checklistStatus").prop("hidden", !text).toggleClass("error-text", Boolean(isError)).text(text || ""); }
@@ -657,6 +701,7 @@
   }
 
   function isDone(item) { return COMPLETED_STATUSES.includes(item.status); }
+  function isPinned(item) { return Boolean(item && (item.pinned || item.pinnedAt)); }
 
   function getStats(items) {
     return {
@@ -762,10 +807,19 @@
 
   function closeActionMenu() { toggleActionMenu(false); }
 
+  function updateSwipedRowState() {
+    $("body").toggleClass("has-swiped-row", $("#itemList .item-card.swiped").length > 0);
+  }
+
+  function closeSwipedRows() {
+    $("#itemList .item-card.swiped").removeClass("swiped");
+    updateSwipedRowState();
+  }
+
   function closeTransientPanels() {
     closeActionMenu();
     toggleFilterPanel(false);
-    $("#itemList .item-card.swiped").removeClass("swiped");
+    closeSwipedRows();
   }
 
   function setModalOpenState(isOpen) {
@@ -796,33 +850,42 @@
 
   function renderItems() {
     const items = filterItems(getChecklistItems()).sort((a, b) => {
-      const rank = { must: 0, optional: 1 };
-      const statusRank = { need_buy: 0, bought: 1, to_pack: 2, packed: 3, done: 4 };
-      return (statusRank[a.status] ?? 9) - (statusRank[b.status] ?? 9)
-        || (rank[a.priority] ?? 9) - (rank[b.priority] ?? 9)
-        || String(a.title).localeCompare(String(b.title));
+      const priorityRank = { must: 0, optional: 1 };
+      const statusRank = { need_buy: 0, bought: 1, to_pack: 1, packed: 2, done: 2 };
+      const pinnedDiff = (isPinned(b) ? 1 : 0) - (isPinned(a) ? 1 : 0);
+      const pinnedTimeDiff = (Date.parse(b.pinnedAt || 0) || 0) - (Date.parse(a.pinnedAt || 0) || 0);
+      return pinnedDiff
+        || (isPinned(a) && isPinned(b) ? pinnedTimeDiff : 0)
+        || (priorityRank[a.priority] ?? 9) - (priorityRank[b.priority] ?? 9)
+        || (statusRank[a.status] ?? 9) - (statusRank[b.status] ?? 9)
+        || String(a.title || "").localeCompare(String(b.title || ""), getLang() === "zh-CN" ? "zh-Hans-CN" : "en-US");
     });
     $("#itemList").empty();
     $("#emptyState").prop("hidden", items.length > 0);
     items.forEach(item => $("#itemList").append(renderItemCard(item)));
+    updateSwipedRowState();
   }
 
   function renderItemCard(item) {
     const doneClass = isDone(item) ? " done-card" : "";
+    const pinnedClass = isPinned(item) ? " is-pinned" : "";
     const noteHtml = item.note ? `<p class="item-note compact-note">${escapeHtml(item.note)}</p>` : "";
     const next = nextAction(item);
     const primaryAction = next ? `<button class="primary-btn item-next" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(next.label)}</button>` : "";
     const restoreAction = isDone(item) ? `<button class="small-ghost item-restore" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t("restore"))}</button>` : "";
+    const pinAction = `<button class="small-ghost item-pin${isPinned(item) ? " active" : ""}" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t(isPinned(item) ? "unpin" : "pin"))}</button>`;
     const priorityClass = item.priority === "must" ? " must" : "";
+    const pinnedPill = isPinned(item) ? `<span class="pin-pill">${escapeHtml(t("pinned"))}</span>` : "";
     const noteToggleHint = item.note ? " has-note" : "";
     return `
-      <article class="item-card compact-item status-${escapeHtml(item.status)} priority-${escapeHtml(item.priority)}${doneClass}${noteToggleHint}" data-id="${escapeHtml(item.id)}">
+      <article class="item-card compact-item status-${escapeHtml(item.status)} priority-${escapeHtml(item.priority)}${doneClass}${pinnedClass}${noteToggleHint}" data-id="${escapeHtml(item.id)}">
         <div class="item-swipe-content">
           <div class="row-main">
             <span class="status-bar" aria-hidden="true"></span>
             <div class="item-primary">
               <div class="title-line">
                 <h2 class="item-title">${escapeHtml(item.title)}</h2>
+                ${pinnedPill}
                 <span class="priority-pill${priorityClass}">${escapeHtml(t(item.priority))}</span>
               </div>
               <div class="item-meta">
@@ -841,6 +904,7 @@
         <div class="item-actions">
           ${primaryAction}
           ${restoreAction}
+          ${pinAction}
           <button class="small-ghost item-edit" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t("edit"))}</button>
           <button class="small-danger item-delete" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t("delete"))}</button>
         </div>
@@ -856,14 +920,14 @@
 
   function findItem(id) { return (appData.items || []).find(item => item.id === id); }
 
-  function mutateItem(id, updater) {
+  function mutateItem(id, updater, actionMessage = "") {
     const item = findItem(id);
     if (!item) return;
     updater(item);
     item.updatedAt = nowIso();
     item.checklistId = item.checklistId || item.tripId || getCurrentChecklist()?.id;
     item.tripId = item.checklistId;
-    scheduleSave();
+    scheduleSave(actionMessage || formatActionMessage("actionUpdated", item.title));
     renderAll();
   }
 
@@ -925,6 +989,8 @@
     };
     if (!formData.title) return;
 
+    const actionMessage = formatActionMessage(id ? "actionUpdated" : "actionAdded", formData.title);
+
     if (id) {
       const item = findItem(id);
       if (!item) return;
@@ -942,11 +1008,13 @@
         status: initialStatus(type),
         createdAt: nowIso(),
         doneAt: null,
+        pinned: false,
+        pinnedAt: null,
         deleted: false
       }, formData));
     }
     closeItemModal();
-    scheduleSave();
+    scheduleSave(actionMessage);
     renderAll();
   }
 
@@ -967,6 +1035,8 @@
           tripId: id,
           status: initialStatus(item.type),
           doneAt: null,
+          pinned: false,
+          pinnedAt: null,
           deleted: false,
           createdAt: now,
           updatedAt: now
@@ -1190,6 +1260,7 @@
 
     function closeOtherCards(card) {
       $("#itemList .item-card.swiped").not(card || []).removeClass("swiped");
+      updateSwipedRowState();
     }
 
     function resetSwipeTracking() {
@@ -1268,6 +1339,7 @@
         } else {
           $(activeCard).removeClass("swiped");
         }
+        updateSwipedRowState();
       }
 
       resetSwipeTracking();
@@ -1282,6 +1354,7 @@
       const card = $(this).closest(".item-card");
       if (card.hasClass("swiped") && isMobileSwipeMode()) {
         card.removeClass("swiped");
+        updateSwipedRowState();
         return;
       }
       if (card.find(".item-note").length) {
@@ -1291,6 +1364,12 @@
 
     $("#itemList").on("click", ".item-actions button", function () {
       $(this).closest(".item-card").removeClass("swiped");
+      updateSwipedRowState();
+    });
+
+    $(window).on("scroll", function () {
+      if (!isMobileSwipeMode()) return;
+      if ($("#itemList .item-card.swiped").length) closeOtherCards();
     });
   }
 
@@ -1394,24 +1473,40 @@
 
     $("#itemList").on("click", ".item-next", function () {
       const id = $(this).data("id");
+      const currentItem = findItem(id);
+      const next = currentItem ? nextAction(currentItem) : null;
+      const actionKey = next && (next.status === "packed" || next.status === "done") ? "actionPacked" : "actionBought";
       mutateItem(id, item => {
         const action = nextAction(item);
         if (!action) return;
         item.status = action.status;
         item.doneAt = action.status === "packed" || action.status === "done" ? nowIso() : null;
-      });
+      }, currentItem && next ? formatActionMessage(actionKey, currentItem.title) : "");
     });
 
     $("#itemList").on("click", ".item-restore", function () {
       const id = $(this).data("id");
-      mutateItem(id, item => { item.status = initialStatus(item.type); item.doneAt = null; item.deleted = false; });
+      const currentItem = findItem(id);
+      mutateItem(id, item => { item.status = initialStatus(item.type); item.doneAt = null; item.deleted = false; }, currentItem ? formatActionMessage("actionRestored", currentItem.title) : "");
+    });
+
+    $("#itemList").on("click", ".item-pin", function () {
+      const id = $(this).data("id");
+      const currentItem = findItem(id);
+      if (!currentItem) return;
+      const willPin = !isPinned(currentItem);
+      mutateItem(id, item => {
+        item.pinned = willPin;
+        item.pinnedAt = willPin ? nowIso() : null;
+      }, formatActionMessage(willPin ? "actionPinned" : "actionUnpinned", currentItem.title));
     });
 
     $("#itemList").on("click", ".item-edit", function () { openItemModal(findItem($(this).data("id"))); });
     $("#itemList").on("click", ".item-delete", function () {
       const id = $(this).data("id");
       if (!window.confirm(t("confirmDelete"))) return;
-      mutateItem(id, item => { item.deleted = true; });
+      const currentItem = findItem(id);
+      mutateItem(id, item => { item.deleted = true; }, currentItem ? formatActionMessage("actionDeleted", currentItem.title) : "");
     });
 
     $("#langToggleBtn").on("click", function () {
