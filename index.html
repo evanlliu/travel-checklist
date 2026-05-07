@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Travel List" />
   <title>Travel Checklist</title>
-  <link rel="manifest" href="manifest.json?v=1.2.2" />
+  <link rel="manifest" href="manifest.json?v=1.2.3" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css?v=1.2.2" />
+  <link rel="stylesheet" href="css/style.css?v=1.2.3" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen" hidden>
@@ -33,7 +33,7 @@
   <main id="appShell" class="app-shell" hidden>
     <header class="topbar">
       <div class="brand-row">
-        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.2.2</span></p>
+        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.2.3</span></p>
       </div>
       <div class="header-controls">
         <div class="checklist-switcher" aria-label="Checklist selector">
@@ -64,9 +64,9 @@
         <span id="statToPack">0</span>
         <small data-i18n="toPack">待打包</small>
       </button>
-      <button class="stat-card must" type="button" data-stat-filter="must">
-        <span id="statMustOpen">0</span>
-        <small data-i18n="mustOpen">必须未完成</small>
+      <button class="stat-card open" type="button" data-stat-filter="active">
+        <span id="statOpen">0</span>
+        <small data-i18n="active">未完成</small>
       </button>
       <button class="stat-card done" type="button" data-stat-filter="done">
         <span id="statDone">0</span>
@@ -225,7 +225,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js?v=1.2.2"></script>
-  <script src="js/app.js?v=1.2.2"></script>
+  <script src="js/config.js?v=1.2.3"></script>
+  <script src="js/app.js?v=1.2.3"></script>
 </body>
 </html>

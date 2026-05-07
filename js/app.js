@@ -1,10 +1,10 @@
-/* v1.2.2 */
+/* v1.2.3 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.2";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.3";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -653,6 +653,7 @@
       all: items.length,
       needBuy: items.filter(item => item.status === "need_buy").length,
       toPack: items.filter(item => item.status === "to_pack" || item.status === "bought").length,
+      open: items.filter(item => !isDone(item)).length,
       mustOpen: items.filter(item => item.priority === "must" && !isDone(item)).length,
       done: items.filter(isDone).length
     };
@@ -701,7 +702,7 @@
     $("#statAll").text(stats.all);
     $("#statNeedBuy").text(stats.needBuy);
     $("#statToPack").text(stats.toPack);
-    $("#statMustOpen").text(stats.mustOpen);
+    $("#statOpen").text(stats.open);
     $("#statDone").text(stats.done);
     $(".stat-card").removeClass("active");
     $(`.stat-card[data-stat-filter="${currentFilter}"]`).addClass("active");
