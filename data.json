@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 81,
-  "updatedAt": "2026-05-07T09:45:01.000Z",
+  "revision": 82,
+  "updatedAt": "2026-05-07T09:45:31.056Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -479,6 +479,22 @@
       "note": "",
       "createdAt": "2026-05-07T08:03:56.298Z",
       "updatedAt": "2026-05-07T09:00:17.880Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_movaw24o_1ayfq4",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "美标插头转换器",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 3,
+      "note": "",
+      "createdAt": "2026-05-07T09:45:29.544Z",
+      "updatedAt": "2026-05-07T09:45:29.544Z",
       "doneAt": null,
       "deleted": false
     }
