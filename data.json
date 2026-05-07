@@ -1,10 +1,10 @@
 {
   "appVersion": "v1.2.8",
   "schemaVersion": 2,
-  "revision": 60,
-  "updatedAt": "2026-05-07T09:24:17.967Z",
+  "revision": 61,
+  "updatedAt": "2026-05-07T09:24:25.319Z",
   "settings": {
-    "language": "en-US",
+    "language": "zh-CN",
     "hideDone": true,
     "currentChecklistId": "checklist_mov5hpql_uafjfp",
     "currentTripId": "checklist_mov5hpql_uafjfp",
