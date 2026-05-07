@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.1",
   "schemaVersion": 2,
-  "revision": 33,
-  "updatedAt": "2026-05-07T08:24:27.492Z",
+  "revision": 34,
+  "updatedAt": "2026-05-07T08:24:31.962Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -262,9 +262,9 @@
       "quantity": 1,
       "note": "确认有效期，建议准备护照复印件。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T08:24:30.584Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_mov5hpql_gf5i3e",
