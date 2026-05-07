@@ -1,10 +1,10 @@
-/* v1.3.6 */
+/* v1.3.7 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.3.6";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.3.7";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -1554,8 +1554,11 @@
     await bootstrapConnectionFromStaticData();
     applyConnectionToForms();
 
-    const loadedStatic = await loadStaticDataIfAny();
-    if (!loadedStatic && !loadLocalDataIfAny()) loadEmptyData();
+    // Refresh should show the last synced local data first.
+    // Otherwise an older static data.json may render briefly before Cloudflare sync completes.
+    const loadedLocal = loadLocalDataIfAny();
+    const loadedStatic = loadedLocal ? true : await loadStaticDataIfAny();
+    if (!loadedLocal && !loadedStatic) loadEmptyData();
 
     const conn = getCurrentConnection();
     if (!conn.apiBase || !conn.appPassword) { setSaveStatus(t("configMissingHint")); return; }
