@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.3",
   "schemaVersion": 2,
-  "revision": 44,
-  "updatedAt": "2026-05-07T08:47:36.930Z",
+  "revision": 45,
+  "updatedAt": "2026-05-07T08:47:43.246Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -390,7 +390,7 @@
       "id": "item_mov5hpql_mmcihj",
       "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
-      "title": "换洗衣服",
+      "title": "电饭煲",
       "category": "clothes",
       "type": "carry",
       "status": "to_pack",
@@ -398,7 +398,7 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T08:47:35.561Z",
+      "updatedAt": "2026-05-07T08:47:41.724Z",
       "doneAt": null,
       "deleted": false
     },
