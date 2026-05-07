@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.1",
   "schemaVersion": 2,
-  "revision": 34,
-  "updatedAt": "2026-05-07T08:24:31.962Z",
+  "revision": 35,
+  "updatedAt": "2026-05-07T08:24:37.457Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -310,9 +310,9 @@
       "quantity": 1,
       "note": "准备少量美元或当地可兑换现金。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T08:24:36.021Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_mov5hpql_e271hj",
