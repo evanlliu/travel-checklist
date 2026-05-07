@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Travel List" />
+  <title>Travel Checklist</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main id="loginScreen" class="login-screen">
+    <section class="login-card">
+      <div class="brand-mark">✓</div>
+      <h1 data-i18n="loginTitle">旅行清单</h1>
+      <p data-i18n="loginSubtitle">输入 Cloudflare Worker 密码后开始同步数据。</p>
+      <form id="loginForm" autocomplete="on">
+        <label for="passwordInput" data-i18n="password">密码</label>
+        <input id="passwordInput" type="password" inputmode="text" autocomplete="current-password" required />
+        <button type="submit" class="primary-btn" data-i18n="login">登录</button>
+      </form>
+      <p id="loginError" class="error-text" hidden></p>
+      <p class="helper-text" data-i18n="loginTip">首次部署后，请先在 js/config.js 填写 Worker 地址。</p>
+    </section>
+  </main>
+
+  <main id="appShell" class="app-shell" hidden>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" data-i18n="appEyebrow">Travel Checklist</p>
+        <h1 id="tripTitle">墨西哥出行清单</h1>
+      </div>
+      <div class="top-actions">
+        <button id="langToggleBtn" class="ghost-btn" type="button">EN</button>
+        <button id="syncBtn" class="ghost-btn" type="button" data-i18n="sync">同步</button>
+        <button id="settingsBtn" class="ghost-btn" type="button" data-i18n="settings">设置</button>
+      </div>
+    </header>
+
+    <section class="status-row" aria-live="polite">
+      <div class="stat-card urgent">
+        <span id="statNeedBuy">0</span>
+        <small data-i18n="needBuy">待购买</small>
+      </div>
+      <div class="stat-card">
+        <span id="statToPack">0</span>
+        <small data-i18n="toPack">待打包</small>
+      </div>
+      <div class="stat-card must">
+        <span id="statMustOpen">0</span>
+        <small data-i18n="mustOpen">必须未完成</small>
+      </div>
+      <div class="stat-card done">
+        <span id="statDone">0</span>
+        <small data-i18n="done">已完成</small>
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="搜索物品 / 备注" />
+      </div>
+      <select id="categoryFilter" aria-label="Category filter"></select>
+      <button id="addItemBtn" class="primary-btn compact" type="button" data-i18n="addItem">新增</button>
+    </section>
+
+    <nav id="filterTabs" class="tabs" aria-label="Filters">
+      <button class="tab active" data-filter="active" type="button" data-i18n="active">未完成</button>
+      <button class="tab" data-filter="need_buy" type="button" data-i18n="needBuy">待购买</button>
+      <button class="tab" data-filter="to_pack" type="button" data-i18n="toPack">待打包</button>
+      <button class="tab" data-filter="must" type="button" data-i18n="must">必须</button>
+      <button class="tab" data-filter="done" type="button" data-i18n="done">已完成</button>
+      <button class="tab" data-filter="all" type="button" data-i18n="all">全部</button>
+    </nav>
+
+    <section id="saveStatus" class="save-status" aria-live="polite"></section>
+    <section id="itemList" class="item-list"></section>
+    <section id="emptyState" class="empty-state" hidden>
+      <div>🧳</div>
+      <h2 data-i18n="emptyTitle">没有找到物品</h2>
+      <p data-i18n="emptySubtitle">换一个筛选条件，或者新增一个清单物品。</p>
+    </section>
+
+    <nav class="mobile-bottom-nav" aria-label="Mobile actions">
+      <button class="mobile-nav-btn" data-mobile-filter="active" type="button" data-i18n="active">未完成</button>
+      <button class="mobile-nav-btn" data-mobile-filter="need_buy" type="button" data-i18n="needBuy">待购买</button>
+      <button class="mobile-nav-btn" data-mobile-filter="to_pack" type="button" data-i18n="toPack">待打包</button>
+      <button id="mobileAddBtn" class="mobile-nav-btn add" type="button" data-i18n="addItem">新增</button>
+    </nav>
+  </main>
+
+  <div id="itemModal" class="modal-backdrop" hidden>
+    <section class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle" data-i18n="addItem">新增物品</h2>
+        <button class="icon-btn close-modal" type="button" aria-label="Close">×</button>
+      </div>
+      <form id="itemForm" class="item-form">
+        <input id="editingItemId" type="hidden" />
+        <label>
+          <span data-i18n="itemName">物品名称</span>
+          <input id="itemTitle" type="text" required maxlength="80" />
+        </label>
+        <div class="form-grid two">
+          <label>
+            <span data-i18n="itemType">类型</span>
+            <select id="itemType"></select>
+          </label>
+          <label>
+            <span data-i18n="category">分类</span>
+            <select id="itemCategory"></select>
+          </label>
+        </div>
+        <div class="form-grid two">
+          <label>
+            <span data-i18n="priority">重要性</span>
+            <select id="itemPriority"></select>
+          </label>
+          <label>
+            <span data-i18n="quantity">数量</span>
+            <input id="itemQuantity" type="number" min="1" step="1" value="1" />
+          </label>
+        </div>
+        <label>
+          <span data-i18n="note">备注</span>
+          <textarea id="itemNote" rows="3" maxlength="300"></textarea>
+        </label>
+        <div class="modal-actions">
+          <button class="ghost-btn close-modal" type="button" data-i18n="cancel">取消</button>
+          <button class="primary-btn" type="submit" data-i18n="save">保存</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div id="settingsModal" class="modal-backdrop" hidden>
+    <section class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modal-header">
+        <h2 id="settingsTitle" data-i18n="settings">设置</h2>
+        <button class="icon-btn close-settings" type="button" aria-label="Close">×</button>
+      </div>
+      <div class="settings-list">
+        <label class="setting-row">
+          <span data-i18n="language">语言</span>
+          <select id="languageSelect">
+            <option value="zh-CN">中文</option>
+            <option value="en-US">English</option>
+          </select>
+        </label>
+        <label class="setting-row switch-row">
+          <span data-i18n="hideDone">默认隐藏已完成</span>
+          <input id="hideDoneSwitch" type="checkbox" />
+        </label>
+        <button id="logoutBtn" class="danger-btn" type="button" data-i18n="logout">退出登录</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

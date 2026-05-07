@@ -1,0 +1,17 @@
+{
+  "name": "Travel Checklist",
+  "short_name": "Checklist",
+  "description": "Shopping and packing checklist for travel.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f7fb",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

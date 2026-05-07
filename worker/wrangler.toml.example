@@ -1,0 +1,13 @@
+name = "travel-checklist-api"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+GH_OWNER = "evanliu"
+GH_REPO = "travel-plan"
+GH_BRANCH = "main"
+DATA_PATH = "data.json"
+
+# Secrets need to be set by commands:
+# wrangler secret put APP_PASSWORD
+# wrangler secret put GH_TOKEN
