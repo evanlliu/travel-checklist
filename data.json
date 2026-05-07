@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 91,
-  "updatedAt": "2026-05-07T09:47:47.735Z",
+  "revision": 92,
+  "updatedAt": "2026-05-07T09:48:00.088Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -639,6 +639,22 @@
       "note": "",
       "createdAt": "2026-05-07T09:47:46.170Z",
       "updatedAt": "2026-05-07T09:47:46.170Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_movaz95y_c8r8yd",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "通花洒工具",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-07T09:47:58.631Z",
+      "updatedAt": "2026-05-07T09:47:58.630Z",
       "doneAt": null,
       "deleted": false
     }
