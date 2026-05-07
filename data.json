@@ -1,8 +1,8 @@
 {
-  "appVersion": "v1.3.2",
+  "appVersion": "v1.3.3",
   "schemaVersion": 2,
-  "revision": 112,
-  "updatedAt": "2026-05-07T10:31:38.804Z",
+  "revision": 113,
+  "updatedAt": "2026-05-07T10:33:16.562Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -640,7 +640,7 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:47:46.170Z",
-      "updatedAt": "2026-05-07T09:47:46.170Z",
+      "updatedAt": "2026-05-07T10:33:14.881Z",
       "doneAt": null,
       "deleted": false
     },
