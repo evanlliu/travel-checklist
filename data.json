@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 79,
-  "updatedAt": "2026-05-07T09:44:22.165Z",
+  "revision": 80,
+  "updatedAt": "2026-05-07T09:44:29.795Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -280,13 +280,13 @@
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "英标插头转换器",
       "category": "other",
-      "type": "carry",
-      "status": "to_pack",
+      "type": "buy_and_carry",
+      "status": "need_buy",
       "priority": "must",
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T09:44:20.615Z",
+      "updatedAt": "2026-05-07T09:44:28.325Z",
       "doneAt": null,
       "deleted": false
     },
