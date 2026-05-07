@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 96,
-  "updatedAt": "2026-05-07T09:49:20.330Z",
+  "revision": 97,
+  "updatedAt": "2026-05-07T09:49:46.958Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -414,9 +414,9 @@
       "quantity": 1,
       "note": "检查充电器、VPN、必要文件。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T08:31:03.516Z",
+      "updatedAt": "2026-05-07T09:49:45.331Z",
       "doneAt": "2026-05-07T08:31:03.516Z",
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_mov5hpql_512249",
