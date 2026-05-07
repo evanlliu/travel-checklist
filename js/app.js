@@ -1,10 +1,10 @@
-/* v1.0.2 */
+/* v1.0.3 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.0.2";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.0.3";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -56,6 +56,7 @@
       saved: "已同步",
       loading: "正在同步 data.json...",
       autoSyncing: "正在读取配置并自动同步 data.json...",
+      configMissingHint: "未配置 Cloudflare，同步前请到设置里填写 Worker 地址和访问密码。",
       connectionSaved: "配置已保存并同步",
       conflict: "数据已被其他设备修改，是否重新加载最新数据？",
       loginFailed: "同步失败，请检查 Worker 地址和访问密码。",
@@ -128,6 +129,7 @@
       saved: "Synced",
       loading: "Syncing data.json...",
       autoSyncing: "Reading settings and syncing data.json...",
+      configMissingHint: "Cloudflare is not configured. Open Settings and enter the Worker URL and password before syncing.",
       connectionSaved: "Settings saved and synced",
       conflict: "Data was changed on another device. Reload the latest data?",
       loginFailed: "Sync failed. Please check the Worker URL and access password.",
@@ -688,12 +690,44 @@
     try {
       appData = normalizeData(JSON.parse(cached));
       currentFilter = appData.settings.hideDone === false ? "all" : "active";
+      localStorage.setItem("travelChecklist.lang", appData.settings.language);
       showApp();
       renderAll();
       return true;
     } catch (_) {
       return false;
     }
+  }
+
+  async function loadStaticDataIfAny() {
+    try {
+      const response = await fetch("data.json?_=" + Date.now(), { cache: "no-store" });
+      if (!response.ok) return false;
+      appData = normalizeData(await response.json());
+      const dataConn = getDataConnection(appData);
+      const currentConn = getCurrentConnection();
+      if (dataConn.apiBase || dataConn.appPassword) {
+        setConnection({
+          apiBase: currentConn.apiBase || dataConn.apiBase,
+          appPassword: currentConn.appPassword || dataConn.appPassword
+        }, true);
+      }
+      currentFilter = appData.settings.hideDone === false ? "all" : "active";
+      localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(appData));
+      localStorage.setItem("travelChecklist.lang", appData.settings.language);
+      showApp();
+      renderAll();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function loadEmptyData() {
+    appData = normalizeData(null);
+    currentFilter = appData.settings.hideDone === false ? "all" : "active";
+    showApp();
+    renderAll();
   }
 
   async function bootstrapConnectionFromStaticData() {
@@ -771,6 +805,11 @@
 
     $("#syncBtn").on("click", async function () {
       try {
+        const conn = getCurrentConnection();
+        if (!conn.apiBase || !conn.appPassword) {
+          setSaveStatus(t("configMissingHint"));
+          return;
+        }
         if (!getToken() && APP_PASSWORD_VALUE) await login(APP_PASSWORD_VALUE);
         await fetchDataWithRelogin();
       } catch (err) {
@@ -892,31 +931,28 @@
     applyI18n();
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
 
-    showLogin();
-    setLoginStatus(t("autoSyncing"), false);
+    $("#itemModal, #settingsModal").prop("hidden", true);
+
     await bootstrapConnectionFromStaticData();
     applyConnectionToForms();
 
+    const loadedStatic = await loadStaticDataIfAny();
+    if (!loadedStatic && !loadLocalDataIfAny()) loadEmptyData();
+
     const conn = getCurrentConnection();
-    if (conn.apiBase && (getToken() || conn.appPassword)) {
-      try {
-        if (!getToken() && conn.appPassword) await login(conn.appPassword);
-        await fetchDataWithRelogin();
-        setLoginStatus("", false);
-        return;
-      } catch (err) {
-        console.error(err);
-        const showedCached = loadLocalDataIfAny();
-        if (showedCached) setSaveStatus(connectionErrorMessage(err));
-        else {
-          showLogin();
-          setLoginStatus(connectionErrorMessage(err), true);
-        }
-        return;
-      }
+    if (!conn.apiBase || !conn.appPassword) {
+      setSaveStatus(t("configMissingHint"));
+      return;
     }
 
-    setLoginStatus("", false);
+    try {
+      setSaveStatus(t("autoSyncing"));
+      if (!getToken() && conn.appPassword) await login(conn.appPassword);
+      await fetchDataWithRelogin();
+    } catch (err) {
+      console.error(err);
+      setSaveStatus(connectionErrorMessage(err));
+    }
   }
 
   $(init);
