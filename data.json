@@ -1,10 +1,10 @@
 {
   "appVersion": "v1.0.3",
   "schemaVersion": 1,
-  "revision": 3,
-  "updatedAt": "2026-05-07T06:59:37.871Z",
+  "revision": 4,
+  "updatedAt": "2026-05-07T06:59:47.321Z",
   "settings": {
-    "language": "en-US",
+    "language": "zh-CN",
     "hideDone": true,
     "currentTripId": "mexico-2026",
     "cloudflare": {
