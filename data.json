@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.1",
   "schemaVersion": 2,
-  "revision": 31,
-  "updatedAt": "2026-05-07T08:23:29.919Z",
+  "revision": 32,
+  "updatedAt": "2026-05-07T08:24:04.776Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -390,9 +390,9 @@
       "quantity": 1,
       "note": "牙刷、牙膏、洗面奶、剃须用品。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T08:24:03.433Z",
       "doneAt": null,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_mov5hpql_mmcihj",
