@@ -1,10 +1,10 @@
-/* v1.4.0 */
+/* v1.4.1 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.0";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.1";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -910,7 +910,7 @@
         <div class="item-swipe-content">
           <div class="row-main">
             <span class="status-bar" aria-hidden="true"></span>
-            <button class="drag-handle" type="button" aria-label="${escapeHtml(t("dragSort"))}" title="${escapeHtml(t("dragSort"))}">⋮⋮</button>
+            <button class="drag-handle" type="button" draggable="false" aria-label="${escapeHtml(t("dragSort"))}" title="${escapeHtml(t("dragSort"))}"><span class="drag-dot-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span></button>
             <div class="item-primary">
               <div class="title-line">
                 <h2 class="item-title">${escapeHtml(item.title)}</h2>
@@ -1039,7 +1039,7 @@
         doneAt: null,
         pinned: false,
         pinnedAt: null,
-        sortOrder: null,
+        sortOrder: getNextSortOrder(checklistId),
         deleted: false
       }, formData));
     }
@@ -1305,6 +1305,10 @@
 
   function bindRowDragEvents() {
     let dragState = null;
+
+    $("#itemList").on("selectstart contextmenu", ".drag-handle, .drag-handle *", function (event) {
+      event.preventDefault();
+    });
 
     function cleanupDrag(saveOrder) {
       if (!dragState) return;
