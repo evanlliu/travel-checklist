@@ -1,10 +1,10 @@
-/* v1.1.5 */
+/* v1.2.0 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.1.5";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.0";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -745,24 +745,34 @@
 
   function renderItemCard(item) {
     const doneClass = isDone(item) ? " done-card" : "";
-    const noteHtml = item.note ? `<p class="item-note">${escapeHtml(item.note)}</p>` : "";
+    const noteHtml = item.note ? `<p class="item-note compact-note">${escapeHtml(item.note)}</p>` : "";
     const next = nextAction(item);
     const primaryAction = next ? `<button class="primary-btn item-next" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(next.label)}</button>` : "";
     const restoreAction = isDone(item) ? `<button class="small-ghost item-restore" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t("restore"))}</button>` : "";
+    const priorityClass = item.priority === "must" ? " must" : "";
+    const noteToggleHint = item.note ? " has-note" : "";
     return `
-      <article class="item-card${doneClass}" data-id="${escapeHtml(item.id)}">
+      <article class="item-card compact-item status-${escapeHtml(item.status)} priority-${escapeHtml(item.priority)}${doneClass}${noteToggleHint}" data-id="${escapeHtml(item.id)}">
         <div class="item-swipe-content">
-          <div class="item-head">
-            <h2 class="item-title">${escapeHtml(item.title)}</h2>
-            <div class="item-qty">× ${Number(item.quantity || 1)}</div>
+          <div class="row-main">
+            <span class="status-bar" aria-hidden="true"></span>
+            <div class="item-primary">
+              <div class="title-line">
+                <h2 class="item-title">${escapeHtml(item.title)}</h2>
+                <span class="priority-pill${priorityClass}">${escapeHtml(t(item.priority))}</span>
+              </div>
+              <div class="item-meta">
+                <span>${escapeHtml(t("cat_" + item.category))}</span>
+                <span>${escapeHtml(t("status_" + item.status))}</span>
+                <span class="desktop-only">${escapeHtml(t("type_" + item.type))}</span>
+              </div>
+              ${noteHtml}
+            </div>
+            <div class="item-side">
+              <span class="item-qty">×${Number(item.quantity || 1)}</span>
+              <span class="status-chip status-${escapeHtml(item.status)}">${escapeHtml(t("status_" + item.status))}</span>
+            </div>
           </div>
-          <div class="chip-row">
-            <span class="chip ${item.priority === "must" ? "must" : ""}">${escapeHtml(t(item.priority))}</span>
-            <span class="chip">${escapeHtml(t("cat_" + item.category))}</span>
-            <span class="chip">${escapeHtml(t("type_" + item.type))}</span>
-            <span class="chip status-${escapeHtml(item.status)}">${escapeHtml(t("status_" + item.status))}</span>
-          </div>
-          ${noteHtml}
         </div>
         <div class="item-actions">
           ${primaryAction}
@@ -1155,10 +1165,15 @@
       activeCard = null;
     });
 
-    $("#itemList").on("click", ".item-swipe-content", function () {
+    $("#itemList").on("click", ".item-swipe-content", function (event) {
+      if ($(event.target).closest("button, a, input, select, textarea").length) return;
       const card = $(this).closest(".item-card");
       if (card.hasClass("swiped") && isMobileSwipeMode()) {
         card.removeClass("swiped");
+        return;
+      }
+      if (card.find(".item-note").length) {
+        card.toggleClass("expanded");
       }
     });
 
