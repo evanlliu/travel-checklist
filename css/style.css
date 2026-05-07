@@ -2047,3 +2047,105 @@ body.modal-open .floating-action-dock {
     font-size: 12px;
   }
 }
+
+
+/* v1.2.9 floating icon hover/tap fix + smaller mobile buttons */
+.dock-add,
+.dock-add:hover,
+.dock-add:active,
+.dock-add:focus {
+  background: #13a85b;
+  color: #fff;
+}
+
+.dock-lang,
+.dock-lang:hover,
+.dock-lang:active,
+.dock-lang:focus {
+  background: #2f6cf6;
+  color: #fff;
+}
+
+.dock-sync,
+.dock-sync:hover,
+.dock-sync:active,
+.dock-sync:focus {
+  background: rgba(255,255,255,.78);
+  color: #111827;
+}
+
+.dock-btn,
+.dock-btn * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dock-btn:focus {
+  outline: none;
+}
+
+.dock-btn:focus-visible {
+  outline: 2px solid rgba(59,130,246,.55);
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .floating-action-dock {
+    right: max(8px, calc(env(safe-area-inset-right, 0px) + 8px));
+    bottom: calc(14px + var(--safe-bottom));
+    gap: 8px;
+  }
+
+  .dock-btn {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    border-radius: 15px;
+    box-shadow: 0 10px 22px rgba(17,24,39,.13);
+  }
+
+  .dock-plus {
+    font-size: 21px;
+  }
+
+  .dock-sync-icon {
+    font-size: 17px;
+  }
+
+  .dock-lang-icon span:first-child {
+    font-size: 16px;
+  }
+
+  .dock-lang-icon span:last-child {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 370px) {
+  .floating-action-dock {
+    right: max(6px, calc(env(safe-area-inset-right, 0px) + 6px));
+    gap: 7px;
+  }
+
+  .dock-btn {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 14px;
+  }
+
+  .dock-plus {
+    font-size: 20px;
+  }
+
+  .dock-sync-icon {
+    font-size: 16px;
+  }
+
+  .dock-lang-icon span:first-child {
+    font-size: 15px;
+  }
+
+  .dock-lang-icon span:last-child {
+    font-size: 11px;
+  }
+}
