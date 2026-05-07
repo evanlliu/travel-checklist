@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.3.4",
   "schemaVersion": 2,
-  "revision": 123,
-  "updatedAt": "2026-05-07T11:05:40.546Z",
+  "revision": 124,
+  "updatedAt": "2026-05-07T11:06:03.687Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -352,7 +352,7 @@
       "quantity": 1,
       "note": "随身携带，不要托运。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T11:05:38.855Z",
+      "updatedAt": "2026-05-07T11:06:02.106Z",
       "doneAt": null,
       "deleted": false
     },
