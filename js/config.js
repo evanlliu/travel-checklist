@@ -1,7 +1,9 @@
-// v1.0.0
-// 部署后把 API_BASE 改成你的 Cloudflare Worker 地址，例如：
-// https://travel-checklist-api.your-name.workers.dev
+// v1.0.1
+// 现在不需要手动修改这个文件。
+// 页面会让你填写 Cloudflare Worker 地址和访问密码，并同步保存到 data.json。
+// 如果你想预置默认值，也可以在这里填写。
 window.CHECKLIST_CONFIG = {
   API_BASE: "",
-  APP_VERSION: "v1.0.0"
+  APP_PASSWORD: "",
+  APP_VERSION: "v1.0.1"
 };

@@ -1,5 +1,5 @@
-// v1.0.0
-const CACHE_NAME = "travel-checklist-v1.0.0";
+// v1.0.1
+const CACHE_NAME = "travel-checklist-v1.0.1";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -26,7 +26,7 @@ self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET") return;
   const url = new URL(request.url);
-  if (url.pathname.includes("/api/")) return;
+  if (url.pathname.includes("/api/") || url.pathname.endsWith("/data.json")) return;
 
   event.respondWith(
     caches.match(request).then(cached => {

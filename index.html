@@ -17,14 +17,16 @@
     <section class="login-card">
       <div class="brand-mark">✓</div>
       <h1 data-i18n="loginTitle">旅行清单</h1>
-      <p data-i18n="loginSubtitle">输入 Cloudflare Worker 密码后开始同步数据。</p>
+      <p data-i18n="loginSubtitle">设置 Cloudflare Worker 地址和访问密码后，会直接同步 data.json。</p>
       <form id="loginForm" autocomplete="on">
-        <label for="passwordInput" data-i18n="password">密码</label>
+        <label for="workerUrlInput" data-i18n="workerUrl">Cloudflare Worker 地址</label>
+        <input id="workerUrlInput" type="url" inputmode="url" autocomplete="url" data-i18n-placeholder="workerUrlPlaceholder" placeholder="https://你的worker地址.workers.dev" required />
+        <label for="passwordInput" data-i18n="password">访问密码</label>
         <input id="passwordInput" type="password" inputmode="text" autocomplete="current-password" required />
-        <button type="submit" class="primary-btn" data-i18n="login">登录</button>
+        <button type="submit" class="primary-btn" data-i18n="login">保存并同步</button>
       </form>
-      <p id="loginError" class="error-text" hidden></p>
-      <p class="helper-text" data-i18n="loginTip">首次部署后，请先在 js/config.js 填写 Worker 地址。</p>
+      <p id="loginStatus" class="helper-text" hidden></p>
+      <p class="helper-text" data-i18n="loginTip">第一次使用需要手动填写；同步成功后会写入 data.json，其他设备可自动读取。请使用专用密码，不要使用重要账号密码。</p>
     </section>
   </main>
 
@@ -156,6 +158,16 @@
           <span data-i18n="hideDone">默认隐藏已完成</span>
           <input id="hideDoneSwitch" type="checkbox" />
         </label>
+        <div class="setting-section-title" data-i18n="connectionSettings">Cloudflare 同步配置</div>
+        <label class="setting-row setting-column">
+          <span data-i18n="workerUrl">Cloudflare Worker 地址</span>
+          <input id="settingsWorkerUrl" type="url" inputmode="url" data-i18n-placeholder="workerUrlPlaceholder" placeholder="https://你的worker地址.workers.dev" />
+        </label>
+        <label class="setting-row setting-column">
+          <span data-i18n="password">访问密码</span>
+          <input id="settingsPassword" type="password" autocomplete="current-password" />
+        </label>
+        <button id="saveConnectionBtn" class="primary-btn full-width" type="button" data-i18n="saveConnection">保存配置并重新同步</button>
         <button id="logoutBtn" class="danger-btn" type="button" data-i18n="logout">退出登录</button>
       </div>
     </section>

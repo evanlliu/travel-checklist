@@ -280,7 +280,7 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
 .modal-header h2 { margin: 0; font-size: 24px; }
 .item-form label { display: block; margin-bottom: 14px; }
 .item-form label span { display: block; margin-bottom: 7px; color: var(--muted); font-size: 13px; font-weight: 800; }
-.item-form input, .item-form select, .item-form textarea, .setting-row select {
+.item-form input, .item-form select, .item-form textarea, .setting-row select, .setting-row input {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -305,6 +305,23 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
   font-weight: 800;
 }
 .setting-row select { width: 180px; background: white; }
+.setting-row input { background: white; }
+.setting-column {
+  display: block;
+}
+.setting-column span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.setting-section-title {
+  margin: 6px 2px -4px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+.full-width { width: 100%; }
 .switch-row input { width: 22px; height: 22px; }
 
 .mobile-bottom-nav { display: none; }

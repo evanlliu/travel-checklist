@@ -1,17 +1,21 @@
-// Travel Checklist Cloudflare Worker v1.0.0
+// Travel Checklist Cloudflare Worker v1.0.1
 // Required variables / secrets:
 // Secret: APP_PASSWORD, GH_TOKEN
 // Plaintext: GH_OWNER, GH_REPO, GH_BRANCH, DATA_PATH
 
 const DEFAULT_DATA = {
-  appVersion: "v1.0.0",
+  appVersion: "v1.0.1",
   schemaVersion: 1,
   revision: 0,
   updatedAt: new Date(0).toISOString(),
   settings: {
     language: "zh-CN",
     hideDone: true,
-    currentTripId: "mexico-2026"
+    currentTripId: "mexico-2026",
+    cloudflare: {
+      apiBase: "",
+      appPassword: ""
+    }
   },
   trips: [
     {
@@ -42,7 +46,7 @@ export default {
       if (url.pathname === "/api/login" && request.method === "POST") return handleLogin(request, env);
       if (url.pathname === "/api/data" && request.method === "GET") return withAuth(request, env, () => handleGetData(env));
       if (url.pathname === "/api/data" && request.method === "PUT") return withAuth(request, env, () => handlePutData(request, env));
-      if (url.pathname === "/api/health" && request.method === "GET") return json({ ok: true, version: "v1.0.0" });
+      if (url.pathname === "/api/health" && request.method === "GET") return json({ ok: true, version: "v1.0.1" });
 
       return json({ message: "Not found" }, 404);
     } catch (error) {
@@ -96,7 +100,7 @@ async function handlePutData(request, env) {
   const nextData = sanitizeData(body.data);
   nextData.revision = currentRevision + 1;
   nextData.updatedAt = new Date().toISOString();
-  nextData.appVersion = nextData.appVersion || "v1.0.0";
+  nextData.appVersion = nextData.appVersion || "v1.0.1";
   nextData.schemaVersion = nextData.schemaVersion || 1;
 
   await putGitHubFile(env, nextData, current?.sha);
@@ -169,7 +173,7 @@ function githubHeaders(env) {
   return {
     "Authorization": `Bearer ${env.GH_TOKEN}`,
     "Accept": "application/vnd.github+json",
-    "User-Agent": "travel-checklist-worker-v1.0.0",
+    "User-Agent": "travel-checklist-worker-v1.0.1",
     "Content-Type": "application/json"
   };
 }

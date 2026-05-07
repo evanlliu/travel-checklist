@@ -1,18 +1,23 @@
-/* v1.0.0 */
+/* v1.0.1 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
-  const API_BASE = (CONFIG.API_BASE || "").replace(/\/$/, "");
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.0.0";
+  const CONNECTION_KEY = "travelChecklist.connection.v1";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.0.1";
+
+  let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
+  let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
 
   const I18N = {
     "zh-CN": {
       loginTitle: "旅行清单",
-      loginSubtitle: "输入 Cloudflare Worker 密码后开始同步数据。",
-      password: "密码",
-      login: "登录",
-      loginTip: "首次部署后，请先在 js/config.js 填写 Worker 地址。",
+      loginSubtitle: "设置 Cloudflare Worker 地址和访问密码后，会直接同步 data.json。",
+      workerUrl: "Cloudflare Worker 地址",
+      workerUrlPlaceholder: "https://你的worker地址.workers.dev",
+      password: "访问密码",
+      login: "保存并同步",
+      loginTip: "第一次使用需要手动填写；同步成功后会写入 data.json，其他设备可自动读取。请使用专用密码，不要使用重要账号密码。",
       appEyebrow: "Travel Checklist",
       sync: "同步",
       settings: "设置",
@@ -38,6 +43,8 @@
       save: "保存",
       language: "语言",
       hideDone: "默认隐藏已完成",
+      connectionSettings: "Cloudflare 同步配置",
+      saveConnection: "保存配置并重新同步",
       logout: "退出登录",
       edit: "编辑",
       delete: "删除",
@@ -48,11 +55,14 @@
       confirmDelete: "确定删除这个物品吗？",
       saving: "正在保存...",
       saved: "已同步",
-      loading: "正在同步数据...",
+      loading: "正在同步 data.json...",
+      autoSyncing: "正在读取配置并自动同步 data.json...",
+      connectionSaved: "配置已保存并同步",
       conflict: "数据已被其他设备修改，是否重新加载最新数据？",
-      loginFailed: "登录失败，请检查密码。",
-      apiMissing: "请先在 js/config.js 配置 Cloudflare Worker 地址。",
-      networkError: "网络或接口错误，请检查 Worker 地址和 Cloudflare 配置。",
+      loginFailed: "同步失败，请检查 Worker 地址和访问密码。",
+      apiMissing: "请填写 Cloudflare Worker 地址。",
+      passwordMissing: "请填写访问密码。",
+      networkError: "网络或接口错误，请检查 Worker 地址、访问密码和 Cloudflare 配置。",
       type_carry: "直接携带",
       type_buy: "只需购买",
       type_buy_and_carry: "购买后携带",
@@ -75,10 +85,12 @@
     },
     "en-US": {
       loginTitle: "Travel Checklist",
-      loginSubtitle: "Enter your Cloudflare Worker password to sync data.",
-      password: "Password",
-      login: "Log in",
-      loginTip: "After deployment, set your Worker URL in js/config.js first.",
+      loginSubtitle: "Set your Cloudflare Worker URL and access password, then sync data.json directly.",
+      workerUrl: "Cloudflare Worker URL",
+      workerUrlPlaceholder: "https://your-worker.workers.dev",
+      password: "Access password",
+      login: "Save and Sync",
+      loginTip: "Fill this in manually the first time. After a successful sync, it will be saved to data.json for other devices. Use a dedicated password, not an important account password.",
       appEyebrow: "Travel Checklist",
       sync: "Sync",
       settings: "Settings",
@@ -104,6 +116,8 @@
       save: "Save",
       language: "Language",
       hideDone: "Hide completed by default",
+      connectionSettings: "Cloudflare Sync Settings",
+      saveConnection: "Save Settings and Resync",
       logout: "Log out",
       edit: "Edit",
       delete: "Delete",
@@ -114,11 +128,14 @@
       confirmDelete: "Delete this item?",
       saving: "Saving...",
       saved: "Synced",
-      loading: "Syncing data...",
+      loading: "Syncing data.json...",
+      autoSyncing: "Reading settings and syncing data.json...",
+      connectionSaved: "Settings saved and synced",
       conflict: "Data was changed on another device. Reload the latest data?",
-      loginFailed: "Login failed. Please check the password.",
-      apiMissing: "Please configure your Cloudflare Worker URL in js/config.js first.",
-      networkError: "Network or API error. Please check the Worker URL and Cloudflare settings.",
+      loginFailed: "Sync failed. Please check the Worker URL and access password.",
+      apiMissing: "Please enter your Cloudflare Worker URL.",
+      passwordMissing: "Please enter the access password.",
+      networkError: "Network or API error. Please check the Worker URL, password, and Cloudflare settings.",
       type_carry: "Carry only",
       type_buy: "Buy only",
       type_buy_and_carry: "Buy and carry",
@@ -165,6 +182,64 @@
     return appData?.settings?.language || localStorage.getItem("travelChecklist.lang") || "zh-CN";
   }
 
+  function sanitizeApiBase(value) {
+    return String(value || "").trim().replace(/\/+$/, "");
+  }
+
+  function readStoredConnection() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(CONNECTION_KEY) || "{}");
+      return normalizeConnection(parsed);
+    } catch (_) {
+      return normalizeConnection({});
+    }
+  }
+
+  function normalizeConnection(value) {
+    return {
+      apiBase: sanitizeApiBase(value?.apiBase || value?.workerUrl || ""),
+      appPassword: String(value?.appPassword || value?.password || "")
+    };
+  }
+
+  function getDataConnection(data) {
+    const settings = data?.settings || {};
+    return normalizeConnection(settings.cloudflare || settings.connection || {});
+  }
+
+  function getCurrentConnection() {
+    return normalizeConnection({ apiBase: API_BASE, appPassword: APP_PASSWORD_VALUE });
+  }
+
+  function setConnection(connection, persist) {
+    const clean = normalizeConnection(connection);
+    API_BASE = clean.apiBase;
+    APP_PASSWORD_VALUE = clean.appPassword;
+    if (persist) {
+      localStorage.setItem(CONNECTION_KEY, JSON.stringify(clean));
+    }
+    applyConnectionToForms();
+    return clean;
+  }
+
+  function applyConnectionToForms() {
+    const conn = getCurrentConnection();
+    $("#workerUrlInput, #settingsWorkerUrl").val(conn.apiBase);
+    $("#passwordInput, #settingsPassword").val(conn.appPassword);
+  }
+
+  function persistConnectionToData() {
+    if (!appData) return false;
+    const conn = getCurrentConnection();
+    if (!conn.apiBase || !conn.appPassword) return false;
+    appData.settings = appData.settings || {};
+    const old = getDataConnection(appData);
+    if (old.apiBase === conn.apiBase && old.appPassword === conn.appPassword) return false;
+    appData.settings.cloudflare = conn;
+    appData.updatedAt = nowIso();
+    return true;
+  }
+
   function getToken() {
     return localStorage.getItem(TOKEN_KEY);
   }
@@ -190,7 +265,7 @@
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
+      .replace(/\"/g, "&quot;")
       .replace(/'/g, "&#039;");
   }
 
@@ -200,12 +275,18 @@
       schemaVersion: 1,
       revision: 0,
       updatedAt: nowIso(),
-      settings: { language: "zh-CN", hideDone: true, currentTripId: "mexico-2026" },
+      settings: {
+        language: "zh-CN",
+        hideDone: true,
+        currentTripId: "mexico-2026",
+        cloudflare: { apiBase: "", appPassword: "" }
+      },
       trips: [{ id: "mexico-2026", name: { "zh-CN": "墨西哥出行清单", "en-US": "Mexico Travel Checklist" }, createdAt: nowIso() }],
       items: []
     };
     const result = Object.assign({}, fallback, data || {});
     result.settings = Object.assign({}, fallback.settings, result.settings || {});
+    result.settings.cloudflare = normalizeConnection(result.settings.cloudflare || result.settings.connection || fallback.settings.cloudflare);
     result.trips = Array.isArray(result.trips) ? result.trips : fallback.trips;
     result.items = Array.isArray(result.items) ? result.items : [];
     result.items = result.items.map(item => Object.assign({
@@ -231,7 +312,7 @@
     const headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
     const token = getToken();
     if (token) headers.Authorization = "Bearer " + token;
-    const response = await fetch(API_BASE + path, Object.assign({}, options, { headers }));
+    const response = await fetch(API_BASE + path, Object.assign({}, options, { headers, cache: "no-store" }));
     let payload = null;
     const text = await response.text();
     if (text) {
@@ -247,30 +328,58 @@
   }
 
   async function login(password) {
+    const pass = String(password || APP_PASSWORD_VALUE || "");
+    if (!API_BASE) throw new Error("API_BASE_MISSING");
+    if (!pass) throw new Error("PASSWORD_MISSING");
     const payload = await apiFetch("/api/login", {
       method: "POST",
-      body: JSON.stringify({ password })
+      body: JSON.stringify({ password: pass })
     });
+    APP_PASSWORD_VALUE = pass;
     setToken(payload.token);
+    setConnection(getCurrentConnection(), true);
   }
 
-  async function fetchData() {
+  async function fetchData(options = {}) {
     setSaveStatus(t("loading"));
     const payload = await apiFetch("/api/data", { method: "GET" });
+    const beforeConn = getCurrentConnection();
     appData = normalizeData(payload.data);
+
+    const remoteConn = getDataConnection(appData);
+    const mode = options.connectionMode || "adopt-remote";
+    if (mode === "save-local") {
+      setConnection(beforeConn, true);
+    } else if (remoteConn.apiBase || remoteConn.appPassword) {
+      setConnection({
+        apiBase: remoteConn.apiBase || beforeConn.apiBase,
+        appPassword: remoteConn.appPassword || beforeConn.appPassword
+      }, true);
+    } else {
+      setConnection(beforeConn, true);
+    }
+
     currentFilter = appData.settings.hideDone === false ? "all" : "active";
     localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(appData));
     localStorage.setItem("travelChecklist.lang", appData.settings.language);
     setSaveStatus(t("saved"));
     showApp();
     renderAll();
+
+    const shouldWriteConnection = mode === "save-local" || !remoteConn.apiBase || !remoteConn.appPassword;
+    if (shouldWriteConnection && persistConnectionToData()) {
+      await saveData({ silent: true });
+      setSaveStatus(t("connectionSaved"));
+    }
   }
 
-  async function saveData() {
+  async function saveData(options = {}) {
     if (!appData || isSaving) return;
     isSaving = true;
-    setSaveStatus(t("saving"));
+    if (!options.silent) setSaveStatus(t("saving"));
     try {
+      appData.settings = appData.settings || {};
+      appData.appVersion = APP_VERSION;
       const payload = await apiFetch("/api/data", {
         method: "PUT",
         body: JSON.stringify({
@@ -279,8 +388,10 @@
         })
       });
       appData = normalizeData(payload.data);
+      const remoteConn = getDataConnection(appData);
+      if (remoteConn.apiBase && remoteConn.appPassword) setConnection(remoteConn, true);
       localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(appData));
-      setSaveStatus(t("saved"));
+      if (!options.silent) setSaveStatus(t("saved"));
       renderAll();
     } catch (err) {
       if (err.status === 409) {
@@ -304,10 +415,15 @@
     $("#saveStatus").text(text || "");
   }
 
+  function setLoginStatus(text, isError) {
+    $("#loginStatus").prop("hidden", !text).toggleClass("error-text", Boolean(isError)).text(text || "");
+  }
+
   function showLogin() {
     $("#loginScreen").prop("hidden", false);
     $("#appShell").prop("hidden", true);
     applyI18n();
+    applyConnectionToForms();
   }
 
   function showApp() {
@@ -328,6 +444,7 @@
     });
     $("#langToggleBtn").text(lang === "zh-CN" ? "EN" : "中");
     populateSelects();
+    applyConnectionToForms();
   }
 
   function populateSelects() {
@@ -450,9 +567,7 @@
   }
 
   function nextAction(item) {
-    if (item.status === "need_buy") {
-      return { label: t("boughtAction"), status: item.type === "buy" ? "done" : "bought" };
-    }
+    if (item.status === "need_buy") return { label: t("boughtAction"), status: item.type === "buy" ? "done" : "bought" };
     if (item.status === "bought") return { label: t("packedAction"), status: "packed" };
     if (item.status === "to_pack") return { label: t("packedAction"), status: "packed" };
     return null;
@@ -503,6 +618,7 @@
   function openSettings() {
     $("#languageSelect").val(getLang());
     $("#hideDoneSwitch").prop("checked", Boolean(appData?.settings?.hideDone));
+    applyConnectionToForms();
     $("#settingsModal").prop("hidden", false);
   }
 
@@ -533,9 +649,7 @@
       if (!item) return;
       const oldType = item.type;
       Object.assign(item, formData);
-      if (oldType !== type && isDone(item) === false) {
-        item.status = initialStatus(type);
-      }
+      if (oldType !== type && isDone(item) === false) item.status = initialStatus(type);
     } else {
       appData.items.push(Object.assign({
         id: uid(),
@@ -565,26 +679,102 @@
     }
   }
 
+  async function bootstrapConnectionFromStaticData() {
+    const stored = readStoredConnection();
+    if (stored.apiBase && stored.appPassword) {
+      setConnection(stored, true);
+      return;
+    }
+
+    const configConn = normalizeConnection({ apiBase: CONFIG.API_BASE, appPassword: CONFIG.APP_PASSWORD });
+    if (configConn.apiBase && configConn.appPassword) {
+      setConnection(configConn, true);
+      return;
+    }
+
+    try {
+      const response = await fetch("data.json?_=" + Date.now(), { cache: "no-store" });
+      if (!response.ok) return;
+      const data = await response.json();
+      const dataConn = getDataConnection(data);
+      if (dataConn.apiBase || dataConn.appPassword) {
+        setConnection({
+          apiBase: stored.apiBase || dataConn.apiBase,
+          appPassword: stored.appPassword || dataConn.appPassword
+        }, true);
+      }
+    } catch (_) {}
+  }
+
+  function readConnectionFromLoginForm() {
+    return normalizeConnection({
+      apiBase: $("#workerUrlInput").val(),
+      appPassword: $("#passwordInput").val()
+    });
+  }
+
+  function readConnectionFromSettingsForm() {
+    return normalizeConnection({
+      apiBase: $("#settingsWorkerUrl").val(),
+      appPassword: $("#settingsPassword").val()
+    });
+  }
+
+  function connectionErrorMessage(err) {
+    if (err.message === "API_BASE_MISSING") return t("apiMissing");
+    if (err.message === "PASSWORD_MISSING") return t("passwordMissing");
+    if (err.status === 401) return t("loginFailed");
+    return t("networkError");
+  }
+
+  async function connectAndSync(connection, fromSettings) {
+    const clean = setConnection(connection, true);
+    if (!clean.apiBase) throw new Error("API_BASE_MISSING");
+    if (!clean.appPassword) throw new Error("PASSWORD_MISSING");
+    clearToken();
+    await login(clean.appPassword);
+    await fetchData({ connectionMode: "save-local" });
+    if (persistConnectionToData()) await saveData({ silent: true });
+    if (fromSettings) setSaveStatus(t("connectionSaved"));
+  }
+
   function bindEvents() {
     $("#loginForm").on("submit", async function (event) {
       event.preventDefault();
-      $("#loginError").prop("hidden", true).text("");
+      setLoginStatus("", false);
       try {
-        if (!API_BASE) throw new Error("API_BASE_MISSING");
-        await login($("#passwordInput").val());
-        await fetchData();
+        setLoginStatus(t("loading"), false);
+        await connectAndSync(readConnectionFromLoginForm(), false);
+        setLoginStatus("", false);
       } catch (err) {
-        const message = err.message === "API_BASE_MISSING" ? t("apiMissing") : (err.status === 401 ? t("loginFailed") : t("networkError"));
-        $("#loginError").prop("hidden", false).text(message);
+        setLoginStatus(connectionErrorMessage(err), true);
         console.error(err);
       }
     });
 
-    $("#syncBtn").on("click", fetchData);
+    $("#syncBtn").on("click", async function () {
+      try {
+        if (!getToken() && APP_PASSWORD_VALUE) await login(APP_PASSWORD_VALUE);
+        await fetchData();
+      } catch (err) {
+        setSaveStatus(connectionErrorMessage(err));
+        console.error(err);
+      }
+    });
+
     $("#addItemBtn, #mobileAddBtn").on("click", () => openItemModal(null));
     $("#settingsBtn").on("click", openSettings);
     $(".close-modal").on("click", closeItemModal);
     $(".close-settings").on("click", closeSettings);
+
+    $("#saveConnectionBtn").on("click", async function () {
+      try {
+        await connectAndSync(readConnectionFromSettingsForm(), true);
+      } catch (err) {
+        setSaveStatus(connectionErrorMessage(err));
+        console.error(err);
+      }
+    });
 
     $("#filterTabs").on("click", ".tab", function () {
       currentFilter = $(this).data("filter");
@@ -618,7 +808,7 @@
         const action = nextAction(item);
         if (!action) return;
         item.status = action.status;
-        item.doneAt = isDone(item) || action.status === "packed" || action.status === "done" ? nowIso() : null;
+        item.doneAt = action.status === "packed" || action.status === "done" ? nowIso() : null;
       });
     });
 
@@ -672,30 +862,40 @@
     });
 
     $("#itemModal, #settingsModal").on("click", function (event) {
-      if (event.target === this) {
-        $(this).prop("hidden", true);
-      }
+      if (event.target === this) $(this).prop("hidden", true);
     });
   }
 
   async function init() {
     bindEvents();
     applyI18n();
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js").catch(() => {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+
+    showLogin();
+    setLoginStatus(t("autoSyncing"), false);
+    await bootstrapConnectionFromStaticData();
+    applyConnectionToForms();
+
+    const conn = getCurrentConnection();
+    if (conn.apiBase && (getToken() || conn.appPassword)) {
+      try {
+        if (!getToken() && conn.appPassword) await login(conn.appPassword);
+        await fetchData();
+        setLoginStatus("", false);
+        return;
+      } catch (err) {
+        console.error(err);
+        const showedCached = loadLocalDataIfAny();
+        if (showedCached) setSaveStatus(connectionErrorMessage(err));
+        else {
+          showLogin();
+          setLoginStatus(connectionErrorMessage(err), true);
+        }
+        return;
+      }
     }
-    if (!getToken()) {
-      showLogin();
-      return;
-    }
-    const showedCached = loadLocalDataIfAny();
-    try {
-      await fetchData();
-    } catch (err) {
-      console.error(err);
-      if (!showedCached) showLogin();
-      else setSaveStatus(t("networkError"));
-    }
+
+    setLoginStatus("", false);
   }
 
   $(init);
