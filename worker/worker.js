@@ -1,22 +1,37 @@
-// Travel Checklist Cloudflare Worker v1.0.2
+// Travel Checklist Cloudflare Worker v1.1.0
 // Required variables / secrets:
 // Secret: APP_PASSWORD, GH_TOKEN
 // Plaintext: GH_OWNER, GH_REPO, GH_BRANCH, DATA_PATH
 
 const DEFAULT_DATA = {
-  appVersion: "v1.0.2",
-  schemaVersion: 1,
+  appVersion: "v1.1.0",
+  schemaVersion: 2,
   revision: 0,
   updatedAt: new Date(0).toISOString(),
   settings: {
     language: "zh-CN",
     hideDone: true,
+    currentChecklistId: "mexico-2026",
     currentTripId: "mexico-2026",
     cloudflare: {
       apiBase: "",
       appPassword: ""
     }
   },
+  checklists: [
+    {
+      id: "mexico-2026",
+      name: {
+        "zh-CN": "墨西哥出行清单",
+        "en-US": "Mexico Travel Checklist"
+      },
+      type: "travel",
+      status: "active",
+      createdAt: new Date(0).toISOString(),
+      updatedAt: new Date(0).toISOString(),
+      deleted: false
+    }
+  ],
   trips: [
     {
       id: "mexico-2026",
@@ -46,7 +61,7 @@ export default {
       if (url.pathname === "/api/login" && request.method === "POST") return handleLogin(request, env);
       if (url.pathname === "/api/data" && request.method === "GET") return withAuth(request, env, () => handleGetData(env));
       if (url.pathname === "/api/data" && request.method === "PUT") return withAuth(request, env, () => handlePutData(request, env));
-      if (url.pathname === "/api/health" && request.method === "GET") return json({ ok: true, version: "v1.0.2" });
+      if (url.pathname === "/api/health" && request.method === "GET") return json({ ok: true, version: "v1.1.0" });
 
       return json({ message: "Not found" }, 404);
     } catch (error) {
@@ -100,8 +115,8 @@ async function handlePutData(request, env) {
   const nextData = sanitizeData(body.data);
   nextData.revision = currentRevision + 1;
   nextData.updatedAt = new Date().toISOString();
-  nextData.appVersion = nextData.appVersion || "v1.0.2";
-  nextData.schemaVersion = nextData.schemaVersion || 1;
+  nextData.appVersion = nextData.appVersion || "v1.1.0";
+  nextData.schemaVersion = 2;
 
   await putGitHubFile(env, nextData, current?.sha);
   return json({ data: nextData });
@@ -109,24 +124,79 @@ async function handlePutData(request, env) {
 
 function sanitizeData(data) {
   const clean = JSON.parse(JSON.stringify(data));
+  const now = new Date().toISOString();
   clean.settings = clean.settings || {};
-  clean.trips = Array.isArray(clean.trips) ? clean.trips : [];
-  clean.items = Array.isArray(clean.items) ? clean.items.map(item => ({
-    id: String(item.id || crypto.randomUUID()),
-    tripId: String(item.tripId || clean.settings.currentTripId || "default"),
-    title: String(item.title || "").slice(0, 120),
-    category: String(item.category || "other"),
-    type: String(item.type || "carry"),
-    status: String(item.status || "to_pack"),
-    priority: String(item.priority || "optional"),
-    quantity: Math.max(1, Number(item.quantity || 1)),
-    note: String(item.note || "").slice(0, 1000),
-    createdAt: String(item.createdAt || new Date().toISOString()),
-    updatedAt: String(item.updatedAt || new Date().toISOString()),
-    doneAt: item.doneAt ? String(item.doneAt) : null,
-    deleted: Boolean(item.deleted)
-  })) : [];
+
+  const rawLists = Array.isArray(clean.checklists) && clean.checklists.length
+    ? clean.checklists
+    : (Array.isArray(clean.trips) && clean.trips.length ? clean.trips : DEFAULT_DATA.checklists);
+
+  clean.checklists = rawLists.map((list, index) => {
+    const id = String(list.id || crypto.randomUUID());
+    return {
+      id,
+      name: sanitizeName(list.name || id),
+      type: String(list.type || "travel").slice(0, 40),
+      status: list.status === "archived" ? "archived" : "active",
+      createdAt: String(list.createdAt || now),
+      updatedAt: String(list.updatedAt || now),
+      deleted: Boolean(list.deleted)
+    };
+  });
+
+  if (!clean.checklists.some(list => !list.deleted)) {
+    clean.checklists = DEFAULT_DATA.checklists;
+  }
+
+  const firstActive = clean.checklists.find(list => !list.deleted && list.status !== "archived") || clean.checklists.find(list => !list.deleted);
+  const requestedId = String(clean.settings.currentChecklistId || clean.settings.currentTripId || firstActive?.id || "mexico-2026");
+  const currentExists = clean.checklists.find(list => !list.deleted && list.id === requestedId);
+  clean.settings.currentChecklistId = currentExists ? requestedId : firstActive?.id;
+  clean.settings.currentTripId = clean.settings.currentChecklistId;
+
+  clean.trips = clean.checklists.filter(list => !list.deleted).map(list => ({
+    id: list.id,
+    name: list.name,
+    createdAt: list.createdAt
+  }));
+
+  clean.items = Array.isArray(clean.items) ? clean.items.map(item => {
+    const checklistId = String(item.checklistId || item.tripId || clean.settings.currentChecklistId || "default");
+    return {
+      id: String(item.id || crypto.randomUUID()),
+      checklistId,
+      tripId: checklistId,
+      title: String(item.title || "").slice(0, 120),
+      category: String(item.category || "other").slice(0, 60),
+      type: String(item.type || "carry").slice(0, 60),
+      status: String(item.status || "to_pack").slice(0, 60),
+      priority: String(item.priority || "optional").slice(0, 60),
+      quantity: Math.max(1, Number(item.quantity || 1)),
+      note: String(item.note || "").slice(0, 1000),
+      createdAt: String(item.createdAt || now),
+      updatedAt: String(item.updatedAt || now),
+      doneAt: item.doneAt ? String(item.doneAt) : null,
+      deleted: Boolean(item.deleted)
+    };
+  }) : [];
+
+  clean.schemaVersion = 2;
   return clean;
+}
+
+function sanitizeName(name) {
+  if (typeof name === "string") {
+    const text = name.slice(0, 120);
+    return { "zh-CN": text, "en-US": text };
+  }
+  if (name && typeof name === "object") {
+    const out = {};
+    for (const [key, value] of Object.entries(name)) {
+      out[String(key).slice(0, 20)] = String(value || "").slice(0, 120);
+    }
+    return Object.keys(out).length ? out : { "zh-CN": "Checklist", "en-US": "Checklist" };
+  }
+  return { "zh-CN": "Checklist", "en-US": "Checklist" };
 }
 
 async function getGitHubFile(env) {
@@ -173,7 +243,7 @@ function githubHeaders(env) {
   return {
     "Authorization": `Bearer ${env.GH_TOKEN}`,
     "Accept": "application/vnd.github+json",
-    "User-Agent": "travel-checklist-worker-v1.0.2",
+    "User-Agent": "travel-checklist-worker-v1.1.0",
     "Content-Type": "application/json"
   };
 }

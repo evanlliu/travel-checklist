@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Travel List" />
   <title>Travel Checklist</title>
-  <link rel="manifest" href="manifest.json?v=1.0.3" />
+  <link rel="manifest" href="manifest.json?v=1.1.0" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css?v=1.0.3" />
+  <link rel="stylesheet" href="css/style.css?v=1.1.0" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen" hidden>
@@ -35,6 +35,11 @@
       <div>
         <p class="eyebrow" data-i18n="appEyebrow">Travel Checklist</p>
         <h1 id="tripTitle">墨西哥出行清单</h1>
+        <div class="checklist-switcher" aria-label="Checklist selector">
+          <span data-i18n="currentChecklist">当前清单</span>
+          <select id="checklistSelect"></select>
+          <button id="manageChecklistBtn" class="ghost-btn mini" type="button" data-i18n="manageChecklists">管理清单</button>
+        </div>
       </div>
       <div class="top-actions">
         <button id="langToggleBtn" class="ghost-btn" type="button">EN</button>
@@ -140,6 +145,46 @@
     </section>
   </div>
 
+  <div id="checklistModal" class="modal-backdrop" hidden>
+    <section class="modal-sheet wide" role="dialog" aria-modal="true" aria-labelledby="checklistManagerTitle">
+      <div class="modal-header">
+        <h2 id="checklistManagerTitle" data-i18n="checklistManagerTitle">清单管理</h2>
+        <button class="icon-btn close-checklists" type="button" aria-label="Close">×</button>
+      </div>
+
+      <form id="newChecklistForm" class="item-form checklist-create-form">
+        <div class="setting-section-title" data-i18n="createChecklist">新建清单</div>
+        <label>
+          <span data-i18n="checklistName">清单名称</span>
+          <input id="checklistName" type="text" maxlength="80" data-i18n-placeholder="checklistNamePlaceholder" placeholder="例如：土耳其出行" />
+        </label>
+        <div class="form-grid two">
+          <label>
+            <span data-i18n="checklistType">清单类型</span>
+            <select id="checklistType"></select>
+          </label>
+          <label>
+            <span data-i18n="createMode">创建方式</span>
+            <select id="createMode"></select>
+          </label>
+        </div>
+        <button class="primary-btn full-width" type="submit" data-i18n="createChecklist">新建清单</button>
+      </form>
+
+      <div class="checklist-manager-section">
+        <h3 data-i18n="activeChecklists">使用中</h3>
+        <div id="activeChecklistList" class="checklist-card-list"></div>
+      </div>
+
+      <div class="checklist-manager-section">
+        <h3 data-i18n="archivedChecklists">已归档</h3>
+        <div id="archivedChecklistList" class="checklist-card-list"></div>
+      </div>
+
+      <p id="checklistStatus" class="settings-status" hidden></p>
+    </section>
+  </div>
+
   <div id="settingsModal" class="modal-backdrop" hidden>
     <section class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
       <div class="modal-header">
@@ -174,7 +219,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js?v=1.0.3"></script>
-  <script src="js/app.js?v=1.0.3"></script>
+  <script src="js/config.js?v=1.1.0"></script>
+  <script src="js/app.js?v=1.1.0"></script>
 </body>
 </html>
