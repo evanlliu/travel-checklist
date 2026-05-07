@@ -1,8 +1,8 @@
 {
-  "appVersion": "v1.2.1",
+  "appVersion": "v1.2.2",
   "schemaVersion": 2,
-  "revision": 39,
-  "updatedAt": "2026-05-07T08:31:04.139Z",
+  "revision": 40,
+  "updatedAt": "2026-05-07T08:38:56.740Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -21,9 +21,9 @@
         "en-US": "Mexico Travel Checklist"
       },
       "type": "travel",
-      "status": "active",
+      "status": "archived",
       "createdAt": "2026-05-07T07:10:01.795Z",
-      "updatedAt": "2026-05-07T07:10:01.795Z",
+      "updatedAt": "2026-05-07T08:38:55.075Z",
       "deleted": false
     },
     {
