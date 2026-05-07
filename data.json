@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.3.7",
   "schemaVersion": 2,
-  "revision": 139,
-  "updatedAt": "2026-05-07T12:13:44.159Z",
+  "revision": 140,
+  "updatedAt": "2026-05-07T12:13:51.049Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -388,10 +388,10 @@
       "quantity": 1,
       "note": "随身携带，不要托运。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T12:13:43.458Z",
+      "updatedAt": "2026-05-07T12:13:50.421Z",
       "doneAt": null,
-      "pinned": false,
-      "pinnedAt": null,
+      "pinned": true,
+      "pinnedAt": "2026-05-07T12:13:50.421Z",
       "deleted": false
     },
     {
