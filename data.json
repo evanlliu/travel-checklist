@@ -1,8 +1,8 @@
 {
-  "appVersion": "v1.2.2",
+  "appVersion": "v1.2.3",
   "schemaVersion": 2,
-  "revision": 42,
-  "updatedAt": "2026-05-07T08:39:29.395Z",
+  "revision": 43,
+  "updatedAt": "2026-05-07T08:46:30.946Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -29,13 +29,13 @@
     {
       "id": "checklist_mov5hpql_uafjfp",
       "name": {
-        "zh-CN": "土耳其",
-        "en-US": "土耳其"
+        "zh-CN": "墨西哥需携带物品",
+        "en-US": "墨西哥需携带物品"
       },
       "type": "travel",
       "status": "active",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T08:46:29.456Z",
       "deleted": false
     }
   ],
@@ -43,8 +43,8 @@
     {
       "id": "checklist_mov5hpql_uafjfp",
       "name": {
-        "zh-CN": "土耳其",
-        "en-US": "土耳其"
+        "zh-CN": "墨西哥需携带物品",
+        "en-US": "墨西哥需携带物品"
       },
       "createdAt": "2026-05-07T07:14:22.221Z"
     }
