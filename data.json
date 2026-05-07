@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 90,
-  "updatedAt": "2026-05-07T09:47:27.850Z",
+  "revision": 91,
+  "updatedAt": "2026-05-07T09:47:47.735Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -623,6 +623,22 @@
       "note": "",
       "createdAt": "2026-05-07T09:47:26.331Z",
       "updatedAt": "2026-05-07T09:47:26.331Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_movayzju_6iu6cz",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "便宜的睡觉T恤",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-07T09:47:46.170Z",
+      "updatedAt": "2026-05-07T09:47:46.170Z",
       "doneAt": null,
       "deleted": false
     }
