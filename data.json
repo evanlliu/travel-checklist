@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.1.1",
   "schemaVersion": 2,
-  "revision": 14,
-  "updatedAt": "2026-05-07T07:29:06.054Z",
+  "revision": 15,
+  "updatedAt": "2026-05-07T07:30:20.807Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -439,6 +439,22 @@
       "note": "长途飞行或转机时备用。",
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov628b1_ez8fh4",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "测试",
+      "category": "documents",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-07T07:30:19.405Z",
+      "updatedAt": "2026-05-07T07:30:19.405Z",
       "doneAt": null,
       "deleted": false
     }
