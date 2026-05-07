@@ -2149,3 +2149,38 @@ body.modal-open .floating-action-dock {
     font-size: 11px;
   }
 }
+
+
+/* v1.3.0 category display switches + safer mobile swipe */
+.item-form.hide-category-editor .type-category-grid,
+.filter-panel .toolbar.hide-category-filter {
+  grid-template-columns: 1fr;
+}
+
+.item-category-field[hidden],
+#categoryFilter[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .item-card,
+  .item-swipe-content {
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+  }
+}
+
+
+/* v1.3.1 allow native vertical scrolling when the finger starts on a list row */
+@media (max-width: 760px) {
+  .item-card,
+  .item-swipe-content,
+  .row-main,
+  .item-primary,
+  .item-info,
+  .title-line,
+  .item-meta {
+    touch-action: auto !important;
+    overscroll-behavior: auto !important;
+  }
+}

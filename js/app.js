@@ -1,10 +1,10 @@
-/* v1.2.9 */
+/* v1.3.1 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.9";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.3.1";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -47,6 +47,8 @@
       save: "保存",
       language: "语言",
       hideDone: "默认隐藏已完成",
+      showCategoryOnMain: "主页面显示分类",
+      showCategoryInEditor: "编辑页面显示填写分类",
       connectionSettings: "Cloudflare 同步配置",
       saveConnection: "保存配置并重新同步",
       edit: "编辑",
@@ -160,6 +162,8 @@
       save: "Save",
       language: "Language",
       hideDone: "Hide completed by default",
+      showCategoryOnMain: "Show category on main page",
+      showCategoryInEditor: "Show category field in editor",
       connectionSettings: "Cloudflare Sync Settings",
       saveConnection: "Save Settings and Resync",
       edit: "Edit",
@@ -373,6 +377,8 @@
       settings: {
         language: "zh-CN",
         hideDone: true,
+        showCategoryOnMain: true,
+        showCategoryInEditor: true,
         currentChecklistId: "mexico-2026",
         currentTripId: "mexico-2026",
         cloudflare: { apiBase: "", appPassword: "" }
@@ -396,6 +402,8 @@
     const result = Object.assign({}, fallback, data || {});
     result.settings = Object.assign({}, fallback.settings, result.settings || {});
     result.settings.cloudflare = normalizeConnection(result.settings.cloudflare || result.settings.connection || fallback.settings.cloudflare);
+    result.settings.showCategoryOnMain = result.settings.showCategoryOnMain !== false;
+    result.settings.showCategoryInEditor = result.settings.showCategoryInEditor !== false;
 
     let checklistSource = Array.isArray(result.checklists) && result.checklists.length
       ? result.checklists
@@ -601,6 +609,7 @@
     $("#appVersionBadge").text(APP_VERSION);
     $("#floatingAddBtn").attr({ "aria-label": t("addItem"), "title": t("addItem") });
     populateSelects();
+    applyCategoryVisibility();
     applyConnectionToForms();
   }
 
@@ -677,11 +686,34 @@
     });
   }
 
+  function shouldShowCategoryOnMain() {
+    return appData?.settings?.showCategoryOnMain !== false;
+  }
+
+  function shouldShowCategoryInEditor() {
+    return appData?.settings?.showCategoryInEditor !== false;
+  }
+
+  function applyCategoryVisibility() {
+    const showMain = shouldShowCategoryOnMain();
+    const showEditor = shouldShowCategoryInEditor();
+    if (!showMain && currentCategory !== "all") {
+      currentCategory = "all";
+    }
+    $("#categoryFilter").prop("hidden", !showMain);
+    $("#filterPanel .toolbar").toggleClass("hide-category-filter", !showMain);
+    $("#itemForm").toggleClass("hide-category-editor", !showEditor);
+    $(".item-category-field").prop("hidden", !showEditor);
+    $("#showCategoryOnMainSwitch").prop("checked", showMain);
+    $("#showCategoryInEditorSwitch").prop("checked", showEditor);
+  }
+
   function renderAll() {
     if (!appData) return;
     applyI18n();
     renderChecklistSelector();
     $("#hideDoneSwitch").prop("checked", Boolean(appData.settings.hideDone));
+    applyCategoryVisibility();
     renderStats();
     renderTabs();
     renderFilterSummary();
@@ -794,7 +826,7 @@
                 <span class="priority-pill${priorityClass}">${escapeHtml(t(item.priority))}</span>
               </div>
               <div class="item-meta">
-                <span>${escapeHtml(t("cat_" + item.category))}</span>
+                ${shouldShowCategoryOnMain() ? `<span>${escapeHtml(t("cat_" + item.category))}</span>` : ""}
                 <span>${escapeHtml(t("status_" + item.status))}</span>
                 <span class="desktop-only">${escapeHtml(t("type_" + item.type))}</span>
               </div>
@@ -837,6 +869,7 @@
 
   function openItemModal(item) {
     populateSelects();
+    applyCategoryVisibility();
     if (item) {
       $("#modalTitle").text(t("edit"));
       $("#editingItemId").val(item.id);
@@ -864,6 +897,9 @@
 
   function openSettings() {
     $("#hideDoneSwitch").prop("checked", Boolean(appData?.settings?.hideDone));
+    $("#showCategoryOnMainSwitch").prop("checked", shouldShowCategoryOnMain());
+    $("#showCategoryInEditorSwitch").prop("checked", shouldShowCategoryInEditor());
+    applyCategoryVisibility();
     applyConnectionToForms();
     setSettingsStatus("", false);
     openModal($("#settingsModal"));
@@ -881,7 +917,7 @@
     const formData = {
       title: $("#itemTitle").val().trim(),
       type,
-      category: $("#itemCategory").val(),
+      category: $("#itemCategory").val() || "other",
       priority: $("#itemPriority").val(),
       quantity: Math.max(1, parseInt($("#itemQuantity").val(), 10) || 1),
       note: $("#itemNote").val().trim(),
@@ -1146,6 +1182,7 @@
     let startY = 0;
     let activeCard = null;
     let tracking = false;
+    let gestureMode = "none";
 
     function isMobileSwipeMode() {
       return window.matchMedia("(max-width: 760px)").matches;
@@ -1155,46 +1192,89 @@
       $("#itemList .item-card.swiped").not(card || []).removeClass("swiped");
     }
 
+    function resetSwipeTracking() {
+      startX = 0;
+      startY = 0;
+      activeCard = null;
+      tracking = false;
+      gestureMode = "none";
+    }
+
     $(document).on("click", function (event) {
       if (!$(event.target).closest(".item-card").length) closeOtherCards();
     });
 
     $("#itemList").on("touchstart", ".item-card", function (event) {
       if (!isMobileSwipeMode()) return;
+      if ($(event.target).closest("button, a, input, select, textarea").length) return;
       const touch = event.originalEvent.touches && event.originalEvent.touches[0];
       if (!touch) return;
       startX = touch.clientX;
       startY = touch.clientY;
       activeCard = this;
       tracking = true;
+      gestureMode = "none";
     });
 
     $("#itemList").on("touchmove", ".item-card", function (event) {
       if (!tracking || !activeCard || !isMobileSwipeMode()) return;
       const touch = event.originalEvent.touches && event.originalEvent.touches[0];
       if (!touch) return;
+
       const dx = touch.clientX - startX;
       const dy = touch.clientY - startY;
-      if (Math.abs(dx) > 18 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+      const absX = Math.abs(dx);
+      const absY = Math.abs(dy);
+
+      if (gestureMode === "none") {
+        // A vertical gesture must stay fully native, so touching a row can still scroll the page.
+        if (absY >= 8 && absY >= absX * 0.9) {
+          resetSwipeTracking();
+          return;
+        }
+
+        // Only a clear horizontal gesture becomes a swipe action.
+        if (absX >= 28 && absX >= absY * 1.8) {
+          gestureMode = "horizontal";
+        }
+      }
+
+      if (gestureMode === "horizontal" && event.originalEvent.cancelable) {
         event.preventDefault();
       }
     });
 
-    $("#itemList").on("touchend touchcancel", ".item-card", function (event) {
-      if (!tracking || !activeCard || !isMobileSwipeMode()) return;
+    $("#itemList").on("touchend", ".item-card", function (event) {
+      if (!tracking || !activeCard || !isMobileSwipeMode() || gestureMode !== "horizontal") {
+        resetSwipeTracking();
+        return;
+      }
+
       const touch = (event.originalEvent.changedTouches && event.originalEvent.changedTouches[0]) || null;
-      if (!touch) return;
+      if (!touch) {
+        resetSwipeTracking();
+        return;
+      }
+
       const dx = touch.clientX - startX;
       const dy = touch.clientY - startY;
-      const isHorizontal = Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy) * 1.25;
-      if (isHorizontal && dx < 0) {
-        closeOtherCards(activeCard);
-        $(activeCard).addClass("swiped");
-      } else if (isHorizontal && dx > 0) {
-        $(activeCard).removeClass("swiped");
+      const absX = Math.abs(dx);
+      const absY = Math.abs(dy);
+
+      if (absX > 70 && absX > absY * 1.7 && absY < 42) {
+        if (dx < 0) {
+          closeOtherCards(activeCard);
+          $(activeCard).addClass("swiped");
+        } else {
+          $(activeCard).removeClass("swiped");
+        }
       }
-      tracking = false;
-      activeCard = null;
+
+      resetSwipeTracking();
+    });
+
+    $("#itemList").on("touchcancel", ".item-card", function () {
+      resetSwipeTracking();
     });
 
     $("#itemList").on("click", ".item-swipe-content", function (event) {
@@ -1347,6 +1427,21 @@
       if (!appData) return;
       appData.settings.hideDone = $(this).is(":checked");
       currentFilter = appData.settings.hideDone ? "active" : "all";
+      scheduleSave();
+      renderAll();
+    });
+
+    $("#showCategoryOnMainSwitch").on("change", function () {
+      if (!appData) return;
+      appData.settings.showCategoryOnMain = $(this).is(":checked");
+      if (!appData.settings.showCategoryOnMain) currentCategory = "all";
+      scheduleSave();
+      renderAll();
+    });
+
+    $("#showCategoryInEditorSwitch").on("change", function () {
+      if (!appData) return;
+      appData.settings.showCategoryInEditor = $(this).is(":checked");
       scheduleSave();
       renderAll();
     });
