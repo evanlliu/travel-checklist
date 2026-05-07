@@ -1,8 +1,8 @@
 {
-  "appVersion": "v1.1.5",
+  "appVersion": "v1.2.1",
   "schemaVersion": 2,
-  "revision": 27,
-  "updatedAt": "2026-05-07T08:11:33.365Z",
+  "revision": 28,
+  "updatedAt": "2026-05-07T08:22:54.488Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -319,14 +319,14 @@
       "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "美标转换插头",
-      "category": "electronics",
+      "category": "documents",
       "type": "buy_and_carry",
       "status": "need_buy",
       "priority": "must",
       "quantity": 1,
       "note": "墨西哥常用美标插头。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T08:22:53.116Z",
       "doneAt": null,
       "deleted": false
     },
