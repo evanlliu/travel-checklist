@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.3.1",
   "schemaVersion": 2,
-  "revision": 107,
-  "updatedAt": "2026-05-07T10:12:20.968Z",
+  "revision": 108,
+  "updatedAt": "2026-05-07T10:19:02.034Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -721,6 +721,22 @@
       "note": "",
       "createdAt": "2026-05-07T09:49:18.755Z",
       "updatedAt": "2026-05-07T09:49:18.755Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_movc35qh_4a8b3a",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "零散烟",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 5,
+      "note": "",
+      "createdAt": "2026-05-07T10:19:00.425Z",
+      "updatedAt": "2026-05-07T10:19:00.425Z",
       "doneAt": null,
       "deleted": false
     }
