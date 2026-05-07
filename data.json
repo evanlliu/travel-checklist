@@ -1,8 +1,8 @@
 {
-  "appVersion": "v1.3.5",
+  "appVersion": "v1.3.6",
   "schemaVersion": 2,
-  "revision": 127,
-  "updatedAt": "2026-05-07T11:17:57.842Z",
+  "revision": 128,
+  "updatedAt": "2026-05-07T12:05:42.461Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -66,6 +66,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -82,6 +84,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -98,6 +102,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -114,6 +120,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -130,6 +138,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -146,6 +156,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -162,6 +174,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -178,6 +192,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -194,6 +210,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -210,6 +228,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -226,6 +246,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -242,6 +264,8 @@
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T08:39:27.990Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -258,6 +282,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T08:24:30.584Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -274,6 +300,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T09:04:05.682Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -290,6 +318,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T09:44:28.325Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -306,6 +336,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T08:24:36.021Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -322,6 +354,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T09:49:52.305Z",
       "doneAt": "2026-05-07T08:23:07.392Z",
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -338,6 +372,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T09:03:27.335Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -352,8 +388,10 @@
       "quantity": 1,
       "note": "随身携带，不要托运。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T11:17:56.159Z",
+      "updatedAt": "2026-05-07T12:05:41.792Z",
       "doneAt": null,
+      "pinned": true,
+      "pinnedAt": "2026-05-07T12:05:41.792Z",
       "deleted": false
     },
     {
@@ -370,6 +408,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T08:24:55.122Z",
       "doneAt": "2026-05-07T07:29:04.777Z",
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -386,6 +426,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T08:24:03.433Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -402,6 +444,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T10:09:11.699Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -418,6 +462,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T09:49:45.331Z",
       "doneAt": "2026-05-07T08:31:03.516Z",
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -434,6 +480,8 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T08:23:28.505Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -450,6 +498,8 @@
       "createdAt": "2026-05-07T07:30:19.405Z",
       "updatedAt": "2026-05-07T08:24:26.129Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -466,6 +516,8 @@
       "createdAt": "2026-05-07T07:33:03.265Z",
       "updatedAt": "2026-05-07T08:24:49.896Z",
       "doneAt": "2026-05-07T07:33:10.586Z",
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": true
     },
     {
@@ -482,6 +534,8 @@
       "createdAt": "2026-05-07T08:03:56.298Z",
       "updatedAt": "2026-05-07T09:00:17.880Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -498,6 +552,8 @@
       "createdAt": "2026-05-07T09:45:29.544Z",
       "updatedAt": "2026-05-07T09:45:29.544Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -514,6 +570,8 @@
       "createdAt": "2026-05-07T09:45:47.340Z",
       "updatedAt": "2026-05-07T09:45:47.340Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -530,6 +588,8 @@
       "createdAt": "2026-05-07T09:46:02.280Z",
       "updatedAt": "2026-05-07T09:46:02.280Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -546,6 +606,8 @@
       "createdAt": "2026-05-07T09:46:14.803Z",
       "updatedAt": "2026-05-07T09:46:14.803Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -562,6 +624,8 @@
       "createdAt": "2026-05-07T09:46:27.184Z",
       "updatedAt": "2026-05-07T09:46:27.184Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -578,6 +642,8 @@
       "createdAt": "2026-05-07T09:46:39.028Z",
       "updatedAt": "2026-05-07T09:46:39.028Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -594,6 +660,8 @@
       "createdAt": "2026-05-07T09:47:01.270Z",
       "updatedAt": "2026-05-07T09:47:01.270Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -610,6 +678,8 @@
       "createdAt": "2026-05-07T09:47:13.907Z",
       "updatedAt": "2026-05-07T09:47:13.907Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -626,6 +696,8 @@
       "createdAt": "2026-05-07T09:47:26.331Z",
       "updatedAt": "2026-05-07T09:47:26.331Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -642,6 +714,8 @@
       "createdAt": "2026-05-07T09:47:46.170Z",
       "updatedAt": "2026-05-07T10:34:08.968Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -658,6 +732,8 @@
       "createdAt": "2026-05-07T09:47:58.631Z",
       "updatedAt": "2026-05-07T09:47:58.630Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -674,6 +750,8 @@
       "createdAt": "2026-05-07T09:48:08.859Z",
       "updatedAt": "2026-05-07T09:48:08.859Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -690,6 +768,8 @@
       "createdAt": "2026-05-07T09:48:42.411Z",
       "updatedAt": "2026-05-07T09:48:42.411Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -706,6 +786,8 @@
       "createdAt": "2026-05-07T09:49:05.334Z",
       "updatedAt": "2026-05-07T09:49:05.334Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -722,6 +804,8 @@
       "createdAt": "2026-05-07T09:49:18.755Z",
       "updatedAt": "2026-05-07T10:40:59.334Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     },
     {
@@ -738,6 +822,8 @@
       "createdAt": "2026-05-07T10:19:00.425Z",
       "updatedAt": "2026-05-07T10:19:00.425Z",
       "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
       "deleted": false
     }
   ]
