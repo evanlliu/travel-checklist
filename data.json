@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.3",
   "schemaVersion": 2,
-  "revision": 43,
-  "updatedAt": "2026-05-07T08:46:30.946Z",
+  "revision": 44,
+  "updatedAt": "2026-05-07T08:47:36.930Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -396,9 +396,9 @@
       "status": "to_pack",
       "priority": "must",
       "quantity": 1,
-      "note": "按出差天数准备，注意当地天气。",
+      "note": "",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T08:47:35.561Z",
       "doneAt": null,
       "deleted": false
     },
