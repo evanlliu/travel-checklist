@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.4.1",
   "schemaVersion": 2,
-  "revision": 186,
-  "updatedAt": "2026-05-07T13:46:34.180Z",
+  "revision": 187,
+  "updatedAt": "2026-05-07T13:54:20.895Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -867,6 +867,25 @@
       "pinned": false,
       "pinnedAt": null,
       "sortOrder": 12000,
+      "deleted": false
+    },
+    {
+      "id": "item_movjs2mf_tpg9d9",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "山胡椒油",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 2,
+      "note": "",
+      "createdAt": "2026-05-07T13:54:20.103Z",
+      "updatedAt": "2026-05-07T13:54:20.103Z",
+      "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
+      "sortOrder": 23000,
       "deleted": false
     }
   ]
