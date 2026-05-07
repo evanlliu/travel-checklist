@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.1",
   "schemaVersion": 2,
-  "revision": 38,
-  "updatedAt": "2026-05-07T08:24:56.487Z",
+  "revision": 39,
+  "updatedAt": "2026-05-07T08:31:04.139Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -417,13 +417,13 @@
       "title": "电脑 / 工作资料",
       "category": "work",
       "type": "carry",
-      "status": "to_pack",
+      "status": "packed",
       "priority": "must",
       "quantity": 1,
       "note": "检查充电器、VPN、必要文件。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:22.221Z",
-      "doneAt": null,
+      "updatedAt": "2026-05-07T08:31:03.516Z",
+      "doneAt": "2026-05-07T08:31:03.516Z",
       "deleted": false
     },
     {
