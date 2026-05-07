@@ -1,10 +1,10 @@
-/* v1.1.2 */
+/* v1.1.4 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.1.2";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.1.4";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -21,6 +21,8 @@
       appEyebrow: "Travel Checklist",
       sync: "同步",
       settings: "设置",
+      menu: "菜单",
+      queryConditions: "查询条件",
       currentChecklist: "当前清单",
       manageChecklists: "管理清单",
       needBuy: "待购买",
@@ -132,6 +134,8 @@
       appEyebrow: "Travel Checklist",
       sync: "Sync",
       settings: "Settings",
+      menu: "Menu",
+      queryConditions: "Filters",
       currentChecklist: "Current List",
       manageChecklists: "Manage Lists",
       needBuy: "To Buy",
@@ -593,6 +597,8 @@
     $("[data-i18n]").each(function () { $(this).text(t($(this).data("i18n"))); });
     $("[data-i18n-placeholder]").each(function () { $(this).attr("placeholder", t($(this).data("i18n-placeholder"))); });
     $("#langToggleBtn").text(lang === "zh-CN" ? "EN" : "中");
+    $("#appVersionBadge").text(APP_VERSION);
+    $("#floatingAddBtn").attr("aria-label", t("addItem"));
     populateSelects();
     applyConnectionToForms();
   }
@@ -606,7 +612,6 @@
     $("#itemPriority").html(PRIORITIES.map(p => `<option value="${p}">${escapeHtml(t(p))}</option>`).join(""));
     $("#checklistType").html(CHECKLIST_TYPES.map(type => `<option value="${type}">${escapeHtml(t("checklistType_" + type))}</option>`).join(""));
     $("#createMode").html(`<option value="blank">${escapeHtml(t("blankChecklist"))}</option><option value="copy">${escapeHtml(t("copyCurrentChecklist"))}</option>`);
-    $("#languageSelect").val(getLang());
   }
 
   function getActiveChecklists() {
@@ -673,12 +678,10 @@
     if (!appData) return;
     applyI18n();
     renderChecklistSelector();
-    const checklist = getCurrentChecklist();
-    const title = localizedName(checklist, "Travel Checklist");
-    $("#tripTitle").text(title);
     $("#hideDoneSwitch").prop("checked", Boolean(appData.settings.hideDone));
     renderStats();
     renderTabs();
+    renderFilterSummary();
     renderItems();
     renderChecklistManager();
   }
@@ -703,6 +706,28 @@
   function renderTabs() {
     $("#filterTabs .tab").removeClass("active");
     $(`#filterTabs .tab[data-filter="${currentFilter}"]`).addClass("active");
+  }
+
+  function renderFilterSummary() {
+    const filterMap = { active: "active", need_buy: "needBuy", to_pack: "toPack", must: "must", done: "done", all: "all" };
+    const parts = [t(filterMap[currentFilter] || "active")];
+    if (currentCategory && currentCategory !== "all") parts.push(t("cat_" + currentCategory));
+    if (currentSearch) parts.push(currentSearch);
+    $("#filterSummary").text(parts.join(" / "));
+  }
+
+  function toggleActionMenu(forceOpen) {
+    const shouldOpen = typeof forceOpen === "boolean" ? forceOpen : $("#actionsMenu").prop("hidden");
+    $("#actionsMenu").prop("hidden", !shouldOpen);
+    $("#actionsMenuBtn").attr("aria-expanded", String(shouldOpen));
+  }
+
+  function closeActionMenu() { toggleActionMenu(false); }
+
+  function toggleFilterPanel(forceOpen) {
+    const shouldOpen = typeof forceOpen === "boolean" ? forceOpen : $("#filterPanel").prop("hidden");
+    $("#filterPanel").prop("hidden", !shouldOpen);
+    $("#filterToggleBtn").attr("aria-expanded", String(shouldOpen));
   }
 
   function renderItems() {
@@ -796,7 +821,6 @@
   function closeItemModal() { $("#itemModal").prop("hidden", true); }
 
   function openSettings() {
-    $("#languageSelect").val(getLang());
     $("#hideDoneSwitch").prop("checked", Boolean(appData?.settings?.hideDone));
     applyConnectionToForms();
     setSettingsStatus("", false);
@@ -1171,7 +1195,17 @@
       }
     });
 
-    $("#addItemBtn, #mobileAddBtn").on("click", () => openItemModal(null));
+    $("#actionsMenuBtn").on("click", function (event) { event.stopPropagation(); toggleActionMenu(); });
+    $("#actionsMenu").on("click", "button", function () { closeActionMenu(); });
+    $(document).on("click", function (event) {
+      if (!$(event.target).closest(".action-menu-wrap").length) closeActionMenu();
+      if (!$(event.target).closest(".filter-area").length) toggleFilterPanel(false);
+    });
+
+    $("#filterToggleBtn").on("click", function (event) { event.stopPropagation(); toggleFilterPanel(); });
+    $("#filterPanel").on("click", function (event) { event.stopPropagation(); });
+
+    $("#addItemBtn, #floatingAddBtn").on("click", () => openItemModal(null));
     $("#settingsBtn").on("click", openSettings);
     $("#manageChecklistBtn").on("click", openChecklistModal);
     $(".close-modal").on("click", closeItemModal);
@@ -1218,9 +1252,8 @@
     });
 
     $("#filterTabs").on("click", ".tab", function () { currentFilter = $(this).data("filter"); renderAll(); });
-    $(".mobile-bottom-nav").on("click", "[data-mobile-filter]", function () { currentFilter = $(this).data("mobile-filter"); renderAll(); window.scrollTo({ top: 0, behavior: "smooth" }); });
-    $("#categoryFilter").on("change", function () { currentCategory = $(this).val(); renderItems(); });
-    $("#searchInput").on("input", function () { currentSearch = $(this).val(); renderItems(); });
+    $("#categoryFilter").on("change", function () { currentCategory = $(this).val(); renderFilterSummary(); renderItems(); });
+    $("#searchInput").on("input", function () { currentSearch = $(this).val(); renderFilterSummary(); renderItems(); });
     $("#itemForm").on("submit", function (event) { event.preventDefault(); saveItemFromForm(); });
 
     $("#itemList").on("click", ".item-next", function () {
@@ -1253,13 +1286,6 @@
       renderAll();
     });
 
-    $("#languageSelect").on("change", function () {
-      if (!appData) return;
-      appData.settings.language = $(this).val();
-      localStorage.setItem("travelChecklist.lang", appData.settings.language);
-      scheduleSave();
-      renderAll();
-    });
 
     $("#hideDoneSwitch").on("change", function () {
       if (!appData) return;
