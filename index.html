@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Travel List" />
   <title>Travel Checklist</title>
-  <link rel="manifest" href="manifest.json?v=1.2.6" />
+  <link rel="manifest" href="manifest.json?v=1.2.8" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css?v=1.2.6" />
+  <link rel="stylesheet" href="css/style.css?v=1.2.8" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen" hidden>
@@ -33,7 +33,7 @@
   <main id="appShell" class="app-shell" hidden>
     <header class="topbar">
       <div class="brand-row">
-        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.2.6</span></p>
+        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.2.8</span></p>
       </div>
       <div class="header-controls">
         <div class="checklist-switcher" aria-label="Checklist selector">
@@ -43,8 +43,6 @@
           <button id="actionsMenuBtn" class="ghost-btn menu-toggle" type="button" aria-expanded="false" aria-controls="actionsMenu" data-i18n="menu">菜单</button>
           <div id="actionsMenu" class="actions-menu" hidden>
             <button id="manageChecklistBtn" class="ghost-btn" type="button" data-i18n="manageChecklists">管理清单</button>
-            <button id="syncBtn" class="ghost-btn" type="button" data-i18n="sync">同步</button>
-            <button id="langToggleBtn" class="ghost-btn" type="button">EN</button>
             <button id="settingsBtn" class="ghost-btn" type="button" data-i18n="settings">设置</button>
           </div>
         </div>
@@ -80,7 +78,6 @@
           <span data-i18n="queryConditions">查询条件</span>
           <small id="filterSummary"></small>
         </button>
-        <button id="addItemBtn" class="primary-btn compact" type="button" data-i18n="addItem">新增</button>
       </section>
 
       <section id="filterPanel" class="filter-panel" hidden>
@@ -111,7 +108,17 @@
       <p data-i18n="emptySubtitle">换一个筛选条件，或者新增一个清单物品。</p>
     </section>
 
-    <button id="floatingAddBtn" class="floating-add-btn" type="button" aria-label="新增">+</button>
+    <section id="floatingActionDock" class="floating-action-dock" aria-label="Quick actions">
+      <button id="floatingAddBtn" class="dock-btn dock-add" type="button" aria-label="新增" title="新增">
+        <span class="dock-icon dock-plus">+</span>
+      </button>
+      <button id="syncBtn" class="dock-btn dock-sync" type="button" aria-label="同步" title="同步">
+        <span class="dock-icon dock-sync-icon">↻</span>
+      </button>
+      <button id="langToggleBtn" class="dock-btn dock-lang" type="button" aria-label="切换语言" title="切换语言">
+        <span class="dock-icon dock-lang-icon"><span>A</span><span>文</span></span>
+      </button>
+    </section>
   </main>
 
   <div id="itemModal" class="modal-backdrop" hidden>
@@ -225,7 +232,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js?v=1.2.6"></script>
-  <script src="js/app.js?v=1.2.6"></script>
+  <script src="js/config.js?v=1.2.8"></script>
+  <script src="js/app.js?v=1.2.8"></script>
 </body>
 </html>

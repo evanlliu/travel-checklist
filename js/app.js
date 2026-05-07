@@ -1,10 +1,10 @@
-/* v1.2.6 */
+/* v1.2.8 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.6";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.8";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -596,9 +596,10 @@
     document.documentElement.lang = lang;
     $("[data-i18n]").each(function () { $(this).text(t($(this).data("i18n"))); });
     $("[data-i18n-placeholder]").each(function () { $(this).attr("placeholder", t($(this).data("i18n-placeholder"))); });
-    $("#langToggleBtn").text(lang === "zh-CN" ? "EN" : "中");
+    $("#syncBtn").attr({ "aria-label": t("sync"), "title": t("sync") });
+    $("#langToggleBtn").attr({ "aria-label": t("language"), "title": t("language") });
     $("#appVersionBadge").text(APP_VERSION);
-    $("#floatingAddBtn").attr("aria-label", t("addItem"));
+    $("#floatingAddBtn").attr({ "aria-label": t("addItem"), "title": t("addItem") });
     populateSelects();
     applyConnectionToForms();
   }
