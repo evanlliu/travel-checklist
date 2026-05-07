@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.1.4",
   "schemaVersion": 2,
-  "revision": 24,
-  "updatedAt": "2026-05-07T07:57:12.809Z",
+  "revision": 25,
+  "updatedAt": "2026-05-07T08:03:56.844Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -472,6 +472,22 @@
       "createdAt": "2026-05-07T07:33:03.265Z",
       "updatedAt": "2026-05-07T07:33:10.586Z",
       "doneAt": "2026-05-07T07:33:10.586Z",
+      "deleted": false
+    },
+    {
+      "id": "item_mov79gju_sxa2hi",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "手机",
+      "category": "other",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "测试",
+      "createdAt": "2026-05-07T08:03:56.298Z",
+      "updatedAt": "2026-05-07T08:03:56.298Z",
+      "doneAt": null,
       "deleted": false
     }
   ]
