@@ -1,12 +1,12 @@
-// v1.0.1
-const CACHE_NAME = "travel-checklist-v1.0.1";
+// v1.0.2
+const CACHE_NAME = "travel-checklist-v1.0.2";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./css/style.css",
-  "./js/config.js",
-  "./js/app.js",
-  "./manifest.json",
+  "./css/style.css?v=1.0.2",
+  "./js/config.js?v=1.0.2",
+  "./js/app.js?v=1.0.2",
+  "./manifest.json?v=1.0.2",
   "./icons/apple-touch-icon.png"
 ];
 
@@ -25,17 +25,15 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET") return;
+
   const url = new URL(request.url);
   if (url.pathname.includes("/api/") || url.pathname.endsWith("/data.json")) return;
 
   event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
-      return fetch(request).then(response => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
-        return response;
-      });
-    })
+    fetch(request).then(response => {
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+      return response;
+    }).catch(() => caches.match(request))
   );
 });

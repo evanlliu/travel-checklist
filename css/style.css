@@ -17,6 +17,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 html, body {
   min-height: 100%;
@@ -74,6 +75,20 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
 }
 .login-card input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(17,24,39,.08); }
 .helper-text { font-size: 13px; margin-top: 18px !important; }
+.settings-status {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+.settings-status.error-text {
+  background: #fff1f2;
+  color: var(--danger) !important;
+}
 .error-text { color: var(--danger) !important; font-weight: 700; margin: 12px 0 0 !important; }
 
 .app-shell {

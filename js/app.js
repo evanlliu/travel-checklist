@@ -1,10 +1,10 @@
-/* v1.0.1 */
+/* v1.0.2 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.0.1";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.0.2";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -45,7 +45,6 @@
       hideDone: "默认隐藏已完成",
       connectionSettings: "Cloudflare 同步配置",
       saveConnection: "保存配置并重新同步",
-      logout: "退出登录",
       edit: "编辑",
       delete: "删除",
       restore: "恢复",
@@ -118,7 +117,6 @@
       hideDone: "Hide completed by default",
       connectionSettings: "Cloudflare Sync Settings",
       saveConnection: "Save Settings and Resync",
-      logout: "Log out",
       edit: "Edit",
       delete: "Delete",
       restore: "Restore",
@@ -373,6 +371,20 @@
     }
   }
 
+  async function fetchDataWithRelogin(options = {}) {
+    try {
+      await fetchData(options);
+    } catch (err) {
+      if (err.status === 401 && APP_PASSWORD_VALUE) {
+        clearToken();
+        await login(APP_PASSWORD_VALUE);
+        await fetchData(options);
+        return;
+      }
+      throw err;
+    }
+  }
+
   async function saveData(options = {}) {
     if (!appData || isSaving) return;
     isSaving = true;
@@ -417,6 +429,10 @@
 
   function setLoginStatus(text, isError) {
     $("#loginStatus").prop("hidden", !text).toggleClass("error-text", Boolean(isError)).text(text || "");
+  }
+
+  function setSettingsStatus(text, isError) {
+    $("#settingsStatus").prop("hidden", !text).toggleClass("error-text", Boolean(isError)).text(text || "");
   }
 
   function showLogin() {
@@ -619,6 +635,7 @@
     $("#languageSelect").val(getLang());
     $("#hideDoneSwitch").prop("checked", Boolean(appData?.settings?.hideDone));
     applyConnectionToForms();
+    setSettingsStatus("", false);
     $("#settingsModal").prop("hidden", false);
   }
 
@@ -733,7 +750,7 @@
     if (!clean.appPassword) throw new Error("PASSWORD_MISSING");
     clearToken();
     await login(clean.appPassword);
-    await fetchData({ connectionMode: "save-local" });
+    await fetchDataWithRelogin({ connectionMode: "save-local" });
     if (persistConnectionToData()) await saveData({ silent: true });
     if (fromSettings) setSaveStatus(t("connectionSaved"));
   }
@@ -755,7 +772,7 @@
     $("#syncBtn").on("click", async function () {
       try {
         if (!getToken() && APP_PASSWORD_VALUE) await login(APP_PASSWORD_VALUE);
-        await fetchData();
+        await fetchDataWithRelogin();
       } catch (err) {
         setSaveStatus(connectionErrorMessage(err));
         console.error(err);
@@ -768,11 +785,21 @@
     $(".close-settings").on("click", closeSettings);
 
     $("#saveConnectionBtn").on("click", async function () {
+      const $btn = $(this);
       try {
+        $btn.prop("disabled", true);
+        setSettingsStatus(t("loading"), false);
         await connectAndSync(readConnectionFromSettingsForm(), true);
+        setSettingsStatus(t("connectionSaved"), false);
+        setSaveStatus(t("connectionSaved"));
+        closeSettings();
       } catch (err) {
-        setSaveStatus(connectionErrorMessage(err));
+        const message = connectionErrorMessage(err);
+        setSettingsStatus(message, true);
+        setSaveStatus(message);
         console.error(err);
+      } finally {
+        $btn.prop("disabled", false);
       }
     });
 
@@ -855,12 +882,6 @@
       renderAll();
     });
 
-    $("#logoutBtn").on("click", function () {
-      clearToken();
-      closeSettings();
-      showLogin();
-    });
-
     $("#itemModal, #settingsModal").on("click", function (event) {
       if (event.target === this) $(this).prop("hidden", true);
     });
@@ -880,7 +901,7 @@
     if (conn.apiBase && (getToken() || conn.appPassword)) {
       try {
         if (!getToken() && conn.appPassword) await login(conn.appPassword);
-        await fetchData();
+        await fetchDataWithRelogin();
         setLoginStatus("", false);
         return;
       } catch (err) {

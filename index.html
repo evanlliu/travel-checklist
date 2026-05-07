@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Travel List" />
   <title>Travel Checklist</title>
-  <link rel="manifest" href="manifest.json" />
+  <link rel="manifest" href="manifest.json?v=1.0.2" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=1.0.2" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen">
@@ -168,13 +168,13 @@
           <input id="settingsPassword" type="password" autocomplete="current-password" />
         </label>
         <button id="saveConnectionBtn" class="primary-btn full-width" type="button" data-i18n="saveConnection">保存配置并重新同步</button>
-        <button id="logoutBtn" class="danger-btn" type="button" data-i18n="logout">退出登录</button>
+        <p id="settingsStatus" class="settings-status" hidden></p>
       </div>
     </section>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/config.js?v=1.0.2"></script>
+  <script src="js/app.js?v=1.0.2"></script>
 </body>
 </html>

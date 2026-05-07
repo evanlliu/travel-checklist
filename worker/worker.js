@@ -1,10 +1,10 @@
-// Travel Checklist Cloudflare Worker v1.0.1
+// Travel Checklist Cloudflare Worker v1.0.2
 // Required variables / secrets:
 // Secret: APP_PASSWORD, GH_TOKEN
 // Plaintext: GH_OWNER, GH_REPO, GH_BRANCH, DATA_PATH
 
 const DEFAULT_DATA = {
-  appVersion: "v1.0.1",
+  appVersion: "v1.0.2",
   schemaVersion: 1,
   revision: 0,
   updatedAt: new Date(0).toISOString(),
@@ -46,7 +46,7 @@ export default {
       if (url.pathname === "/api/login" && request.method === "POST") return handleLogin(request, env);
       if (url.pathname === "/api/data" && request.method === "GET") return withAuth(request, env, () => handleGetData(env));
       if (url.pathname === "/api/data" && request.method === "PUT") return withAuth(request, env, () => handlePutData(request, env));
-      if (url.pathname === "/api/health" && request.method === "GET") return json({ ok: true, version: "v1.0.1" });
+      if (url.pathname === "/api/health" && request.method === "GET") return json({ ok: true, version: "v1.0.2" });
 
       return json({ message: "Not found" }, 404);
     } catch (error) {
@@ -100,7 +100,7 @@ async function handlePutData(request, env) {
   const nextData = sanitizeData(body.data);
   nextData.revision = currentRevision + 1;
   nextData.updatedAt = new Date().toISOString();
-  nextData.appVersion = nextData.appVersion || "v1.0.1";
+  nextData.appVersion = nextData.appVersion || "v1.0.2";
   nextData.schemaVersion = nextData.schemaVersion || 1;
 
   await putGitHubFile(env, nextData, current?.sha);
@@ -173,7 +173,7 @@ function githubHeaders(env) {
   return {
     "Authorization": `Bearer ${env.GH_TOKEN}`,
     "Accept": "application/vnd.github+json",
-    "User-Agent": "travel-checklist-worker-v1.0.1",
+    "User-Agent": "travel-checklist-worker-v1.0.2",
     "Content-Type": "application/json"
   };
 }
