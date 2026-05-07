@@ -1152,3 +1152,61 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
     padding: 0 6px;
   }
 }
+
+/* v1.2.1 stat cards are clickable filters */
+.stat-card {
+  appearance: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+.stat-card:active { transform: translateY(1px); }
+.stat-card.active {
+  background: var(--primary);
+  color: #fff;
+}
+.stat-card.active small,
+.stat-card.active span { color: #fff !important; }
+.stat-card.all span { color: var(--text); }
+
+@media (max-width: 760px) {
+  /* cleaner, lower mobile swipe action rail */
+  .item-card.swiped .item-swipe-content {
+    transform: translateX(-132px);
+  }
+  .item-actions {
+    width: 132px;
+    padding: 6px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: stretch;
+    align-items: stretch;
+    background: linear-gradient(90deg, rgba(248,250,252,.35), rgba(248,250,252,.98));
+    border-radius: 16px;
+    gap: 4px;
+  }
+  .item-actions .primary-btn,
+  .item-actions .item-restore {
+    grid-column: auto;
+  }
+  .item-actions button {
+    min-height: 46px;
+    height: 100%;
+    padding: 0 4px;
+    border-radius: 12px;
+    font-size: 11px;
+    line-height: 1.05;
+    white-space: normal;
+    box-shadow: 0 5px 12px rgba(17,24,39,.06);
+  }
+  .item-actions .primary-btn {
+    background: var(--primary);
+    color: #fff;
+  }
+  .item-actions .small-ghost {
+    background: #fff;
+  }
+  .item-actions .small-danger {
+    background: #fff1f2;
+  }
+}

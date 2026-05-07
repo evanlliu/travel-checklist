@@ -1,10 +1,10 @@
-/* v1.2.0 */
+/* v1.2.1 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.0";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.2.1";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -650,6 +650,7 @@
 
   function getStats(items) {
     return {
+      all: items.length,
       needBuy: items.filter(item => item.status === "need_buy").length,
       toPack: items.filter(item => item.status === "to_pack" || item.status === "bought").length,
       mustOpen: items.filter(item => item.priority === "must" && !isDone(item)).length,
@@ -697,10 +698,13 @@
 
   function renderStats() {
     const stats = getStats(getChecklistItems());
+    $("#statAll").text(stats.all);
     $("#statNeedBuy").text(stats.needBuy);
     $("#statToPack").text(stats.toPack);
     $("#statMustOpen").text(stats.mustOpen);
     $("#statDone").text(stats.done);
+    $(".stat-card").removeClass("active");
+    $(`.stat-card[data-stat-filter="${currentFilter}"]`).addClass("active");
   }
 
   function renderTabs() {
@@ -819,7 +823,7 @@
       $("#editingItemId").val("");
       $("#itemTitle").val("");
       $("#itemType").val("carry");
-      $("#itemCategory").val("documents");
+      $("#itemCategory").val("other");
       $("#itemPriority").val("must");
       $("#itemQuantity").val(1);
       $("#itemNote").val("");
@@ -1264,6 +1268,15 @@
         setSaveStatus(message);
         console.error(err);
       } finally { $btn.prop("disabled", false); }
+    });
+
+    $(".status-row").on("click", ".stat-card", function () {
+      currentFilter = $(this).data("stat-filter") || "all";
+      currentCategory = "all";
+      currentSearch = "";
+      $("#searchInput").val("");
+      toggleFilterPanel(false);
+      renderAll();
     });
 
     $("#filterTabs").on("click", ".tab", function () { currentFilter = $(this).data("filter"); renderAll(); });

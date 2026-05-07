@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Travel List" />
   <title>Travel Checklist</title>
-  <link rel="manifest" href="manifest.json?v=1.2.0" />
+  <link rel="manifest" href="manifest.json?v=1.2.1" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css?v=1.2.0" />
+  <link rel="stylesheet" href="css/style.css?v=1.2.1" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen" hidden>
@@ -33,7 +33,7 @@
   <main id="appShell" class="app-shell" hidden>
     <header class="topbar">
       <div class="brand-row">
-        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.2.0</span></p>
+        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.2.1</span></p>
       </div>
       <div class="header-controls">
         <div class="checklist-switcher" aria-label="Checklist selector">
@@ -52,22 +52,26 @@
     </header>
 
     <section class="status-row" aria-live="polite">
-      <div class="stat-card urgent">
+      <button class="stat-card all" type="button" data-stat-filter="all">
+        <span id="statAll">0</span>
+        <small data-i18n="all">全部</small>
+      </button>
+      <button class="stat-card urgent" type="button" data-stat-filter="need_buy">
         <span id="statNeedBuy">0</span>
         <small data-i18n="needBuy">待购买</small>
-      </div>
-      <div class="stat-card">
+      </button>
+      <button class="stat-card" type="button" data-stat-filter="to_pack">
         <span id="statToPack">0</span>
         <small data-i18n="toPack">待打包</small>
-      </div>
-      <div class="stat-card must">
+      </button>
+      <button class="stat-card must" type="button" data-stat-filter="must">
         <span id="statMustOpen">0</span>
         <small data-i18n="mustOpen">必须未完成</small>
-      </div>
-      <div class="stat-card done">
+      </button>
+      <button class="stat-card done" type="button" data-stat-filter="done">
         <span id="statDone">0</span>
         <small data-i18n="done">已完成</small>
-      </div>
+      </button>
     </section>
 
     <section class="filter-area">
@@ -221,7 +225,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js?v=1.2.0"></script>
-  <script src="js/app.js?v=1.2.0"></script>
+  <script src="js/config.js?v=1.2.1"></script>
+  <script src="js/app.js?v=1.2.1"></script>
 </body>
 </html>

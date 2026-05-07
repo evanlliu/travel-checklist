@@ -1,8 +1,8 @@
-# Travel Checklist v1.2.0
+# Travel Checklist v1.2.1
 
 一个适合 PC 和 iOS Safari 添加到主屏幕使用的旅行购物 / 携带清单。
 
-## v1.2.0 更新
+## v1.2.1 更新
 
 - 新增多个清单支持，例如：墨西哥出行、土耳其出行、伦敦转机。
 - 顶部新增“当前清单”选择器。
@@ -40,7 +40,7 @@ data.json
 
 ## 部署到 Cloudflare Worker
 
-如果你从 v1.0.x 升级到 v1.2.0，需要更新 Worker：
+如果你从 v1.0.x 升级到 v1.2.1，需要更新 Worker：
 
 ```text
 worker/worker.js
