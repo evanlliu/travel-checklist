@@ -2284,3 +2284,94 @@ body.has-swiped-row .floating-action-dock {
     font-size: 10px;
   }
 }
+
+
+/* v1.4.0 PC/mobile drag sorting */
+.row-main {
+  grid-template-columns: 4px 24px minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.drag-handle {
+  appearance: none;
+  border: 0;
+  width: 24px;
+  height: 36px;
+  padding: 0;
+  border-radius: 10px;
+  display: inline-grid;
+  place-items: center;
+  color: var(--muted);
+  background: rgba(255,255,255,.48);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: .7;
+  letter-spacing: -5px;
+  cursor: grab;
+  touch-action: none !important;
+  user-select: none;
+}
+
+.drag-handle:hover {
+  background: rgba(255,255,255,.86);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgba(209,213,219,.72);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.item-card.is-dragging {
+  opacity: .96;
+  box-shadow: 0 24px 60px rgba(17,24,39,.22);
+  transform: scale(1.01);
+}
+
+.drag-placeholder {
+  min-height: 54px;
+  margin-bottom: 8px;
+  border: 1px dashed rgba(17,24,39,.22);
+  border-radius: 18px;
+  background: rgba(255,255,255,.40);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.76);
+}
+
+body.row-dragging {
+  user-select: none;
+}
+
+body.row-dragging .floating-action-dock {
+  opacity: 0;
+  transform: translateX(18px) scale(.92);
+  pointer-events: none;
+}
+
+body.row-dragging .item-card:not(.is-dragging) {
+  transition: transform .12s ease, opacity .12s ease;
+}
+
+@media (max-width: 760px) {
+  .row-main {
+    grid-template-columns: 4px 20px minmax(0, 1fr) auto;
+    gap: 6px;
+  }
+
+  .drag-handle {
+    width: 20px;
+    height: 34px;
+    border-radius: 9px;
+    font-size: 13px;
+    background: rgba(255,255,255,.38);
+  }
+
+  .item-card.is-dragging {
+    transform: scale(1.015);
+  }
+
+  .drag-placeholder {
+    min-height: 50px;
+    margin-bottom: 7px;
+    border-radius: 16px;
+  }
+}

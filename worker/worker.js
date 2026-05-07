@@ -178,6 +178,7 @@ function sanitizeData(data) {
       doneAt: item.doneAt ? String(item.doneAt) : null,
       pinned: Boolean(item.pinned || item.pinnedAt),
       pinnedAt: item.pinnedAt ? String(item.pinnedAt) : (item.pinned ? String(item.updatedAt || now) : null),
+      sortOrder: Number.isFinite(Number(item.sortOrder)) ? Number(item.sortOrder) : null,
       deleted: Boolean(item.deleted)
     };
   }) : [];

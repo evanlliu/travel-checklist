@@ -1,10 +1,10 @@
-/* v1.3.7 */
+/* v1.4.0 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.3.7";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.0";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -60,6 +60,8 @@
       pin: "置顶",
       unpin: "取消置顶",
       pinned: "置顶",
+      dragSort: "拖动排序",
+      actionReordered: "调整了排序",
       confirmDelete: "确定删除这个物品吗？",
       actionAdded: "新增了",
       actionUpdated: "修改了",
@@ -186,6 +188,8 @@
       pin: "Pin",
       unpin: "Unpin",
       pinned: "Pinned",
+      dragSort: "Drag to reorder",
+      actionReordered: "Reordered items",
       confirmDelete: "Delete this item?",
       actionAdded: "Added",
       actionUpdated: "Updated",
@@ -474,8 +478,14 @@
         doneAt: null,
         pinned: false,
         pinnedAt: null,
+        sortOrder: null,
         deleted: false
       }, item, { checklistId, tripId: checklistId });
+    });
+
+    result.items.forEach(item => {
+      const order = Number(item.sortOrder);
+      item.sortOrder = Number.isFinite(order) ? order : null;
     });
 
     result.schemaVersion = 2;
@@ -703,6 +713,34 @@
   function isDone(item) { return COMPLETED_STATUSES.includes(item.status); }
   function isPinned(item) { return Boolean(item && (item.pinned || item.pinnedAt)); }
 
+  function getSortOrder(item) {
+    const order = Number(item?.sortOrder);
+    return Number.isFinite(order) ? order : null;
+  }
+
+  function compareItemsForDisplay(a, b) {
+    const priorityRank = { must: 0, optional: 1 };
+    const statusRank = { need_buy: 0, bought: 1, to_pack: 1, packed: 2, done: 2 };
+    const pinnedDiff = (isPinned(b) ? 1 : 0) - (isPinned(a) ? 1 : 0);
+    if (pinnedDiff) return pinnedDiff;
+
+    const orderA = getSortOrder(a);
+    const orderB = getSortOrder(b);
+    if (orderA !== null || orderB !== null) {
+      const orderDiff = (orderA ?? Number.MAX_SAFE_INTEGER) - (orderB ?? Number.MAX_SAFE_INTEGER);
+      if (orderDiff) return orderDiff;
+    }
+
+    return ((priorityRank[a.priority] ?? 9) - (priorityRank[b.priority] ?? 9))
+      || ((statusRank[a.status] ?? 9) - (statusRank[b.status] ?? 9))
+      || String(a.title || "").localeCompare(String(b.title || ""), getLang() === "zh-CN" ? "zh-Hans-CN" : "en-US");
+  }
+
+  function getNextSortOrder(checklistId) {
+    const orders = getChecklistItems(true, checklistId).map(getSortOrder).filter(order => order !== null);
+    return orders.length ? Math.max(...orders) + 1000 : 1000;
+  }
+
   function getStats(items) {
     return {
       all: items.length,
@@ -849,15 +887,7 @@
   }
 
   function renderItems() {
-    const items = filterItems(getChecklistItems()).sort((a, b) => {
-      const priorityRank = { must: 0, optional: 1 };
-      const statusRank = { need_buy: 0, bought: 1, to_pack: 1, packed: 2, done: 2 };
-      const pinnedDiff = (isPinned(b) ? 1 : 0) - (isPinned(a) ? 1 : 0);
-      return pinnedDiff
-        || (priorityRank[a.priority] ?? 9) - (priorityRank[b.priority] ?? 9)
-        || (statusRank[a.status] ?? 9) - (statusRank[b.status] ?? 9)
-        || String(a.title || "").localeCompare(String(b.title || ""), getLang() === "zh-CN" ? "zh-Hans-CN" : "en-US");
-    });
+    const items = filterItems(getChecklistItems()).sort(compareItemsForDisplay);
     $("#itemList").empty();
     $("#emptyState").prop("hidden", items.length > 0);
     items.forEach(item => $("#itemList").append(renderItemCard(item)));
@@ -880,6 +910,7 @@
         <div class="item-swipe-content">
           <div class="row-main">
             <span class="status-bar" aria-hidden="true"></span>
+            <button class="drag-handle" type="button" aria-label="${escapeHtml(t("dragSort"))}" title="${escapeHtml(t("dragSort"))}">⋮⋮</button>
             <div class="item-primary">
               <div class="title-line">
                 <h2 class="item-title">${escapeHtml(item.title)}</h2>
@@ -1008,6 +1039,7 @@
         doneAt: null,
         pinned: false,
         pinnedAt: null,
+        sortOrder: null,
         deleted: false
       }, formData));
     }
@@ -1245,6 +1277,127 @@
     if (fromSettings) setSaveStatus(t("connectionSaved"));
   }
 
+  function persistVisibleOrderAfterDrag(actionMessage) {
+    const checklistId = getCurrentChecklist()?.id;
+    if (!checklistId) return;
+
+    const visibleIds = $("#itemList .item-card").map(function () { return String($(this).data("id")); }).get();
+    if (visibleIds.length < 2) return;
+
+    const visibleSet = new Set(visibleIds);
+    const visibleQueue = visibleIds.slice();
+    const currentItems = getChecklistItems(false, checklistId).slice().sort(compareItemsForDisplay);
+    const reordered = currentItems.map(item => {
+      if (!visibleSet.has(item.id)) return item;
+      const nextId = visibleQueue.shift();
+      return findItem(nextId) || item;
+    }).filter(Boolean);
+
+    const now = nowIso();
+    reordered.forEach((item, index) => {
+      item.sortOrder = (index + 1) * 1000;
+      item.updatedAt = now;
+    });
+
+    scheduleSave(actionMessage || t("actionReordered"));
+    renderAll();
+  }
+
+  function bindRowDragEvents() {
+    let dragState = null;
+
+    function cleanupDrag(saveOrder) {
+      if (!dragState) return;
+      const state = dragState;
+      dragState = null;
+
+      state.card.removeClass("is-dragging").css({
+        position: "",
+        left: "",
+        top: "",
+        width: "",
+        zIndex: "",
+        pointerEvents: ""
+      });
+
+      state.placeholder.before(state.card);
+      const endIndex = state.placeholder.index();
+      state.placeholder.remove();
+      $("body").removeClass("row-dragging");
+
+      if (saveOrder && state.startIndex !== endIndex) {
+        persistVisibleOrderAfterDrag(t("actionReordered"));
+      }
+    }
+
+    $("#itemList").on("pointerdown", ".drag-handle", function (event) {
+      if (!appData) return;
+      if (event.originalEvent.pointerType === "mouse" && event.originalEvent.button !== 0) return;
+
+      const $card = $(this).closest(".item-card");
+      if (!$card.length) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      closeTransientPanels();
+
+      const rect = $card[0].getBoundingClientRect();
+      const $placeholder = $('<div class="drag-placeholder" aria-hidden="true"></div>').height(rect.height);
+      $card.after($placeholder);
+
+      dragState = {
+        card: $card,
+        placeholder: $placeholder,
+        pointerId: event.originalEvent.pointerId,
+        offsetY: event.originalEvent.clientY - rect.top,
+        startIndex: $placeholder.index()
+      };
+
+      $("body").addClass("row-dragging");
+      $card.addClass("is-dragging").css({
+        position: "fixed",
+        left: rect.left + "px",
+        top: rect.top + "px",
+        width: rect.width + "px",
+        zIndex: 1500,
+        pointerEvents: "none"
+      });
+
+      if (this.setPointerCapture) {
+        try { this.setPointerCapture(event.originalEvent.pointerId); } catch (_) {}
+      }
+    });
+
+    $(document).on("pointermove", function (event) {
+      if (!dragState) return;
+      event.preventDefault();
+
+      const y = event.originalEvent.clientY;
+      dragState.card.css("top", (y - dragState.offsetY) + "px");
+
+      let placed = false;
+      $("#itemList .item-card").not(dragState.card).each(function () {
+        const rect = this.getBoundingClientRect();
+        if (y < rect.top + rect.height / 2) {
+          dragState.placeholder.insertBefore(this);
+          placed = true;
+          return false;
+        }
+      });
+
+      if (!placed) {
+        $("#itemList").append(dragState.placeholder);
+      }
+    });
+
+    $(document).on("pointerup pointercancel", function (event) {
+      if (!dragState) return;
+      const shouldSave = event.type === "pointerup";
+      cleanupDrag(shouldSave);
+    });
+  }
+
   function bindMobileSwipeEvents() {
     let startX = 0;
     let startY = 0;
@@ -1373,6 +1526,7 @@
 
   function bindEvents() {
     bindMobileSwipeEvents();
+    bindRowDragEvents();
 
     $("#loginForm").on("submit", async function (event) {
       event.preventDefault();
