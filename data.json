@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.1.1",
   "schemaVersion": 2,
-  "revision": 16,
-  "updatedAt": "2026-05-07T07:30:36.860Z",
+  "revision": 17,
+  "updatedAt": "2026-05-07T07:33:04.672Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -456,6 +456,22 @@
       "createdAt": "2026-05-07T07:30:19.405Z",
       "updatedAt": "2026-05-07T07:30:35.454Z",
       "doneAt": "2026-05-07T07:30:35.454Z",
+      "deleted": false
+    },
+    {
+      "id": "item_mov65qqp_nn99fd",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "测试",
+      "category": "documents",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-07T07:33:03.265Z",
+      "updatedAt": "2026-05-07T07:33:03.265Z",
+      "doneAt": null,
       "deleted": false
     }
   ]
