@@ -1,17 +1,44 @@
 {
-  "appVersion": "v1.0.3",
-  "schemaVersion": 1,
-  "revision": 2,
-  "updatedAt": "2026-05-07T06:56:58.705Z",
+  "appVersion": "v1.1.0",
+  "schemaVersion": 2,
+  "revision": 12,
+  "updatedAt": "2026-05-07T07:18:28.948Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
-    "currentTripId": "mexico-2026",
+    "currentChecklistId": "checklist_mov5hpql_uafjfp",
+    "currentTripId": "checklist_mov5hpql_uafjfp",
     "cloudflare": {
       "apiBase": "https://travel-checklist-data-worker.287418456.workers.dev",
       "appPassword": "1123"
     }
   },
+  "checklists": [
+    {
+      "id": "mexico-2026",
+      "name": {
+        "zh-CN": "墨西哥出行清单",
+        "en-US": "Mexico Travel Checklist"
+      },
+      "type": "travel",
+      "status": "active",
+      "createdAt": "2026-05-07T07:10:01.795Z",
+      "updatedAt": "2026-05-07T07:10:01.795Z",
+      "deleted": false
+    },
+    {
+      "id": "checklist_mov5hpql_uafjfp",
+      "name": {
+        "zh-CN": "土耳其",
+        "en-US": "土耳其"
+      },
+      "type": "travel",
+      "status": "active",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "deleted": false
+    }
+  ],
   "trips": [
     {
       "id": "mexico-2026",
@@ -19,7 +46,15 @@
         "zh-CN": "墨西哥出行清单",
         "en-US": "Mexico Travel Checklist"
       },
-      "createdAt": "2026-05-07T00:00:00.000Z"
+      "createdAt": "2026-05-07T07:10:01.795Z"
+    },
+    {
+      "id": "checklist_mov5hpql_uafjfp",
+      "name": {
+        "zh-CN": "土耳其",
+        "en-US": "土耳其"
+      },
+      "createdAt": "2026-05-07T07:14:22.221Z"
     }
   ],
   "items": [
@@ -200,6 +235,186 @@
       "note": "长途飞行或转机时备用。",
       "createdAt": "2026-05-07T00:00:00.000Z",
       "updatedAt": "2026-05-07T00:00:00.000Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_891npw",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "护照",
+      "category": "documents",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "确认有效期，建议准备护照复印件。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_gf5i3e",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "英国 eVisa / 墨西哥入境资料打印件",
+      "category": "documents",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "黑白打印通常够用，建议和行程单放一起。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_ukwqb0",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "Visa 信用卡 / 银行卡",
+      "category": "money",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 2,
+      "note": "最好准备两张卡，避免一张无法使用。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_xtwh6l",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "少量现金",
+      "category": "money",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "optional",
+      "quantity": 1,
+      "note": "准备少量美元或当地可兑换现金。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_e271hj",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "美标转换插头",
+      "category": "electronics",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "墨西哥常用美标插头。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_cyktez",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "手机充电器 / 数据线",
+      "category": "electronics",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "建议带备用数据线。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_vi8bb0",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "充电宝",
+      "category": "electronics",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "optional",
+      "quantity": 1,
+      "note": "随身携带，不要托运。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_9s94jp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "常用药测试",
+      "category": "medicine",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "感冒药、肠胃药、止痛药等。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:35.345Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_fpod5d",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "洗漱用品旅行装",
+      "category": "toiletries",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "optional",
+      "quantity": 1,
+      "note": "牙刷、牙膏、洗面奶、剃须用品。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_mmcihj",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "换洗衣服",
+      "category": "clothes",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "按出差天数准备，注意当地天气。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_gc8kw2",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "电脑 / 工作资料",
+      "category": "work",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "检查充电器、VPN、必要文件。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_mov5hpql_512249",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "零食",
+      "category": "food",
+      "type": "buy",
+      "status": "need_buy",
+      "priority": "optional",
+      "quantity": 1,
+      "note": "长途飞行或转机时备用。",
+      "createdAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:22.221Z",
       "doneAt": null,
       "deleted": false
     }
