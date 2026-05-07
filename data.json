@@ -1,8 +1,8 @@
 {
-  "appVersion": "v1.3.3",
+  "appVersion": "v1.3.2",
   "schemaVersion": 2,
-  "revision": 117,
-  "updatedAt": "2026-05-07T10:34:10.646Z",
+  "revision": 118,
+  "updatedAt": "2026-05-07T10:35:33.350Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -31,13 +31,13 @@
     {
       "id": "checklist_mov5hpql_uafjfp",
       "name": {
-        "zh-CN": "墨西哥需携带物品",
-        "en-US": "墨西哥需携带物品"
+        "zh-CN": "Mexico",
+        "en-US": "Mexico"
       },
       "type": "travel",
       "status": "active",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T08:46:29.456Z",
+      "updatedAt": "2026-05-07T10:35:31.800Z",
       "deleted": false
     }
   ],
@@ -45,8 +45,8 @@
     {
       "id": "checklist_mov5hpql_uafjfp",
       "name": {
-        "zh-CN": "墨西哥需携带物品",
-        "en-US": "墨西哥需携带物品"
+        "zh-CN": "Mexico",
+        "en-US": "Mexico"
       },
       "createdAt": "2026-05-07T07:14:22.221Z"
     }
