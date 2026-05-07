@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.1.0",
   "schemaVersion": 2,
-  "revision": 7,
-  "updatedAt": "2026-05-07T07:14:31.194Z",
+  "revision": 8,
+  "updatedAt": "2026-05-07T07:14:36.648Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -346,7 +346,7 @@
     {
       "id": "item_mov5hpql_9s94jp",
       "tripId": "checklist_mov5hpql_uafjfp",
-      "title": "常用药",
+      "title": "常用药测试",
       "category": "medicine",
       "type": "buy_and_carry",
       "status": "need_buy",
@@ -354,7 +354,7 @@
       "quantity": 1,
       "note": "感冒药、肠胃药、止痛药等。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:22.221Z",
+      "updatedAt": "2026-05-07T07:14:35.345Z",
       "doneAt": null,
       "deleted": false
     },
