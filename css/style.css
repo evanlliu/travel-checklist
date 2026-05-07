@@ -2470,3 +2470,108 @@ body.row-dragging * {
     height: 34px;
   }
 }
+
+
+/* v1.4.5 mobile top spacing refinement
+   Move the mobile/PWA top content slightly upward while still respecting iOS safe area. */
+@media (max-width: 760px) {
+  .app-shell {
+    padding-top: 8px;
+  }
+
+  @supports (padding-top: max(0px, 1px)) {
+    .app-shell {
+      padding-top: max(8px, calc(var(--safe-top) + 4px));
+    }
+  }
+
+  .topbar {
+    margin-bottom: 6px;
+  }
+}
+
+
+/* v1.4.6 tighter row spacing + sync timestamp layout */
+.save-status {
+  min-height: 20px;
+  margin-bottom: 5px;
+  line-height: 1.25;
+}
+
+.filter-area {
+  margin-bottom: 8px;
+}
+
+.item-list {
+  gap: 8px;
+}
+
+.item-card.compact-item {
+  border-radius: 14px;
+}
+
+.row-main {
+  min-height: 48px;
+  gap: 8px;
+  padding: 6px 10px 6px 0;
+}
+
+.status-bar {
+  height: 34px;
+}
+
+.item-title {
+  line-height: 1.18;
+}
+
+.item-meta {
+  margin-top: 3px;
+}
+
+.status-row {
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 760px) {
+  .save-status {
+    min-height: 18px;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+
+  .filter-area {
+    margin-bottom: 6px;
+  }
+
+  .item-list {
+    gap: 5px;
+  }
+
+  .item-card.compact-item {
+    border-radius: 14px;
+  }
+
+  .item-swipe-content {
+    border-radius: 14px;
+  }
+
+  .row-main {
+    min-height: 50px;
+    gap: 6px;
+    padding: 6px 8px 6px 0;
+  }
+
+  .status-bar {
+    height: 34px;
+  }
+
+  .item-meta {
+    margin-top: 2px;
+  }
+
+  .status-row {
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+}

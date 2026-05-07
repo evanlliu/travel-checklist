@@ -1,10 +1,10 @@
-/* v1.4.2 */
+/* v1.4.6 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.2";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.6";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -545,14 +545,14 @@
     currentFilter = appData.settings.hideDone === false ? "all" : "active";
     localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(appData));
     localStorage.setItem("travelChecklist.lang", appData.settings.language);
-    setSaveStatus(t("saved"));
+    setSaveStatus(formatSaveStatus(t("saved")));
     showApp();
     renderAll();
 
     const shouldWriteConnection = mode === "save-local" || !remoteConn.apiBase || !remoteConn.appPassword;
     if (shouldWriteConnection && persistConnectionToData()) {
       await saveData({ silent: true });
-      setSaveStatus(t("connectionSaved"));
+      setSaveStatus(formatSaveStatus(t("connectionSaved")));
     }
   }
 
@@ -634,8 +634,16 @@
     return getLang() === "zh-CN" ? `${t(actionKey)}${cleanTitle}` : `${t(actionKey)}: ${cleanTitle}`;
   }
 
+  function formatSyncTime(date = new Date()) {
+    const pad = value => String(value).padStart(2, "0");
+    return `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+  }
+
   function formatSaveStatus(baseText, actionMessage) {
-    return actionMessage ? `${baseText}：${actionMessage}` : baseText;
+    const text = String(baseText || "").trim();
+    if (!text) return "";
+    const baseWithTime = `${text} · ${formatSyncTime()}`;
+    return actionMessage ? `${baseWithTime}：${actionMessage}` : baseWithTime;
   }
   function setLoginStatus(text, isError) { $("#loginStatus").prop("hidden", !text).toggleClass("error-text", Boolean(isError)).text(text || ""); }
   function setSettingsStatus(text, isError) { $("#settingsStatus").prop("hidden", !text).toggleClass("error-text", Boolean(isError)).text(text || ""); }
@@ -1281,7 +1289,7 @@
     await login(clean.appPassword);
     await fetchDataWithRelogin({ connectionMode: "save-local" });
     if (persistConnectionToData()) await saveData({ silent: true });
-    if (fromSettings) setSaveStatus(t("connectionSaved"));
+    if (fromSettings) setSaveStatus(formatSaveStatus(t("connectionSaved")));
   }
 
   function persistVisibleOrderAfterDrag(actionMessage) {
@@ -1618,7 +1626,7 @@
         setSettingsStatus(t("loading"), false);
         await connectAndSync(readConnectionFromSettingsForm(), true);
         setSettingsStatus(t("connectionSaved"), false);
-        setSaveStatus(t("connectionSaved"));
+        setSaveStatus(formatSaveStatus(t("connectionSaved")));
         closeSettings();
       } catch (err) {
         const message = connectionErrorMessage(err);
