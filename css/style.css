@@ -1513,3 +1513,87 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
     left: 24px;
   }
 }
+
+
+/* v1.2.4 mobile top safe-area + menu overlay fix */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+.topbar {
+  position: relative;
+  z-index: 1600;
+}
+
+.action-menu-wrap {
+  position: relative;
+  z-index: 3100;
+}
+
+.actions-menu {
+  z-index: 3200;
+  isolation: isolate;
+}
+
+.filter-area {
+  z-index: 700;
+}
+
+.filter-panel {
+  z-index: 900;
+}
+
+@supports (padding-top: max(0px, 1px)) {
+  .app-shell {
+    padding-top: max(18px, calc(var(--safe-top) + 14px));
+  }
+
+  .login-screen {
+    padding-top: max(24px, calc(var(--safe-top) + 24px));
+  }
+}
+
+@media (max-width: 760px) {
+  @supports (padding-top: max(0px, 1px)) {
+    .app-shell {
+      padding-top: max(16px, calc(var(--safe-top) + 12px));
+    }
+  }
+
+  .topbar {
+    position: relative;
+    z-index: 1600;
+  }
+
+  .header-controls {
+    position: relative;
+    z-index: 1601;
+  }
+
+  .action-menu-wrap {
+    position: relative;
+    z-index: 3100;
+  }
+
+  .actions-menu {
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 3200;
+    width: min(180px, calc(100vw - 28px));
+    box-shadow: 0 22px 54px rgba(17,24,39,.18);
+  }
+
+  .status-row {
+    position: relative;
+    z-index: 20;
+  }
+
+  .filter-area {
+    position: relative;
+    z-index: 700;
+  }
+
+  .filter-panel {
+    z-index: 900;
+  }
+}
