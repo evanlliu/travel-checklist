@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 98,
-  "updatedAt": "2026-05-07T09:49:48.920Z",
+  "revision": 99,
+  "updatedAt": "2026-05-07T09:49:53.889Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -318,9 +318,9 @@
       "quantity": 1,
       "note": "墨西哥常用美标插头。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T08:23:07.392Z",
+      "updatedAt": "2026-05-07T09:49:52.305Z",
       "doneAt": "2026-05-07T08:23:07.392Z",
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_mov5hpql_cyktez",
