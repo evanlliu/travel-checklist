@@ -1,10 +1,10 @@
-/* v1.1.0 */
+/* v1.1.2 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.1.0";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.1.2";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -726,17 +726,19 @@
     const restoreAction = isDone(item) ? `<button class="small-ghost item-restore" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t("restore"))}</button>` : "";
     return `
       <article class="item-card${doneClass}" data-id="${escapeHtml(item.id)}">
-        <div class="item-head">
-          <h2 class="item-title">${escapeHtml(item.title)}</h2>
-          <div class="item-qty">× ${Number(item.quantity || 1)}</div>
+        <div class="item-swipe-content">
+          <div class="item-head">
+            <h2 class="item-title">${escapeHtml(item.title)}</h2>
+            <div class="item-qty">× ${Number(item.quantity || 1)}</div>
+          </div>
+          <div class="chip-row">
+            <span class="chip ${item.priority === "must" ? "must" : ""}">${escapeHtml(t(item.priority))}</span>
+            <span class="chip">${escapeHtml(t("cat_" + item.category))}</span>
+            <span class="chip">${escapeHtml(t("type_" + item.type))}</span>
+            <span class="chip status-${escapeHtml(item.status)}">${escapeHtml(t("status_" + item.status))}</span>
+          </div>
+          ${noteHtml}
         </div>
-        <div class="chip-row">
-          <span class="chip ${item.priority === "must" ? "must" : ""}">${escapeHtml(t(item.priority))}</span>
-          <span class="chip">${escapeHtml(t("cat_" + item.category))}</span>
-          <span class="chip">${escapeHtml(t("type_" + item.type))}</span>
-          <span class="chip status-${escapeHtml(item.status)}">${escapeHtml(t("status_" + item.status))}</span>
-        </div>
-        ${noteHtml}
         <div class="item-actions">
           ${primaryAction}
           ${restoreAction}
@@ -1073,7 +1075,77 @@
     if (fromSettings) setSaveStatus(t("connectionSaved"));
   }
 
+  function bindMobileSwipeEvents() {
+    let startX = 0;
+    let startY = 0;
+    let activeCard = null;
+    let tracking = false;
+
+    function isMobileSwipeMode() {
+      return window.matchMedia("(max-width: 760px)").matches;
+    }
+
+    function closeOtherCards(card) {
+      $("#itemList .item-card.swiped").not(card || []).removeClass("swiped");
+    }
+
+    $(document).on("click", function (event) {
+      if (!$(event.target).closest(".item-card").length) closeOtherCards();
+    });
+
+    $("#itemList").on("touchstart", ".item-card", function (event) {
+      if (!isMobileSwipeMode()) return;
+      const touch = event.originalEvent.touches && event.originalEvent.touches[0];
+      if (!touch) return;
+      startX = touch.clientX;
+      startY = touch.clientY;
+      activeCard = this;
+      tracking = true;
+    });
+
+    $("#itemList").on("touchmove", ".item-card", function (event) {
+      if (!tracking || !activeCard || !isMobileSwipeMode()) return;
+      const touch = event.originalEvent.touches && event.originalEvent.touches[0];
+      if (!touch) return;
+      const dx = touch.clientX - startX;
+      const dy = touch.clientY - startY;
+      if (Math.abs(dx) > 18 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+        event.preventDefault();
+      }
+    });
+
+    $("#itemList").on("touchend touchcancel", ".item-card", function (event) {
+      if (!tracking || !activeCard || !isMobileSwipeMode()) return;
+      const touch = (event.originalEvent.changedTouches && event.originalEvent.changedTouches[0]) || null;
+      if (!touch) return;
+      const dx = touch.clientX - startX;
+      const dy = touch.clientY - startY;
+      const isHorizontal = Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy) * 1.25;
+      if (isHorizontal && dx < 0) {
+        closeOtherCards(activeCard);
+        $(activeCard).addClass("swiped");
+      } else if (isHorizontal && dx > 0) {
+        $(activeCard).removeClass("swiped");
+      }
+      tracking = false;
+      activeCard = null;
+    });
+
+    $("#itemList").on("click", ".item-swipe-content", function () {
+      const card = $(this).closest(".item-card");
+      if (card.hasClass("swiped") && isMobileSwipeMode()) {
+        card.removeClass("swiped");
+      }
+    });
+
+    $("#itemList").on("click", ".item-actions button", function () {
+      $(this).closest(".item-card").removeClass("swiped");
+    });
+  }
+
   function bindEvents() {
+    bindMobileSwipeEvents();
+
     $("#loginForm").on("submit", async function (event) {
       event.preventDefault();
       setLoginStatus("", false);

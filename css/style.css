@@ -114,11 +114,6 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
   font-weight: 800;
 }
 
-.topbar h1 {
-  margin: 0;
-  font-size: clamp(28px, 5vw, 42px);
-  letter-spacing: -0.04em;
-}
 
 .top-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
 
@@ -228,6 +223,11 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
   gap: 12px;
 }
 .item-card.done-card { opacity: .72; }
+.item-swipe-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 .item-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
 .item-title { margin: 0; font-size: 20px; letter-spacing: -0.02em; }
 .item-qty { color: var(--muted); font-weight: 800; white-space: nowrap; }
@@ -391,9 +391,66 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
   .mobile-nav-btn { font-size: 13px; }
 }
 
-/* v1.1.0 multiple checklist styles */
+/* v1.1.2 mobile swipe actions */
+@media (max-width: 760px) {
+  .item-card {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .item-swipe-content {
+    position: relative;
+    z-index: 2;
+    min-height: 100%;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: 0 8px 24px rgba(17, 24, 39, .04);
+    transition: transform .22s ease;
+    will-change: transform;
+    touch-action: pan-y;
+  }
+  .item-card.swiped .item-swipe-content {
+    transform: translateX(-170px);
+  }
+  .item-actions {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 170px;
+    margin: 0;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    gap: 8px;
+    border-radius: var(--radius);
+    background: transparent;
+  }
+  .item-actions button {
+    width: 100%;
+    min-height: 38px;
+    padding: 0 8px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .item-actions .primary-btn {
+    grid-column: 1 / -1;
+  }
+  .item-actions .item-restore {
+    grid-column: 1 / -1;
+  }
+}
+
+/* v1.1.2 checklist header refinement */
 .checklist-switcher {
-  margin-top: 12px;
+  margin-top: 8px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
