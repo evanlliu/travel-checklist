@@ -1,10 +1,10 @@
-/* v1.4.1 */
+/* v1.4.2 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.1";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.2";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -724,11 +724,15 @@
     const pinnedDiff = (isPinned(b) ? 1 : 0) - (isPinned(a) ? 1 : 0);
     if (pinnedDiff) return pinnedDiff;
 
-    const orderA = getSortOrder(a);
-    const orderB = getSortOrder(b);
-    if (orderA !== null || orderB !== null) {
-      const orderDiff = (orderA ?? Number.MAX_SAFE_INTEGER) - (orderB ?? Number.MAX_SAFE_INTEGER);
-      if (orderDiff) return orderDiff;
+    // Only pinned rows can use manual drag order.
+    // Normal rows always follow: must -> optional, need_buy -> to_pack -> done, then title.
+    if (isPinned(a) && isPinned(b)) {
+      const orderA = getSortOrder(a);
+      const orderB = getSortOrder(b);
+      if (orderA !== null || orderB !== null) {
+        const orderDiff = (orderA ?? Number.MAX_SAFE_INTEGER) - (orderB ?? Number.MAX_SAFE_INTEGER);
+        if (orderDiff) return orderDiff;
+      }
     }
 
     return ((priorityRank[a.priority] ?? 9) - (priorityRank[b.priority] ?? 9))
@@ -905,12 +909,15 @@
     const priorityClass = item.priority === "must" ? " must" : "";
     const pinnedPill = isPinned(item) ? `<span class="pin-pill">${escapeHtml(t("pinned"))}</span>` : "";
     const noteToggleHint = item.note ? " has-note" : "";
+    const dragHandle = isPinned(item)
+      ? `<button class="drag-handle" type="button" draggable="false" aria-label="${escapeHtml(t("dragSort"))}" title="${escapeHtml(t("dragSort"))}"><span class="drag-dot-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span></button>`
+      : `<span class="drag-handle-placeholder" aria-hidden="true"></span>`;
     return `
       <article class="item-card compact-item status-${escapeHtml(item.status)} priority-${escapeHtml(item.priority)}${doneClass}${pinnedClass}${noteToggleHint}" data-id="${escapeHtml(item.id)}">
         <div class="item-swipe-content">
           <div class="row-main">
             <span class="status-bar" aria-hidden="true"></span>
-            <button class="drag-handle" type="button" draggable="false" aria-label="${escapeHtml(t("dragSort"))}" title="${escapeHtml(t("dragSort"))}"><span class="drag-dot-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span></button>
+            ${dragHandle}
             <div class="item-primary">
               <div class="title-line">
                 <h2 class="item-title">${escapeHtml(item.title)}</h2>
@@ -1039,7 +1046,7 @@
         doneAt: null,
         pinned: false,
         pinnedAt: null,
-        sortOrder: getNextSortOrder(checklistId),
+        sortOrder: null,
         deleted: false
       }, formData));
     }
@@ -1281,20 +1288,21 @@
     const checklistId = getCurrentChecklist()?.id;
     if (!checklistId) return;
 
-    const visibleIds = $("#itemList .item-card").map(function () { return String($(this).data("id")); }).get();
+    const visibleIds = $("#itemList .item-card.is-pinned").map(function () { return String($(this).data("id")); }).get();
     if (visibleIds.length < 2) return;
 
     const visibleSet = new Set(visibleIds);
     const visibleQueue = visibleIds.slice();
-    const currentItems = getChecklistItems(false, checklistId).slice().sort(compareItemsForDisplay);
-    const reordered = currentItems.map(item => {
+    const currentPinnedItems = getChecklistItems(false, checklistId).filter(isPinned).slice().sort(compareItemsForDisplay);
+
+    const reorderedPinned = currentPinnedItems.map(item => {
       if (!visibleSet.has(item.id)) return item;
       const nextId = visibleQueue.shift();
       return findItem(nextId) || item;
     }).filter(Boolean);
 
     const now = nowIso();
-    reordered.forEach((item, index) => {
+    reorderedPinned.forEach((item, index) => {
       item.sortOrder = (index + 1) * 1000;
       item.updatedAt = now;
     });
@@ -1340,6 +1348,8 @@
 
       const $card = $(this).closest(".item-card");
       if (!$card.length) return;
+      const dragItem = findItem(String($card.data("id")));
+      if (!isPinned(dragItem)) return;
 
       event.preventDefault();
       event.stopPropagation();
@@ -1381,7 +1391,8 @@
       dragState.card.css("top", (y - dragState.offsetY) + "px");
 
       let placed = false;
-      $("#itemList .item-card").not(dragState.card).each(function () {
+      const pinnedCards = $("#itemList .item-card.is-pinned").not(dragState.card);
+      pinnedCards.each(function () {
         const rect = this.getBoundingClientRect();
         if (y < rect.top + rect.height / 2) {
           dragState.placeholder.insertBefore(this);
@@ -1391,7 +1402,11 @@
       });
 
       if (!placed) {
-        $("#itemList").append(dragState.placeholder);
+        if (pinnedCards.length) {
+          dragState.placeholder.insertAfter(pinnedCards.last());
+        } else {
+          $("#itemList").prepend(dragState.placeholder);
+        }
       }
     });
 
@@ -1654,6 +1669,7 @@
       mutateItem(id, item => {
         item.pinned = willPin;
         item.pinnedAt = willPin ? nowIso() : null;
+        if (!willPin) item.sortOrder = null;
       }, formatActionMessage(willPin ? "actionPinned" : "actionUnpinned", currentItem.title));
     });
 

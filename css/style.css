@@ -2446,3 +2446,27 @@ body.row-dragging * {
     appearance: none;
   }
 }
+
+
+/* v1.4.2: drag sorting is available only for pinned rows */
+.drag-handle-placeholder {
+  width: 24px;
+  height: 36px;
+  display: block;
+}
+
+.item-card:not(.is-pinned) .drag-handle {
+  display: none !important;
+}
+
+.item-card.is-pinned .drag-handle {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (max-width: 760px) {
+  .drag-handle-placeholder {
+    width: 20px;
+    height: 34px;
+  }
+}
