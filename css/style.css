@@ -2575,3 +2575,49 @@ body.row-dragging * {
     margin-bottom: 8px;
   }
 }
+
+
+/* v1.4.7 mobile top spacing + Safari zoom prevention */
+@media (max-width: 760px) {
+  .app-shell {
+    padding-top: 4px;
+  }
+
+  @supports (padding-top: max(0px, 1px)) {
+    .app-shell {
+      padding-top: max(2px, calc(var(--safe-top) - 6px));
+    }
+  }
+
+  .topbar {
+    margin-bottom: 4px;
+  }
+
+  html,
+  body,
+  button,
+  .app-shell,
+  .item-card,
+  .filter-toggle,
+  .status-row,
+  .floating-action-dock {
+    touch-action: manipulation;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px;
+  }
+
+  .filter-panel .search-box input,
+  .modal input,
+  .modal select,
+  .modal textarea,
+  .settings-modal input,
+  .settings-modal select,
+  .settings-modal textarea {
+    font-size: 16px !important;
+  }
+}

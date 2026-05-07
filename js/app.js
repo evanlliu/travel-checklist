@@ -1,10 +1,10 @@
-/* v1.4.6 */
+/* v1.4.7 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.6";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.7";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
