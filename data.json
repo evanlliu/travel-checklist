@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 92,
-  "updatedAt": "2026-05-07T09:48:00.088Z",
+  "revision": 93,
+  "updatedAt": "2026-05-07T09:48:10.488Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -655,6 +655,22 @@
       "note": "",
       "createdAt": "2026-05-07T09:47:58.631Z",
       "updatedAt": "2026-05-07T09:47:58.630Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_movazh23_yhylyn",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "花洒",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "optional",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-07T09:48:08.859Z",
+      "updatedAt": "2026-05-07T09:48:08.859Z",
       "doneAt": null,
       "deleted": false
     }
