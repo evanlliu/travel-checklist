@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.4.1",
   "schemaVersion": 2,
-  "revision": 170,
-  "updatedAt": "2026-05-07T12:46:16.361Z",
+  "revision": 171,
+  "updatedAt": "2026-05-07T12:46:21.342Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -805,10 +805,10 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:48:42.411Z",
-      "updatedAt": "2026-05-07T12:46:15.673Z",
+      "updatedAt": "2026-05-07T12:46:20.346Z",
       "doneAt": null,
-      "pinned": true,
-      "pinnedAt": "2026-05-07T12:07:17.821Z",
+      "pinned": false,
+      "pinnedAt": null,
       "sortOrder": 1000,
       "deleted": false
     },
