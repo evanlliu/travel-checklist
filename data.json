@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.1.0",
   "schemaVersion": 2,
-  "revision": 12,
-  "updatedAt": "2026-05-07T07:18:28.948Z",
+  "revision": 13,
+  "updatedAt": "2026-05-07T07:28:07.353Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -60,6 +60,7 @@
   "items": [
     {
       "id": "item_passport",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "护照",
       "category": "documents",
@@ -75,6 +76,7 @@
     },
     {
       "id": "item_evisa",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "英国 eVisa / 墨西哥入境资料打印件",
       "category": "documents",
@@ -90,6 +92,7 @@
     },
     {
       "id": "item_cards",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "Visa 信用卡 / 银行卡",
       "category": "money",
@@ -105,6 +108,7 @@
     },
     {
       "id": "item_cash",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "少量现金",
       "category": "money",
@@ -120,6 +124,7 @@
     },
     {
       "id": "item_adapter",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "美标转换插头",
       "category": "electronics",
@@ -135,6 +140,7 @@
     },
     {
       "id": "item_charger",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "手机充电器 / 数据线",
       "category": "electronics",
@@ -150,6 +156,7 @@
     },
     {
       "id": "item_powerbank",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "充电宝",
       "category": "electronics",
@@ -165,6 +172,7 @@
     },
     {
       "id": "item_medicine",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "常用药",
       "category": "medicine",
@@ -180,6 +188,7 @@
     },
     {
       "id": "item_toiletries",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "洗漱用品旅行装",
       "category": "toiletries",
@@ -195,6 +204,7 @@
     },
     {
       "id": "item_clothes",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "换洗衣服",
       "category": "clothes",
@@ -210,6 +220,7 @@
     },
     {
       "id": "item_laptop",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "电脑 / 工作资料",
       "category": "work",
@@ -225,6 +236,7 @@
     },
     {
       "id": "item_snacks",
+      "checklistId": "mexico-2026",
       "tripId": "mexico-2026",
       "title": "零食",
       "category": "food",
@@ -240,6 +252,7 @@
     },
     {
       "id": "item_mov5hpql_891npw",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "护照",
       "category": "documents",
@@ -255,6 +268,7 @@
     },
     {
       "id": "item_mov5hpql_gf5i3e",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "英国 eVisa / 墨西哥入境资料打印件",
       "category": "documents",
@@ -270,6 +284,7 @@
     },
     {
       "id": "item_mov5hpql_ukwqb0",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "Visa 信用卡 / 银行卡",
       "category": "money",
@@ -285,6 +300,7 @@
     },
     {
       "id": "item_mov5hpql_xtwh6l",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "少量现金",
       "category": "money",
@@ -300,6 +316,7 @@
     },
     {
       "id": "item_mov5hpql_e271hj",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "美标转换插头",
       "category": "electronics",
@@ -315,6 +332,7 @@
     },
     {
       "id": "item_mov5hpql_cyktez",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "手机充电器 / 数据线",
       "category": "electronics",
@@ -330,6 +348,7 @@
     },
     {
       "id": "item_mov5hpql_vi8bb0",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "充电宝",
       "category": "electronics",
@@ -345,21 +364,23 @@
     },
     {
       "id": "item_mov5hpql_9s94jp",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "常用药测试",
       "category": "medicine",
       "type": "buy_and_carry",
-      "status": "need_buy",
+      "status": "bought",
       "priority": "must",
       "quantity": 1,
       "note": "感冒药、肠胃药、止痛药等。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T07:14:35.345Z",
+      "updatedAt": "2026-05-07T07:28:05.742Z",
       "doneAt": null,
       "deleted": false
     },
     {
       "id": "item_mov5hpql_fpod5d",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "洗漱用品旅行装",
       "category": "toiletries",
@@ -375,6 +396,7 @@
     },
     {
       "id": "item_mov5hpql_mmcihj",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "换洗衣服",
       "category": "clothes",
@@ -390,6 +412,7 @@
     },
     {
       "id": "item_mov5hpql_gc8kw2",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "电脑 / 工作资料",
       "category": "work",
@@ -405,6 +428,7 @@
     },
     {
       "id": "item_mov5hpql_512249",
+      "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
       "title": "零食",
       "category": "food",
