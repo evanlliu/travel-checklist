@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.9",
   "schemaVersion": 2,
-  "revision": 86,
-  "updatedAt": "2026-05-07T09:46:28.705Z",
+  "revision": 87,
+  "updatedAt": "2026-05-07T09:46:40.551Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -559,6 +559,22 @@
       "note": "",
       "createdAt": "2026-05-07T09:46:27.184Z",
       "updatedAt": "2026-05-07T09:46:27.184Z",
+      "doneAt": null,
+      "deleted": false
+    },
+    {
+      "id": "item_movaxjqs_ixdy25",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "挂面",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-07T09:46:39.028Z",
+      "updatedAt": "2026-05-07T09:46:39.028Z",
       "doneAt": null,
       "deleted": false
     }
