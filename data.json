@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.4.0",
   "schemaVersion": 2,
-  "revision": 146,
-  "updatedAt": "2026-05-07T12:23:54.389Z",
+  "revision": 147,
+  "updatedAt": "2026-05-07T12:25:20.050Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -68,6 +68,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -86,6 +87,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -104,6 +106,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -122,6 +125,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -140,6 +144,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -158,6 +163,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -176,6 +182,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -194,6 +201,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -212,6 +220,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -230,6 +239,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -248,6 +258,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -266,6 +277,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -284,6 +296,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -298,10 +311,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 19000,
       "deleted": false
     },
     {
@@ -316,10 +330,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:08:36.275Z",
+      "sortOrder": 7000,
       "deleted": false
     },
     {
@@ -338,6 +353,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -356,6 +372,7 @@
       "doneAt": "2026-05-07T08:23:07.392Z",
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -370,10 +387,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:09:29.350Z",
+      "sortOrder": 4000,
       "deleted": false
     },
     {
@@ -388,10 +406,11 @@
       "quantity": 1,
       "note": "随身携带，不要托运。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:13:50.421Z",
+      "sortOrder": 1000,
       "deleted": false
     },
     {
@@ -410,6 +429,7 @@
       "doneAt": "2026-05-07T07:29:04.777Z",
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -428,6 +448,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -442,10 +463,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 15000,
       "deleted": false
     },
     {
@@ -464,6 +486,7 @@
       "doneAt": "2026-05-07T08:31:03.516Z",
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -482,6 +505,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -500,6 +524,7 @@
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -518,6 +543,7 @@
       "doneAt": "2026-05-07T07:33:10.586Z",
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": true
     },
     {
@@ -532,10 +558,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T08:03:56.298Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 17000,
       "deleted": false
     },
     {
@@ -550,10 +577,11 @@
       "quantity": 3,
       "note": "",
       "createdAt": "2026-05-07T09:45:29.544Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:08:30.184Z",
+      "sortOrder": 5000,
       "deleted": false
     },
     {
@@ -568,10 +596,11 @@
       "quantity": 5,
       "note": "",
       "createdAt": "2026-05-07T09:45:47.340Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 11000,
       "deleted": false
     },
     {
@@ -586,10 +615,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:46:02.280Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 14000,
       "deleted": false
     },
     {
@@ -604,10 +634,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:46:14.803Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 13000,
       "deleted": false
     },
     {
@@ -622,10 +653,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:46:27.184Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 18000,
       "deleted": false
     },
     {
@@ -640,10 +672,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:46:39.028Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 10000,
       "deleted": false
     },
     {
@@ -658,10 +691,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:47:01.270Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 9000,
       "deleted": false
     },
     {
@@ -676,10 +710,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:47:13.907Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 22000,
       "deleted": false
     },
     {
@@ -694,10 +729,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:47:26.331Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 21000,
       "deleted": false
     },
     {
@@ -712,10 +748,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:47:46.170Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:15:11.654Z",
+      "sortOrder": 2000,
       "deleted": false
     },
     {
@@ -730,10 +767,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:47:58.631Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:08:33.775Z",
+      "sortOrder": 6000,
       "deleted": false
     },
     {
@@ -748,10 +786,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:48:08.859Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 20000,
       "deleted": false
     },
     {
@@ -766,10 +805,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:48:42.411Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:07:17.821Z",
+      "sortOrder": 3000,
       "deleted": false
     },
     {
@@ -784,10 +824,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:49:05.334Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:09:31.780Z",
+      "sortOrder": 8000,
       "deleted": false
     },
     {
@@ -802,10 +843,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:49:18.755Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 16000,
       "deleted": false
     },
     {
@@ -820,10 +862,11 @@
       "quantity": 5,
       "note": "",
       "createdAt": "2026-05-07T10:19:00.425Z",
-      "updatedAt": "2026-05-07T12:23:53.258Z",
+      "updatedAt": "2026-05-07T12:25:19.271Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
+      "sortOrder": 12000,
       "deleted": false
     }
   ]
