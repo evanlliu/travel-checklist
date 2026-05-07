@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Travel List" />
   <title>Travel Checklist</title>
-  <link rel="manifest" href="manifest.json?v=1.1.4" />
+  <link rel="manifest" href="manifest.json?v=1.1.5" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css?v=1.1.4" />
+  <link rel="stylesheet" href="css/style.css?v=1.1.5" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen" hidden>
@@ -32,19 +32,21 @@
 
   <main id="appShell" class="app-shell" hidden>
     <header class="topbar">
-      <div>
-        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.1.4</span></p>
+      <div class="brand-row">
+        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.1.5</span></p>
+      </div>
+      <div class="header-controls">
         <div class="checklist-switcher" aria-label="Checklist selector">
           <select id="checklistSelect"></select>
         </div>
-      </div>
-      <div class="top-actions action-menu-wrap">
-        <button id="actionsMenuBtn" class="ghost-btn menu-toggle" type="button" aria-expanded="false" aria-controls="actionsMenu" data-i18n="menu">菜单</button>
-        <div id="actionsMenu" class="actions-menu" hidden>
-          <button id="manageChecklistBtn" class="ghost-btn" type="button" data-i18n="manageChecklists">管理清单</button>
-          <button id="syncBtn" class="ghost-btn" type="button" data-i18n="sync">同步</button>
-          <button id="langToggleBtn" class="ghost-btn" type="button">EN</button>
-          <button id="settingsBtn" class="ghost-btn" type="button" data-i18n="settings">设置</button>
+        <div class="top-actions action-menu-wrap">
+          <button id="actionsMenuBtn" class="ghost-btn menu-toggle" type="button" aria-expanded="false" aria-controls="actionsMenu" data-i18n="menu">菜单</button>
+          <div id="actionsMenu" class="actions-menu" hidden>
+            <button id="manageChecklistBtn" class="ghost-btn" type="button" data-i18n="manageChecklists">管理清单</button>
+            <button id="syncBtn" class="ghost-btn" type="button" data-i18n="sync">同步</button>
+            <button id="langToggleBtn" class="ghost-btn" type="button">EN</button>
+            <button id="settingsBtn" class="ghost-btn" type="button" data-i18n="settings">设置</button>
+          </div>
         </div>
       </div>
     </header>
@@ -219,7 +221,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js?v=1.1.4"></script>
-  <script src="js/app.js?v=1.1.4"></script>
+  <script src="js/config.js?v=1.1.5"></script>
+  <script src="js/app.js?v=1.1.5"></script>
 </body>
 </html>

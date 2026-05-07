@@ -1,12 +1,12 @@
-// v1.1.4
-const CACHE_NAME = "travel-checklist-v1.1.4";
+// v1.1.5
+const CACHE_NAME = "travel-checklist-v1.1.5";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./css/style.css?v=1.1.4",
-  "./js/config.js?v=1.1.4",
-  "./js/app.js?v=1.1.4",
-  "./manifest.json?v=1.1.4",
+  "./css/style.css?v=1.1.5",
+  "./js/config.js?v=1.1.5",
+  "./js/app.js?v=1.1.5",
+  "./manifest.json?v=1.1.5",
   "./icons/apple-touch-icon.png"
 ];
 
