@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.3.3",
   "schemaVersion": 2,
-  "revision": 116,
-  "updatedAt": "2026-05-07T10:34:06.616Z",
+  "revision": 117,
+  "updatedAt": "2026-05-07T10:34:10.646Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -635,13 +635,13 @@
       "title": "便宜的睡觉T恤",
       "category": "other",
       "type": "buy_and_carry",
-      "status": "packed",
+      "status": "need_buy",
       "priority": "must",
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:47:46.170Z",
-      "updatedAt": "2026-05-07T10:34:05.030Z",
-      "doneAt": "2026-05-07T10:34:05.030Z",
+      "updatedAt": "2026-05-07T10:34:08.968Z",
+      "doneAt": null,
       "deleted": false
     },
     {
