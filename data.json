@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.2.1",
   "schemaVersion": 2,
-  "revision": 29,
-  "updatedAt": "2026-05-07T08:23:01.963Z",
+  "revision": 30,
+  "updatedAt": "2026-05-07T08:23:08.857Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -321,13 +321,13 @@
       "title": "美标转换插头",
       "category": "documents",
       "type": "buy_and_carry",
-      "status": "bought",
+      "status": "packed",
       "priority": "must",
       "quantity": 1,
       "note": "墨西哥常用美标插头。",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T08:23:00.598Z",
-      "doneAt": null,
+      "updatedAt": "2026-05-07T08:23:07.392Z",
+      "doneAt": "2026-05-07T08:23:07.392Z",
       "deleted": false
     },
     {
