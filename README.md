@@ -1,8 +1,8 @@
-# Travel Checklist v1.4.7
+# Travel Checklist v1.4.8
 
 一个适合 PC 和 iOS Safari 添加到主屏幕使用的旅行购物 / 携带清单。
 
-## v1.4.7 更新
+## v1.4.8 更新
 
 - 新增多个清单支持，例如：墨西哥出行、土耳其出行、伦敦转机。
 - 顶部新增“当前清单”选择器。
@@ -40,7 +40,7 @@ data.json
 
 ## 部署到 Cloudflare Worker
 
-如果你从 v1.0.x 升级到 v1.4.7，需要更新 Worker：
+如果你从 v1.0.x 升级到 v1.4.8，需要更新 Worker：
 
 ```text
 worker/worker.js
@@ -70,7 +70,7 @@ GH_REPO        Plaintext，例如 travel-plan
 页面里保存的 Cloudflare Worker 地址和访问密码会同步到 data.json。请只使用这个小工具专用密码，不要使用重要账号密码。
 
 
-## v1.4.7
+## v1.4.8
 
 - 拖动排序仅对置顶物品生效。
 - 普通物品继续按：必须 → 可选、待购买 → 待打包 → 已完成、物品名称排序。

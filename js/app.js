@@ -1,10 +1,10 @@
-/* v1.4.7 */
+/* v1.4.8 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.7";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.8";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -60,6 +60,7 @@
       pin: "置顶",
       unpin: "取消置顶",
       pinned: "置顶",
+      pinOnForm: "置顶显示",
       dragSort: "拖动排序",
       actionReordered: "调整了排序",
       confirmDelete: "确定删除这个物品吗？",
@@ -188,6 +189,7 @@
       pin: "Pin",
       unpin: "Unpin",
       pinned: "Pinned",
+      pinOnForm: "Pin to top",
       dragSort: "Drag to reorder",
       actionReordered: "Reordered items",
       confirmDelete: "Delete this item?",
@@ -987,6 +989,7 @@
       $("#itemPriority").val(item.priority);
       $("#itemQuantity").val(item.quantity || 1);
       $("#itemNote").val(item.note || "");
+      $("#itemPinned").prop("checked", isPinned(item));
     } else {
       $("#modalTitle").text(t("addItem"));
       $("#editingItemId").val("");
@@ -996,6 +999,7 @@
       $("#itemPriority").val("must");
       $("#itemQuantity").val(1);
       $("#itemNote").val("");
+      $("#itemPinned").prop("checked", false);
     }
     openModal($("#itemModal"));
     setTimeout(() => $("#itemTitle").trigger("focus"), 60);
@@ -1029,9 +1033,12 @@
       priority: $("#itemPriority").val(),
       quantity: Math.max(1, parseInt($("#itemQuantity").val(), 10) || 1),
       note: $("#itemNote").val().trim(),
+      formPinned: $("#itemPinned").prop("checked"),
       updatedAt: nowIso()
     };
     if (!formData.title) return;
+    const shouldPin = Boolean(formData.formPinned);
+    delete formData.formPinned;
 
     const actionMessage = formatActionMessage(id ? "actionUpdated" : "actionAdded", formData.title);
 
@@ -1040,6 +1047,19 @@
       if (!item) return;
       const oldType = item.type;
       Object.assign(item, formData);
+      if (shouldPin && !isPinned(item)) {
+        item.pinned = true;
+        item.pinnedAt = nowIso();
+        item.sortOrder = getNextSortOrder(item.checklistId || item.tripId || getCurrentChecklist()?.id);
+      } else if (!shouldPin && isPinned(item)) {
+        item.pinned = false;
+        item.pinnedAt = null;
+        item.sortOrder = null;
+      } else if (shouldPin) {
+        item.pinned = true;
+        item.pinnedAt = item.pinnedAt || nowIso();
+        item.sortOrder = getSortOrder(item) ?? getNextSortOrder(item.checklistId || item.tripId || getCurrentChecklist()?.id);
+      }
       if (oldType !== type && isDone(item) === false) item.status = initialStatus(type);
       item.checklistId = item.checklistId || item.tripId || getCurrentChecklist()?.id;
       item.tripId = item.checklistId;
@@ -1052,9 +1072,9 @@
         status: initialStatus(type),
         createdAt: nowIso(),
         doneAt: null,
-        pinned: false,
-        pinnedAt: null,
-        sortOrder: null,
+        pinned: shouldPin,
+        pinnedAt: shouldPin ? nowIso() : null,
+        sortOrder: shouldPin ? getNextSortOrder(checklistId) : null,
         deleted: false
       }, formData));
     }
@@ -1676,8 +1696,8 @@
       const willPin = !isPinned(currentItem);
       mutateItem(id, item => {
         item.pinned = willPin;
-        item.pinnedAt = willPin ? nowIso() : null;
-        if (!willPin) item.sortOrder = null;
+        item.pinnedAt = willPin ? (item.pinnedAt || nowIso()) : null;
+        item.sortOrder = willPin ? (getSortOrder(item) ?? getNextSortOrder(item.checklistId || item.tripId || getCurrentChecklist()?.id)) : null;
       }, formatActionMessage(willPin ? "actionPinned" : "actionUnpinned", currentItem.title));
     });
 

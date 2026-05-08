@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Travel List" />
   <title>Travel Checklist</title>
-  <link rel="manifest" href="manifest.json?v=1.4.7" />
+  <link rel="manifest" href="manifest.json?v=1.4.8" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css?v=1.4.7" />
+  <link rel="stylesheet" href="css/style.css?v=1.4.8" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen" hidden>
@@ -33,7 +33,7 @@
   <main id="appShell" class="app-shell" hidden>
     <header class="topbar">
       <div class="brand-row">
-        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.4.7</span></p>
+        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.4.8</span></p>
       </div>
       <div class="header-controls">
         <div class="checklist-switcher" aria-label="Checklist selector">
@@ -157,6 +157,10 @@
           <span data-i18n="note">备注</span>
           <textarea id="itemNote" rows="3" maxlength="300"></textarea>
         </label>
+        <label class="pin-checkbox-row">
+          <input id="itemPinned" type="checkbox" />
+          <span data-i18n="pinOnForm">置顶显示</span>
+        </label>
         <div class="modal-actions">
           <button class="ghost-btn close-modal" type="button" data-i18n="cancel">取消</button>
           <button class="primary-btn" type="submit" data-i18n="save">保存</button>
@@ -240,7 +244,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js?v=1.4.7"></script>
-  <script src="js/app.js?v=1.4.7"></script>
+  <script src="js/config.js?v=1.4.8"></script>
+  <script src="js/app.js?v=1.4.8"></script>
 </body>
 </html>

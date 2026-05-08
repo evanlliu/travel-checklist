@@ -2621,3 +2621,34 @@ body.row-dragging * {
     font-size: 16px !important;
   }
 }
+
+
+/* v1.4.8 item form pinned checkbox */
+.item-form .pin-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: -2px 0 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.item-form .pin-checkbox-row input {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  padding: 0;
+  margin: 0;
+  accent-color: var(--primary);
+}
+
+.item-form .pin-checkbox-row span {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
