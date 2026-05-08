@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.4.7",
   "schemaVersion": 2,
-  "revision": 193,
-  "updatedAt": "2026-05-07T21:22:40.743Z",
+  "revision": 194,
+  "updatedAt": "2026-05-08T19:59:23.040Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -886,6 +886,25 @@
       "pinned": false,
       "pinnedAt": null,
       "sortOrder": 23000,
+      "deleted": false
+    },
+    {
+      "id": "item_moxc9cw6_hw1igx",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "小浴巾",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-08T19:59:21.990Z",
+      "updatedAt": "2026-05-08T19:59:21.990Z",
+      "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": false
     }
   ]
