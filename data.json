@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.4.8",
   "schemaVersion": 2,
-  "revision": 205,
-  "updatedAt": "2026-05-09T19:01:56.524Z",
+  "revision": 206,
+  "updatedAt": "2026-05-09T22:24:43.237Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -924,6 +924,25 @@
       "pinned": false,
       "pinnedAt": null,
       "sortOrder": 0,
+      "deleted": false
+    },
+    {
+      "id": "item_moyww40y_8wedes",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "旅行枕",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-09T22:24:42.082Z",
+      "updatedAt": "2026-05-09T22:24:42.082Z",
+      "doneAt": null,
+      "pinned": true,
+      "pinnedAt": "2026-05-09T22:24:42.082Z",
+      "sortOrder": 24000,
       "deleted": false
     }
   ]
