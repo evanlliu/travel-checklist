@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.4.8",
   "schemaVersion": 2,
-  "revision": 209,
-  "updatedAt": "2026-05-09T22:25:46.107Z",
+  "revision": 210,
+  "updatedAt": "2026-05-09T22:44:26.718Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -962,6 +962,25 @@
       "pinned": true,
       "pinnedAt": "2026-05-09T22:25:42.417Z",
       "sortOrder": 2000,
+      "deleted": false
+    },
+    {
+      "id": "item_moyxlhhc_j3tjac",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "更换鼠标",
+      "category": "other",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-09T22:44:25.920Z",
+      "updatedAt": "2026-05-09T22:44:25.920Z",
+      "doneAt": null,
+      "pinned": true,
+      "pinnedAt": "2026-05-09T22:44:25.920Z",
+      "sortOrder": 24000,
       "deleted": false
     }
   ]
