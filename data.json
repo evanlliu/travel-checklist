@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.4.8",
   "schemaVersion": 2,
-  "revision": 199,
-  "updatedAt": "2026-05-08T20:56:29.052Z",
+  "revision": 200,
+  "updatedAt": "2026-05-09T06:37:32.793Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -905,6 +905,25 @@
       "pinned": false,
       "pinnedAt": null,
       "sortOrder": 0,
+      "deleted": false
+    },
+    {
+      "id": "item_moxz21ez_3387d7",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "电子秤",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-09T06:37:31.691Z",
+      "updatedAt": "2026-05-09T06:37:31.691Z",
+      "doneAt": null,
+      "pinned": true,
+      "pinnedAt": "2026-05-09T06:37:31.691Z",
+      "sortOrder": 24000,
       "deleted": false
     }
   ]
