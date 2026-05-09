@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.4.8",
   "schemaVersion": 2,
-  "revision": 207,
-  "updatedAt": "2026-05-09T22:24:47.519Z",
+  "revision": 208,
+  "updatedAt": "2026-05-09T22:25:43.517Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -943,6 +943,25 @@
       "pinned": true,
       "pinnedAt": "2026-05-09T22:24:42.082Z",
       "sortOrder": 1000,
+      "deleted": false
+    },
+    {
+      "id": "item_moywxekx_7mepzp",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "蒸汽眼罩",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-09T22:25:42.417Z",
+      "updatedAt": "2026-05-09T22:25:42.417Z",
+      "doneAt": null,
+      "pinned": true,
+      "pinnedAt": "2026-05-09T22:25:42.417Z",
+      "sortOrder": 24000,
       "deleted": false
     }
   ]
