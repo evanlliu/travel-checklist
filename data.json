@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.4.8",
   "schemaVersion": 2,
-  "revision": 206,
-  "updatedAt": "2026-05-09T22:24:43.237Z",
+  "revision": 207,
+  "updatedAt": "2026-05-09T22:24:47.519Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -748,7 +748,7 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:47:46.170Z",
-      "updatedAt": "2026-05-09T06:37:38.211Z",
+      "updatedAt": "2026-05-09T22:24:46.541Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:15:11.654Z",
@@ -824,7 +824,7 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:49:05.334Z",
-      "updatedAt": "2026-05-09T06:37:38.211Z",
+      "updatedAt": "2026-05-09T22:24:46.541Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-07T12:09:31.780Z",
@@ -938,11 +938,11 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-09T22:24:42.082Z",
-      "updatedAt": "2026-05-09T22:24:42.082Z",
+      "updatedAt": "2026-05-09T22:24:46.541Z",
       "doneAt": null,
       "pinned": true,
       "pinnedAt": "2026-05-09T22:24:42.082Z",
-      "sortOrder": 24000,
+      "sortOrder": 1000,
       "deleted": false
     }
   ]
