@@ -1,10 +1,10 @@
-/* v1.5.1 */
+/* v1.5.3 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.5.1";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.5.3";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -676,6 +676,8 @@
     $("[data-i18n-placeholder]").each(function () { $(this).attr("placeholder", t($(this).data("i18n-placeholder"))); });
     $("#syncBtn").attr({ "aria-label": t("sync"), "title": t("sync") });
     $("#langToggleBtn").attr({ "aria-label": t("language"), "title": t("language") });
+    $("#filterToggleBtn").attr({ "aria-label": t("queryConditions"), "title": t("queryConditions") });
+    $("#actionsMenuBtn").attr({ "aria-label": t("menu"), "title": t("menu") });
     $("#appVersionBadge").text(APP_VERSION);
     $("#floatingAddBtn").attr({ "aria-label": t("addItem"), "title": t("addItem") });
     populateSelects();

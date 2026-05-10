@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Travel List" />
   <title>Travel Checklist</title>
-  <link rel="manifest" href="manifest.json?v=1.5.1" />
+  <link rel="manifest" href="manifest.json?v=1.5.3" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css?v=1.5.1" />
+  <link rel="stylesheet" href="css/style.css?v=1.5.3" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen" hidden>
@@ -33,19 +33,19 @@
   <main id="appShell" class="app-shell" hidden>
     <header class="topbar">
       <div class="brand-row">
-        <p class="eyebrow"><span data-i18n="appEyebrow">Travel Checklist</span><span id="appVersionBadge" class="version-badge">v1.5.1</span></p>
+        <p class="eyebrow">
+          <span data-i18n="appEyebrow">Travel Checklist</span>
+          <span id="appVersionBadge" class="version-badge">v1.5.3</span>
+          <span id="saveStatus" class="save-status inline-save-status" aria-live="polite"></span>
+        </p>
       </div>
       <div class="header-controls">
         <div class="checklist-switcher" aria-label="Checklist selector">
           <select id="checklistSelect"></select>
         </div>
-        <div class="top-actions action-menu-wrap">
-          <button id="actionsMenuBtn" class="ghost-btn menu-toggle" type="button" aria-expanded="false" aria-controls="actionsMenu" data-i18n="menu">菜单</button>
-          <div id="actionsMenu" class="actions-menu" hidden>
-            <button id="manageChecklistBtn" class="ghost-btn" type="button" data-i18n="manageChecklists">管理清单</button>
-            <button id="settingsBtn" class="ghost-btn" type="button" data-i18n="settings">设置</button>
-          </div>
-        </div>
+        <button id="filterToggleBtn" class="ghost-btn filter-toggle header-filter-toggle icon-only-filter-toggle" type="button" aria-expanded="false" aria-controls="filterPanel" title="查询条件">
+          <span class="filter-icon" aria-hidden="true">⌕</span>
+        </button>
       </div>
     </header>
 
@@ -58,13 +58,9 @@
         <span id="statNeedBuy">0</span>
         <small data-i18n="needBuy">待购买</small>
       </button>
-      <button class="stat-card" type="button" data-stat-filter="to_pack">
+      <button class="stat-card pack" type="button" data-stat-filter="to_pack">
         <span id="statToPack">0</span>
         <small data-i18n="toPack">待打包</small>
-      </button>
-      <button class="stat-card open" type="button" data-stat-filter="active">
-        <span id="statOpen">0</span>
-        <small data-i18n="active">未完成</small>
       </button>
       <button class="stat-card done" type="button" data-stat-filter="done">
         <span id="statDone">0</span>
@@ -73,13 +69,6 @@
     </section>
 
     <section class="filter-area">
-      <section class="quick-controls">
-        <button id="filterToggleBtn" class="ghost-btn filter-toggle" type="button" aria-expanded="false" aria-controls="filterPanel">
-          <span data-i18n="queryConditions">查询条件</span>
-          <small id="filterSummary"></small>
-        </button>
-      </section>
-
       <section id="filterPanel" class="filter-panel" hidden>
         <section class="toolbar">
           <div class="search-box">
@@ -101,7 +90,6 @@
       </section>
     </section>
 
-    <section id="saveStatus" class="save-status" aria-live="polite"></section>
     <section id="itemList" class="item-list"></section>
     <section id="emptyState" class="empty-state" hidden>
       <div>🧳</div>
@@ -119,6 +107,15 @@
       <button id="langToggleBtn" class="dock-btn dock-lang" type="button" aria-label="切换语言" title="切换语言">
         <span class="dock-icon dock-lang-icon"><span>A</span><span>文</span></span>
       </button>
+      <div class="action-menu-wrap dock-menu-wrap">
+        <button id="actionsMenuBtn" class="dock-btn dock-menu" type="button" aria-label="更多" title="更多" aria-expanded="false" aria-controls="actionsMenu">
+          <span class="dock-icon dock-menu-icon">⋮</span>
+        </button>
+        <div id="actionsMenu" class="actions-menu dock-actions-menu" hidden>
+          <button id="manageChecklistBtn" class="ghost-btn" type="button" data-i18n="manageChecklists">管理清单</button>
+          <button id="settingsBtn" class="ghost-btn" type="button" data-i18n="settings">设置</button>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -245,7 +242,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js?v=1.5.1"></script>
-  <script src="js/app.js?v=1.5.1"></script>
+  <script src="js/config.js?v=1.5.3"></script>
+  <script src="js/app.js?v=1.5.3"></script>
 </body>
 </html>
