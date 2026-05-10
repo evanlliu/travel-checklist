@@ -1,10 +1,10 @@
-/* v1.4.9 */
+/* v1.5.1 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.9";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.5.1";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -54,6 +54,8 @@
       edit: "编辑",
       delete: "删除",
       restore: "恢复",
+      resetStatus: "恢复初始",
+      clearFilters: "清空",
       boughtAction: "已购买",
       packedAction: "已打包",
       completeAction: "完成",
@@ -63,6 +65,7 @@
       pinOnForm: "置顶显示",
       dragSort: "拖动排序",
       actionReordered: "调整了排序",
+      actionResetStatus: "恢复了 {name}",
       confirmDelete: "确定删除这个物品吗？",
       actionAdded: "新增了",
       actionUpdated: "修改了",
@@ -183,6 +186,8 @@
       edit: "Edit",
       delete: "Delete",
       restore: "Restore",
+      resetStatus: "Reset",
+      clearFilters: "Clear",
       boughtAction: "Bought",
       packedAction: "Packed",
       completeAction: "Complete",
@@ -192,6 +197,7 @@
       pinOnForm: "Pin to top",
       dragSort: "Drag to reorder",
       actionReordered: "Reordered items",
+      actionResetStatus: "Reset {name}",
       confirmDelete: "Delete this item?",
       actionAdded: "Added",
       actionUpdated: "Updated",
@@ -914,7 +920,7 @@
     const noteHtml = item.note ? `<p class="item-note compact-note">${escapeHtml(item.note)}</p>` : "";
     const next = nextAction(item);
     const primaryAction = next ? `<button class="primary-btn item-next" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(next.label)}</button>` : "";
-    const restoreAction = canResetStatus(item) ? `<button class="small-ghost item-restore" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t("resetStatus"))}</button>` : "";
+    const restoreAction = canResetStatus(item) ? `<button class="small-ghost item-restore" type="button" data-id="${escapeHtml(item.id)}" title="${escapeHtml(t("resetStatus"))}">${escapeHtml(t("resetStatus"))}</button>` : "";
     const pinAction = `<button class="small-ghost item-pin${isPinned(item) ? " active" : ""}" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t(isPinned(item) ? "unpin" : "pin"))}</button>`;
     const priorityClass = item.priority === "must" ? " must" : "";
     const pinnedPill = isPinned(item) ? `<span class="pin-pill">${escapeHtml(t("pinned"))}</span>` : "";
@@ -1671,7 +1677,7 @@
 
     $("#filterTabs").on("click", ".tab", function () { currentFilter = $(this).data("filter"); renderAll(); });
     $("#clearFilterBtn").on("click", function () {
-      currentFilter = "all";
+      currentFilter = appData?.settings?.hideDone === false ? "all" : "active";
       currentCategory = "all";
       currentSearch = "";
       $("#searchInput").val("");
