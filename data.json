@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.5.1",
   "schemaVersion": 2,
-  "revision": 224,
-  "updatedAt": "2026-05-10T12:51:13.598Z",
+  "revision": 225,
+  "updatedAt": "2026-05-10T12:56:25.514Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -953,15 +953,15 @@
       "category": "other",
       "type": "buy_and_carry",
       "status": "need_buy",
-      "priority": "must",
+      "priority": "optional",
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-09T22:25:42.417Z",
-      "updatedAt": "2026-05-10T11:36:54.630Z",
+      "updatedAt": "2026-05-10T12:56:24.712Z",
       "doneAt": null,
-      "pinned": true,
-      "pinnedAt": "2026-05-09T22:25:42.417Z",
-      "sortOrder": 4000,
+      "pinned": false,
+      "pinnedAt": null,
+      "sortOrder": 0,
       "deleted": false
     },
     {
