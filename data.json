@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.5.1",
   "schemaVersion": 2,
-  "revision": 227,
-  "updatedAt": "2026-05-10T13:19:13.981Z",
+  "revision": 228,
+  "updatedAt": "2026-05-10T13:33:49.022Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -981,6 +981,25 @@
       "pinned": true,
       "pinnedAt": "2026-05-09T22:44:25.920Z",
       "sortOrder": 2000,
+      "deleted": false
+    },
+    {
+      "id": "item_moztd7u4_lv0vsz",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "英国/墨西哥流量卡",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-10T13:33:47.884Z",
+      "updatedAt": "2026-05-10T13:33:47.884Z",
+      "doneAt": null,
+      "pinned": true,
+      "pinnedAt": "2026-05-10T13:33:47.884Z",
+      "sortOrder": 24000,
       "deleted": false
     }
   ]
