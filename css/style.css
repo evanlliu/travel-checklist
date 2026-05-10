@@ -2939,3 +2939,106 @@ body.row-dragging * {
     font-size: 18px;
   }
 }
+
+
+/* v1.5.4 floating menu visibility + color + inline sync alignment */
+.inline-save-status {
+  vertical-align: middle;
+  transform: translateY(1px);
+  line-height: 1.15;
+}
+
+.eyebrow {
+  align-items: center;
+}
+
+.dock-menu {
+  background: linear-gradient(135deg, #6366f1, #2563eb) !important;
+  color: #fff !important;
+  box-shadow: 0 14px 34px rgba(37,99,235,.28);
+}
+
+.dock-menu:hover,
+.dock-menu:active,
+.dock-menu:focus-visible {
+  background: linear-gradient(135deg, #4f46e5, #1d4ed8) !important;
+  color: #fff !important;
+}
+
+.dock-actions-menu {
+  right: 0;
+  bottom: calc(100% + 10px);
+  transform: translateY(0);
+  max-width: min(220px, calc(100vw - 24px));
+}
+
+@media (max-width: 760px) {
+  .inline-save-status {
+    transform: translateY(2px);
+    align-self: center;
+    max-width: calc(100vw - 192px);
+  }
+
+  .dock-actions-menu {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 10px);
+    top: auto !important;
+    min-width: 132px;
+    max-width: calc(100vw - 24px);
+    max-height: min(280px, calc(100vh - 180px));
+    overflow: auto;
+    z-index: 1400;
+  }
+
+  .dock-menu-wrap {
+    position: relative;
+    z-index: 1400;
+  }
+
+  body:has(.dock-actions-menu:not([hidden])) .floating-action-dock {
+    z-index: 1400;
+  }
+}
+
+/* Small-screen fallback: open the more menu upward and slightly left so it is never hidden by the home indicator. */
+@media (max-width: 760px) and (max-height: 760px) {
+  .dock-actions-menu {
+    bottom: calc(100% + 12px);
+    right: 0;
+  }
+}
+
+
+/* v1.5.5 PC more menu fix
+   Base .actions-menu had top set; dock menu needs top:auto or PC menu gets squeezed/hidden. */
+.dock-menu-wrap {
+  position: relative;
+  z-index: 1600;
+}
+
+.dock-actions-menu {
+  top: auto !important;
+  bottom: calc(100% + 12px) !important;
+  right: 0 !important;
+  left: auto !important;
+  display: grid;
+  z-index: 1600 !important;
+  width: auto;
+  min-width: 148px;
+  max-width: min(240px, calc(100vw - 24px));
+  overflow: visible;
+}
+
+.dock-actions-menu[hidden] {
+  display: none !important;
+}
+
+.floating-action-dock {
+  z-index: 1500;
+  overflow: visible;
+}
+
+.dock-actions-menu .ghost-btn {
+  white-space: nowrap;
+}
