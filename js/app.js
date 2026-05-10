@@ -1,10 +1,10 @@
-/* v1.4.8 */
+/* v1.4.9 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.8";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.4.9";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -914,7 +914,7 @@
     const noteHtml = item.note ? `<p class="item-note compact-note">${escapeHtml(item.note)}</p>` : "";
     const next = nextAction(item);
     const primaryAction = next ? `<button class="primary-btn item-next" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(next.label)}</button>` : "";
-    const restoreAction = isDone(item) ? `<button class="small-ghost item-restore" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t("restore"))}</button>` : "";
+    const restoreAction = canResetStatus(item) ? `<button class="small-ghost item-restore" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t("resetStatus"))}</button>` : "";
     const pinAction = `<button class="small-ghost item-pin${isPinned(item) ? " active" : ""}" type="button" data-id="${escapeHtml(item.id)}">${escapeHtml(t(isPinned(item) ? "unpin" : "pin"))}</button>`;
     const priorityClass = item.priority === "must" ? " must" : "";
     const pinnedPill = isPinned(item) ? `<span class="pin-pill">${escapeHtml(t("pinned"))}</span>` : "";
@@ -1022,6 +1022,10 @@
   function closeChecklistModal() { closeModal($("#checklistModal")); }
 
   function initialStatus(type) { return type === "carry" ? "to_pack" : "need_buy"; }
+
+  function canResetStatus(item) {
+    return Boolean(item && item.status && item.status !== initialStatus(item.type));
+  }
 
   function saveItemFromForm() {
     const id = $("#editingItemId").val();
@@ -1666,6 +1670,14 @@
     });
 
     $("#filterTabs").on("click", ".tab", function () { currentFilter = $(this).data("filter"); renderAll(); });
+    $("#clearFilterBtn").on("click", function () {
+      currentFilter = "all";
+      currentCategory = "all";
+      currentSearch = "";
+      $("#searchInput").val("");
+      $("#categoryFilter").val("all");
+      renderAll();
+    });
     $("#categoryFilter").on("change", function () { currentCategory = $(this).val(); renderFilterSummary(); renderItems(); });
     $("#searchInput").on("input", function () { currentSearch = $(this).val(); renderFilterSummary(); renderItems(); });
     $("#itemForm").on("submit", function (event) { event.preventDefault(); saveItemFromForm(); });

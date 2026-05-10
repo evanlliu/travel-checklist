@@ -2652,3 +2652,48 @@ body.row-dragging * {
   font-size: 14px;
   font-weight: 900;
 }
+
+
+/* v1.4.9 filter clear button + reset-status action */
+.filter-panel .toolbar {
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 220px) auto;
+  align-items: center;
+}
+
+.filter-clear-btn {
+  height: 40px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.86);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(17,24,39,.025);
+}
+
+.filter-clear-btn:hover {
+  background: #fff;
+  color: var(--text);
+  border-color: rgba(148,163,184,.58);
+}
+
+.item-actions .item-restore {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+@media (max-width: 760px) {
+  .filter-panel .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-clear-btn {
+    height: 38px;
+    min-height: 38px;
+    border-radius: 13px;
+  }
+}
