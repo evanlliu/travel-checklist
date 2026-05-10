@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.5.5",
   "schemaVersion": 2,
-  "revision": 236,
-  "updatedAt": "2026-05-10T21:20:38.345Z",
+  "revision": 237,
+  "updatedAt": "2026-05-10T21:21:00.166Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -1000,6 +1000,25 @@
       "pinned": false,
       "pinnedAt": null,
       "sortOrder": 0,
+      "deleted": false
+    },
+    {
+      "id": "item_mp0a20zx_c1y5e9",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "测试",
+      "category": "other",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-10T21:20:59.277Z",
+      "updatedAt": "2026-05-10T21:20:59.277Z",
+      "doneAt": null,
+      "pinned": true,
+      "pinnedAt": "2026-05-10T21:20:59.277Z",
+      "sortOrder": 24000,
       "deleted": false
     }
   ]
