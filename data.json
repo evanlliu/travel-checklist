@@ -1,10 +1,10 @@
 {
   "appVersion": "v1.6.0",
   "schemaVersion": 2,
-  "revision": 249,
-  "updatedAt": "2026-05-11T06:31:12.162Z",
+  "revision": 250,
+  "updatedAt": "2026-05-11T10:20:28.040Z",
   "settings": {
-    "language": "zh-CN",
+    "language": "en-US",
     "hideDone": true,
     "showCategoryOnMain": false,
     "showCategoryInEditor": false,
