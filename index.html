@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Travel List" />
   <title>Travel Checklist</title>
-  <link rel="manifest" href="manifest.json?v=1.5.5" />
+  <link rel="manifest" href="manifest.json?v=1.5.6" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css?v=1.5.5" />
+  <link rel="stylesheet" href="css/style.css?v=1.5.6" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen" hidden>
@@ -35,7 +35,7 @@
       <div class="brand-row">
         <p class="eyebrow">
           <span data-i18n="appEyebrow">Travel Checklist</span>
-          <span id="appVersionBadge" class="version-badge">v1.5.5</span>
+          <span id="appVersionBadge" class="version-badge">v1.5.6</span>
           <span id="saveStatus" class="save-status inline-save-status" aria-live="polite"></span>
         </p>
       </div>
@@ -61,6 +61,10 @@
       <button class="stat-card pack" type="button" data-stat-filter="to_pack">
         <span id="statToPack">0</span>
         <small data-i18n="toPack">待打包</small>
+      </button>
+      <button class="stat-card open" type="button" data-stat-filter="active">
+        <span id="statOpen">0</span>
+        <small data-i18n="active">未完成</small>
       </button>
       <button class="stat-card done" type="button" data-stat-filter="done">
         <span id="statDone">0</span>
@@ -242,7 +246,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js?v=1.5.5"></script>
-  <script src="js/app.js?v=1.5.5"></script>
+  <script src="js/config.js?v=1.5.6"></script>
+  <script src="js/app.js?v=1.5.6"></script>
 </body>
 </html>

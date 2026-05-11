@@ -3042,3 +3042,19 @@ body.row-dragging * {
 .dock-actions-menu .ghost-btn {
   white-space: nowrap;
 }
+
+
+/* v1.5.6 restore Active/Unfinished card in top stats */
+.status-row {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.stat-card.open span {
+  color: var(--danger);
+}
+
+@media (max-width: 760px) {
+  .status-row {
+    grid-template-columns: repeat(5, minmax(max-content, 1fr));
+  }
+}
