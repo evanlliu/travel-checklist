@@ -1,10 +1,10 @@
-/* v1.5.6 */
+/* v1.6.0 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.5.6";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.6.0";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -941,6 +941,7 @@
                 <h2 class="item-title">${escapeHtml(item.title)}</h2>
                 ${pinnedPill}
                 <span class="priority-pill${priorityClass}">${escapeHtml(t(item.priority))}</span>
+                <span class="mobile-status-pill">${escapeHtml(t("status_" + item.status))}</span>
               </div>
               <div class="item-meta">
                 ${shouldShowCategoryOnMain() ? `<span>${escapeHtml(t("cat_" + item.category))}</span>` : ""}
