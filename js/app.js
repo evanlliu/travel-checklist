@@ -1,10 +1,10 @@
-/* v1.6.0 */
+/* v1.6.2 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.6.0";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.6.2";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -18,7 +18,7 @@
       password: "访问密码",
       login: "保存并同步",
       loginTip: "第一次使用需要手动填写；同步成功后会写入 data.json，其他设备可自动读取。请使用专用密码，不要使用重要账号密码。",
-      appEyebrow: "Travel Checklist",
+      appEyebrow: "Checklist",
       sync: "同步",
       settings: "设置",
       menu: "菜单",
@@ -150,7 +150,7 @@
       password: "Access password",
       login: "Save and Sync",
       loginTip: "Fill this in manually the first time. After a successful sync, it will be saved to data.json for other devices. Use a dedicated password, not an important account password.",
-      appEyebrow: "Travel Checklist",
+      appEyebrow: "Checklist",
       sync: "Sync",
       settings: "Settings",
       menu: "Menu",
@@ -532,7 +532,7 @@
   }
 
   async function fetchData(options = {}) {
-    setSaveStatus(t("loading"));
+    setSaveStatus(t("loading"), "warning");
     const payload = await apiFetch("/api/data", { method: "GET" });
     const beforeConn = getCurrentConnection();
     appData = normalizeData(payload.data);
@@ -553,14 +553,14 @@
     currentFilter = appData.settings.hideDone === false ? "all" : "active";
     localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(appData));
     localStorage.setItem("travelChecklist.lang", appData.settings.language);
-    setSaveStatus(formatSaveStatus(t("saved")));
+    setSaveStatus(formatSaveStatus(t("saved")), "success");
     showApp();
     renderAll();
 
     const shouldWriteConnection = mode === "save-local" || !remoteConn.apiBase || !remoteConn.appPassword;
     if (shouldWriteConnection && persistConnectionToData()) {
       await saveData({ silent: true });
-      setSaveStatus(formatSaveStatus(t("connectionSaved")));
+      setSaveStatus(formatSaveStatus(t("connectionSaved")), "success");
     }
   }
 
@@ -598,12 +598,12 @@
 
     const conn = getCurrentConnection();
     if (!conn.apiBase || !conn.appPassword) {
-      if (!options.silent) setSaveStatus(formatSaveStatus(t("localSaved"), actionMessage));
+      if (!options.silent) setSaveStatus(formatSaveStatus(t("localSaved"), actionMessage), "success");
       return;
     }
 
     isSaving = true;
-    if (!options.silent) setSaveStatus(formatSaveStatus(t("saving"), actionMessage));
+    if (!options.silent) setSaveStatus(formatSaveStatus(t("saving"), actionMessage), "warning");
     try {
       const payload = await apiFetch("/api/data", {
         method: "PUT",
@@ -613,14 +613,14 @@
       const remoteConn = getDataConnection(appData);
       if (remoteConn.apiBase && remoteConn.appPassword) setConnection(remoteConn, true);
       localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(appData));
-      if (!options.silent) setSaveStatus(formatSaveStatus(t("saved"), actionMessage));
+      if (!options.silent) setSaveStatus(formatSaveStatus(t("saved"), actionMessage), "success");
       renderAll();
     } catch (err) {
       if (err.status === 409) {
         const reload = window.confirm(t("conflict"));
         if (reload) await fetchData();
       } else {
-        setSaveStatus(t("networkError"));
+        setSaveStatus(t("networkError"), "error");
         console.error(err);
       }
     } finally {
@@ -634,7 +634,16 @@
     saveTimer = setTimeout(() => saveData({ actionMessage: pendingSaveMessage }), 250);
   }
 
-  function setSaveStatus(text) { $("#saveStatus").text(text || ""); }
+  function setSaveStatus(text, tone = "") {
+    const $el = $("#saveStatus");
+    const cleanText = text || "";
+    $el.text(cleanText);
+    if (cleanText) {
+      $el.attr("data-tone", tone || "success");
+    } else {
+      $el.removeAttr("data-tone");
+    }
+  }
 
   function formatActionMessage(actionKey, title) {
     const cleanTitle = String(title || "").trim();
@@ -1322,7 +1331,7 @@
     await login(clean.appPassword);
     await fetchDataWithRelogin({ connectionMode: "save-local" });
     if (persistConnectionToData()) await saveData({ silent: true });
-    if (fromSettings) setSaveStatus(formatSaveStatus(t("connectionSaved")));
+    if (fromSettings) setSaveStatus(formatSaveStatus(t("connectionSaved")), "success");
   }
 
   function persistVisibleOrderAfterDrag(actionMessage) {
@@ -1604,11 +1613,11 @@
     $("#syncBtn").on("click", async function () {
       try {
         const conn = getCurrentConnection();
-        if (!conn.apiBase || !conn.appPassword) { setSaveStatus(t("configMissingHint")); return; }
+        if (!conn.apiBase || !conn.appPassword) { setSaveStatus(t("configMissingHint"), "error"); return; }
         if (!getToken() && APP_PASSWORD_VALUE) await login(APP_PASSWORD_VALUE);
         await fetchDataWithRelogin();
       } catch (err) {
-        setSaveStatus(connectionErrorMessage(err));
+        setSaveStatus(connectionErrorMessage(err), "error");
         console.error(err);
       }
     });
@@ -1659,12 +1668,12 @@
         setSettingsStatus(t("loading"), false);
         await connectAndSync(readConnectionFromSettingsForm(), true);
         setSettingsStatus(t("connectionSaved"), false);
-        setSaveStatus(formatSaveStatus(t("connectionSaved")));
+        setSaveStatus(formatSaveStatus(t("connectionSaved")), "success");
         closeSettings();
       } catch (err) {
         const message = connectionErrorMessage(err);
         setSettingsStatus(message, true);
-        setSaveStatus(message);
+        setSaveStatus(message, "error");
         console.error(err);
       } finally { $btn.prop("disabled", false); }
     });
@@ -1784,15 +1793,15 @@
     if (!loadedLocal && !loadedStatic) loadEmptyData();
 
     const conn = getCurrentConnection();
-    if (!conn.apiBase || !conn.appPassword) { setSaveStatus(t("configMissingHint")); return; }
+    if (!conn.apiBase || !conn.appPassword) { setSaveStatus(t("configMissingHint"), "error"); return; }
 
     try {
-      setSaveStatus(t("autoSyncing"));
+      setSaveStatus(t("autoSyncing"), "warning");
       if (!getToken() && conn.appPassword) await login(conn.appPassword);
       await fetchDataWithRelogin();
     } catch (err) {
       console.error(err);
-      setSaveStatus(connectionErrorMessage(err));
+      setSaveStatus(connectionErrorMessage(err), "error");
     }
   }
 
