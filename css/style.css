@@ -3058,3 +3058,529 @@ body.row-dragging * {
     grid-template-columns: repeat(5, minmax(max-content, 1fr));
   }
 }
+
+
+/* v1.5.7 mobile: move item status to title row and keep each list item to one visible line */
+.mobile-status-pill {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .compact-item .item-primary {
+    min-width: 0;
+    display: block;
+  }
+
+  .compact-item .title-line {
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .compact-item .item-title {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .compact-item .pin-pill,
+  .compact-item .priority-pill,
+  .compact-item .mobile-status-pill {
+    flex: 0 0 auto;
+  }
+
+  .mobile-status-pill {
+    display: inline-flex;
+    align-items: center;
+    max-width: 112px;
+    min-height: 22px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: rgba(37,99,235,.08);
+    border: 1px solid rgba(37,99,235,.18);
+    color: #1d4ed8;
+    font-size: 11px;
+    font-weight: 900;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .compact-item .item-meta {
+    display: none !important;
+  }
+
+  .compact-item .compact-note {
+    display: none !important;
+  }
+
+  .compact-item .row-main {
+    min-height: 44px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .compact-item .status-bar {
+    height: 30px;
+  }
+}
+
+
+/* v1.5.8 compact list row height */
+.item-list {
+  gap: 5px;
+}
+
+.item-card {
+  margin-bottom: 5px;
+}
+
+.compact-item .item-swipe-content {
+  padding: 5px 8px;
+}
+
+.compact-item .row-main {
+  min-height: 44px;
+  gap: 6px;
+}
+
+.compact-item .status-bar {
+  height: 30px;
+}
+
+.compact-item .item-title {
+  font-size: 14px;
+  line-height: 1.12;
+}
+
+.compact-item .priority-pill,
+.compact-item .pin-pill {
+  min-height: 20px;
+  padding: 0 7px;
+  font-size: 10px;
+}
+
+.compact-item .item-meta {
+  margin-top: 3px;
+  gap: 5px;
+  font-size: 11px;
+  line-height: 1.12;
+}
+
+.compact-item .item-side {
+  gap: 4px;
+}
+
+.compact-item .item-actions {
+  gap: 4px;
+  padding: 4px;
+}
+
+.compact-item .item-actions button {
+  min-height: 30px;
+  padding: 0 8px;
+  border-radius: 10px;
+}
+
+@media (max-width: 760px) {
+  .item-list {
+    gap: 4px;
+  }
+
+  .item-card {
+    margin-bottom: 4px;
+    border-radius: 14px;
+  }
+
+  .compact-item .item-swipe-content {
+    padding: 4px 7px;
+  }
+
+  .compact-item .row-main {
+    min-height: 36px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    gap: 4px;
+  }
+
+  .compact-item .status-bar {
+    width: 3px;
+    height: 24px;
+    border-radius: 999px;
+  }
+
+  .compact-item .drag-handle {
+    width: 17px;
+    height: 28px;
+    min-height: 28px;
+  }
+
+  .compact-item .item-title {
+    font-size: 13px;
+    line-height: 1.05;
+  }
+
+  .compact-item .priority-pill,
+  .compact-item .pin-pill,
+  .compact-item .mobile-status-pill {
+    min-height: 18px;
+    padding: 0 6px;
+    font-size: 10px;
+  }
+
+  .compact-item .mobile-status-pill {
+    max-width: 92px;
+  }
+
+  .compact-item .item-actions button {
+    min-height: 28px;
+    padding: 0 7px;
+    font-size: 11px;
+  }
+}
+
+
+/* v1.5.9 extra compact list density for PC + mobile */
+.item-list {
+  gap: 3px !important;
+}
+
+.item-card {
+  margin-bottom: 3px !important;
+  border-radius: 13px;
+}
+
+.compact-item .item-swipe-content {
+  padding: 3px 7px !important;
+}
+
+.compact-item .row-main {
+  min-height: 36px !important;
+  gap: 5px !important;
+}
+
+.compact-item .status-bar {
+  width: 3px;
+  height: 24px !important;
+}
+
+.compact-item .item-title {
+  font-size: 13px !important;
+  line-height: 1.05 !important;
+}
+
+.compact-item .title-line {
+  gap: 5px !important;
+}
+
+.compact-item .priority-pill,
+.compact-item .pin-pill {
+  min-height: 17px !important;
+  padding: 0 6px !important;
+  font-size: 9.5px !important;
+  line-height: 1 !important;
+}
+
+.compact-item .item-meta {
+  margin-top: 1px !important;
+  gap: 4px !important;
+  font-size: 10px !important;
+  line-height: 1.05 !important;
+}
+
+.compact-item .item-actions {
+  gap: 3px !important;
+  padding: 3px !important;
+}
+
+.compact-item .item-actions button {
+  min-height: 26px !important;
+  padding: 0 7px !important;
+  border-radius: 9px !important;
+  font-size: 11px !important;
+}
+
+.compact-item .drag-handle {
+  width: 18px !important;
+  height: 27px !important;
+  min-height: 27px !important;
+}
+
+@media (max-width: 760px) {
+  .item-list {
+    gap: 2px !important;
+  }
+
+  .item-card {
+    margin-bottom: 2px !important;
+    border-radius: 12px;
+  }
+
+  .compact-item .item-swipe-content {
+    padding: 2px 6px !important;
+  }
+
+  .compact-item .row-main {
+    min-height: 31px !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    gap: 3px !important;
+  }
+
+  .compact-item .status-bar {
+    width: 3px;
+    height: 20px !important;
+  }
+
+  .compact-item .drag-handle {
+    width: 15px !important;
+    height: 24px !important;
+    min-height: 24px !important;
+  }
+
+  .compact-item .title-line {
+    gap: 4px !important;
+  }
+
+  .compact-item .item-title {
+    font-size: 12.5px !important;
+    line-height: 1 !important;
+  }
+
+  .compact-item .priority-pill,
+  .compact-item .pin-pill,
+  .compact-item .mobile-status-pill {
+    min-height: 16px !important;
+    padding: 0 5px !important;
+    font-size: 9px !important;
+    line-height: 1 !important;
+  }
+
+  .compact-item .mobile-status-pill {
+    max-width: 82px;
+  }
+
+  .compact-item .item-actions {
+    gap: 3px !important;
+    padding: 3px !important;
+  }
+
+  .compact-item .item-actions button {
+    min-height: 25px !important;
+    padding: 0 6px !important;
+    border-radius: 8px !important;
+    font-size: 10.5px !important;
+  }
+}
+
+
+/* v1.6.0 maximum density: tighter rows + tighter header/card/list spacing */
+.topbar {
+  margin-bottom: 4px !important;
+  gap: 4px !important;
+}
+
+.brand-row,
+.eyebrow {
+  margin-bottom: 0 !important;
+}
+
+.status-row {
+  gap: 5px !important;
+  margin-top: 3px !important;
+  margin-bottom: 4px !important;
+}
+
+.stat-card {
+  min-height: 42px !important;
+  padding: 5px 7px !important;
+  border-radius: 14px !important;
+}
+
+.stat-card span {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+.stat-card small {
+  font-size: 10px !important;
+  line-height: 1 !important;
+  margin-top: 2px !important;
+}
+
+.filter-area {
+  margin-bottom: 3px !important;
+}
+
+.item-list {
+  gap: 1px !important;
+  margin-top: 0 !important;
+}
+
+.item-card {
+  margin-bottom: 1px !important;
+  border-radius: 11px !important;
+}
+
+.compact-item .item-swipe-content {
+  padding: 1px 5px !important;
+}
+
+.compact-item .row-main {
+  min-height: 29px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  gap: 3px !important;
+}
+
+.compact-item .status-bar {
+  width: 3px !important;
+  height: 18px !important;
+}
+
+.compact-item .drag-handle {
+  width: 14px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  border-radius: 7px !important;
+}
+
+.compact-item .item-title {
+  font-size: 12px !important;
+  line-height: .98 !important;
+}
+
+.compact-item .title-line {
+  gap: 3px !important;
+}
+
+.compact-item .priority-pill,
+.compact-item .pin-pill,
+.compact-item .mobile-status-pill {
+  min-height: 15px !important;
+  padding: 0 4px !important;
+  font-size: 8.8px !important;
+  line-height: 1 !important;
+}
+
+.compact-item .item-meta {
+  margin-top: 0 !important;
+  gap: 3px !important;
+  font-size: 9.5px !important;
+  line-height: 1 !important;
+}
+
+.compact-item .item-actions {
+  gap: 2px !important;
+  padding: 2px !important;
+}
+
+.compact-item .item-actions button {
+  min-height: 23px !important;
+  padding: 0 5px !important;
+  border-radius: 7px !important;
+  font-size: 10px !important;
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    gap: 4px !important;
+  }
+
+  .topbar {
+    margin-bottom: 2px !important;
+    gap: 3px !important;
+  }
+
+  .status-row {
+    gap: 4px !important;
+    margin-top: 1px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .stat-card {
+    min-height: 36px !important;
+    padding: 4px 6px !important;
+    border-radius: 12px !important;
+  }
+
+  .stat-card span {
+    font-size: 16px !important;
+  }
+
+  .stat-card small {
+    font-size: 9px !important;
+    margin-top: 1px !important;
+  }
+
+  .filter-area {
+    margin-bottom: 1px !important;
+  }
+
+  .item-list {
+    gap: 0 !important;
+  }
+
+  .item-card {
+    margin-bottom: 1px !important;
+    border-radius: 10px !important;
+  }
+
+  .compact-item .item-swipe-content {
+    padding: 1px 5px !important;
+  }
+
+  .compact-item .row-main {
+    min-height: 27px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    gap: 2px !important;
+  }
+
+  .compact-item .status-bar {
+    width: 2px !important;
+    height: 17px !important;
+  }
+
+  .compact-item .drag-handle {
+    width: 13px !important;
+    height: 20px !important;
+    min-height: 20px !important;
+  }
+
+  .compact-item .item-title {
+    font-size: 11.8px !important;
+    line-height: .96 !important;
+  }
+
+  .compact-item .title-line {
+    gap: 3px !important;
+  }
+
+  .compact-item .priority-pill,
+  .compact-item .pin-pill,
+  .compact-item .mobile-status-pill {
+    min-height: 14px !important;
+    padding: 0 4px !important;
+    font-size: 8.5px !important;
+  }
+
+  .compact-item .mobile-status-pill {
+    max-width: 74px !important;
+  }
+
+  .compact-item .item-actions {
+    gap: 2px !important;
+    padding: 2px !important;
+  }
+
+  .compact-item .item-actions button {
+    min-height: 22px !important;
+    padding: 0 5px !important;
+    border-radius: 7px !important;
+    font-size: 9.8px !important;
+  }
+}
