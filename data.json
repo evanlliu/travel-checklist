@@ -1,14 +1,14 @@
 {
   "appVersion": "v1.6.4",
   "schemaVersion": 2,
-  "revision": 268,
-  "updatedAt": "2026-05-12T16:04:24.321Z",
+  "revision": 269,
+  "updatedAt": "2026-05-12T16:04:26.591Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
     "showCategoryOnMain": false,
     "showCategoryInEditor": false,
-    "pageScale": 105,
+    "pageScale": 120,
     "currentChecklistId": "checklist_mov5hpql_uafjfp",
     "currentTripId": "checklist_mov5hpql_uafjfp",
     "cloudflare": {
