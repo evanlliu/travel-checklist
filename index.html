@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Checklist" />
   <title>Checklist</title>
-  <link rel="manifest" href="manifest.json?v=1.6.2" />
+  <link rel="manifest" href="manifest.json?v=1.6.4" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css?v=1.6.2" />
+  <link rel="stylesheet" href="css/style.css?v=1.6.4" />
 </head>
 <body>
   <main id="loginScreen" class="login-screen" hidden>
@@ -35,7 +35,7 @@
       <div class="brand-row">
         <p class="eyebrow">
           <span data-i18n="appEyebrow">Checklist</span>
-          <span id="appVersionBadge" class="version-badge">v1.6.2</span>
+          <span id="appVersionBadge" class="version-badge">v1.6.4</span>
           <span id="saveStatus" class="save-status inline-save-status" aria-live="polite"></span>
         </p>
       </div>
@@ -230,6 +230,16 @@
           <span data-i18n="showCategoryInEditor">编辑页面显示填写分类</span>
           <input id="showCategoryInEditorSwitch" type="checkbox" />
         </label>
+        <div class="setting-row setting-column zoom-setting-row">
+          <div class="zoom-setting-head">
+            <span data-i18n="pageZoom">页面缩放</span>
+            <strong id="pageZoomDisplay">100%</strong>
+          </div>
+          <div class="zoom-setting-control">
+            <input id="pageZoomRange" type="range" min="70" max="130" step="5" value="100" />
+            <input id="pageZoomValue" class="zoom-number" type="number" min="70" max="130" step="5" value="100" inputmode="numeric" />
+          </div>
+        </div>
         <div class="setting-section-title" data-i18n="connectionSettings">Cloudflare 同步配置</div>
         <label class="setting-row setting-column">
           <span data-i18n="workerUrl">Cloudflare Worker 地址</span>
@@ -246,7 +256,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/config.js?v=1.6.2"></script>
-  <script src="js/app.js?v=1.6.2"></script>
+  <script src="js/config.js?v=1.6.4"></script>
+  <script src="js/app.js?v=1.6.4"></script>
 </body>
 </html>

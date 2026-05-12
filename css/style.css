@@ -3653,3 +3653,50 @@ body.row-dragging * {
     font-size: 10px !important;
   }
 }
+
+
+/* v1.6.3 configurable whole-page zoom */
+.zoom-setting-row {
+  gap: 8px;
+}
+
+.zoom-setting-head,
+.zoom-setting-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.zoom-setting-head strong {
+  min-width: 52px;
+  text-align: right;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.zoom-setting-control input[type="range"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 36px;
+  padding: 0;
+  accent-color: #2563eb;
+}
+
+.zoom-number {
+  width: 76px;
+  min-height: 36px;
+  text-align: center;
+  font-weight: 900;
+}
+
+@media (max-width: 760px) {
+  .zoom-setting-control {
+    gap: 8px;
+  }
+
+  .zoom-number {
+    width: 68px;
+  }
+}
