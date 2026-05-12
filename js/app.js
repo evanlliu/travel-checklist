@@ -1,10 +1,10 @@
-/* v1.6.4 */
+/* v1.6.5 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.6.4";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.6.5";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -49,7 +49,8 @@
       hideDone: "默认隐藏已完成",
       showCategoryOnMain: "主页面显示分类",
       showCategoryInEditor: "编辑页面显示填写分类",
-      pageZoom: "页面缩放",
+      pageZoomDesktop: "页面缩放（PC）",
+      pageZoomMobile: "页面缩放（移动端）",
       connectionSettings: "Cloudflare 同步配置",
       saveConnection: "保存配置并重新同步",
       edit: "编辑",
@@ -182,7 +183,8 @@
       hideDone: "Hide completed by default",
       showCategoryOnMain: "Show category on main page",
       showCategoryInEditor: "Show category field in editor",
-      pageZoom: "Page zoom",
+      pageZoomDesktop: "Page zoom (Desktop)",
+      pageZoomMobile: "Page zoom (Mobile)",
       connectionSettings: "Cloudflare Sync Settings",
       saveConnection: "Save Settings and Resync",
       edit: "Edit",
@@ -310,13 +312,27 @@
     return Math.min(130, Math.max(70, Math.round(parsed / 5) * 5));
   }
 
-  function applyPageScale(value) {
-    const scale = clampPageScale(value);
+  function getCurrentPageScale() {
+    const isMobileViewport = window.matchMedia("(max-width: 760px)").matches;
+    return clampPageScale(isMobileViewport ? appData?.settings?.pageScaleMobile : appData?.settings?.pageScaleDesktop);
+  }
+
+  function updateZoomSettingControls() {
+    const desktopScale = clampPageScale(appData?.settings?.pageScaleDesktop);
+    const mobileScale = clampPageScale(appData?.settings?.pageScaleMobile);
+    $("#pageZoomDesktopRange").val(desktopScale);
+    $("#pageZoomDesktopValue").val(desktopScale);
+    $("#pageZoomDesktopDisplay").text(`${desktopScale}%`);
+    $("#pageZoomMobileRange").val(mobileScale);
+    $("#pageZoomMobileValue").val(mobileScale);
+    $("#pageZoomMobileDisplay").text(`${mobileScale}%`);
+  }
+
+  function applyPageScale(value = null) {
+    const scale = clampPageScale(value ?? getCurrentPageScale());
     document.documentElement.style.setProperty("--page-scale", String(scale / 100));
     document.body.style.zoom = String(scale / 100);
-    $("#pageZoomRange").val(scale);
-    $("#pageZoomValue").val(scale);
-    $("#pageZoomDisplay").text(`${scale}%`);
+    return scale;
   }
 
   function sanitizeApiBase(value) {
@@ -431,7 +447,8 @@
         hideDone: true,
         showCategoryOnMain: true,
         showCategoryInEditor: true,
-        pageScale: 100,
+        pageScaleDesktop: 100,
+        pageScaleMobile: 100,
         currentChecklistId: "mexico-2026",
         currentTripId: "mexico-2026",
         cloudflare: { apiBase: "", appPassword: "" }
@@ -842,7 +859,7 @@
 
   function renderAll() {
     if (!appData) return;
-    applyPageScale(appData?.settings?.pageScale);
+    applyPageScale();
     applyI18n();
     renderChecklistSelector();
     $("#hideDoneSwitch").prop("checked", Boolean(appData.settings.hideDone));
@@ -1048,7 +1065,7 @@
     $("#hideDoneSwitch").prop("checked", Boolean(appData?.settings?.hideDone));
     $("#showCategoryOnMainSwitch").prop("checked", shouldShowCategoryOnMain());
     $("#showCategoryInEditorSwitch").prop("checked", shouldShowCategoryInEditor());
-    applyPageScale(appData?.settings?.pageScale);
+    applyPageScale();
     applyCategoryVisibility();
     applyConnectionToForms();
     setSettingsStatus("", false);
@@ -1791,12 +1808,27 @@
       renderAll();
     });
 
-    $("#pageZoomRange, #pageZoomValue").on("input change", function () {
+    function updatePageScaleSetting(device, rawValue) {
       if (!appData) return;
-      const scale = clampPageScale($(this).val());
-      appData.settings.pageScale = scale;
-      applyPageScale(scale);
+      const key = device === "mobile" ? "pageScaleMobile" : "pageScaleDesktop";
+      const scale = clampPageScale(rawValue);
+      appData.settings[key] = scale;
+      updateZoomSettingControls();
+      applyPageScale();
       scheduleSave();
+    }
+
+    $("#pageZoomDesktopRange, #pageZoomDesktopValue").on("input change", function () {
+      updatePageScaleSetting("desktop", $(this).val());
+    });
+
+    $("#pageZoomMobileRange, #pageZoomMobileValue").on("input change", function () {
+      updatePageScaleSetting("mobile", $(this).val());
+    });
+
+    $(window).on("resize", function () {
+      if (!appData) return;
+      applyPageScale();
     });
 
     $("#itemModal, #settingsModal, #checklistModal").on("click", function (event) {
