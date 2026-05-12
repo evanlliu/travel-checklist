@@ -3700,3 +3700,39 @@ body.row-dragging * {
     width: 68px;
   }
 }
+
+
+/* v1.6.5 mobile swipe actions single row + separate desktop/mobile zoom settings */
+.zoom-setting-row {
+  gap: 8px;
+}
+
+.zoom-setting-head span {
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .item-card.swiped .item-swipe-content {
+    transform: translateX(-248px) !important;
+  }
+
+  .item-actions {
+    width: 248px !important;
+    padding: 4px !important;
+    gap: 4px !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    grid-template-rows: 1fr !important;
+    align-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important;
+  }
+
+  .item-actions button {
+    min-height: 27px !important;
+    padding: 0 4px !important;
+    font-size: 9.5px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    border-radius: 8px !important;
+  }
+}
