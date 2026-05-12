@@ -3736,3 +3736,49 @@ body.row-dragging * {
     border-radius: 8px !important;
   }
 }
+
+
+/* v1.6.6 mobile swipe action bar keep one row cleanly */
+@media (max-width: 760px) {
+  .item-card.swiped .item-swipe-content {
+    transform: translateX(-270px) !important;
+  }
+
+  .item-actions {
+    width: 270px !important;
+    min-width: 270px !important;
+    max-width: 270px !important;
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    grid-template-rows: 1fr !important;
+    grid-auto-rows: 1fr !important;
+    grid-auto-flow: column !important;
+    align-items: center !important;
+    align-content: center !important;
+    justify-items: stretch !important;
+    gap: 4px !important;
+    padding: 4px !important;
+    overflow: hidden !important;
+    flex-wrap: unset !important;
+  }
+
+  .item-actions button,
+  .item-actions .small-ghost,
+  .item-actions .small-danger,
+  .item-actions .primary-btn,
+  .item-actions .item-restore {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 28px !important;
+    height: 28px !important;
+    padding: 0 2px !important;
+    font-size: 9px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    border-radius: 8px !important;
+  }
+}
