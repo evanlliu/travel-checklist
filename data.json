@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 304,
-  "updatedAt": "2026-05-13T06:40:26.100Z",
+  "revision": 305,
+  "updatedAt": "2026-05-13T06:42:36.027Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -1029,6 +1029,25 @@
       "pinnedAt": "2026-05-10T21:20:59.277Z",
       "sortOrder": 24000,
       "deleted": true
+    },
+    {
+      "id": "item_mp3ozxqv_pv9ohp",
+      "checklistId": "checklist_mov5hpql_uafjfp",
+      "tripId": "checklist_mov5hpql_uafjfp",
+      "title": "垃圾袋",
+      "category": "other",
+      "type": "buy_and_carry",
+      "status": "need_buy",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-05-13T06:42:34.519Z",
+      "updatedAt": "2026-05-13T06:42:34.519Z",
+      "doneAt": null,
+      "pinned": true,
+      "pinnedAt": "2026-05-13T06:42:34.519Z",
+      "sortOrder": 25000,
+      "deleted": false
     }
   ]
 }
