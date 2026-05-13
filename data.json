@@ -1,20 +1,22 @@
 {
-  "appVersion": "v1.6.4",
+  "appVersion": "v1.6.6",
   "schemaVersion": 2,
-  "revision": 280,
-  "updatedAt": "2026-05-12T17:33:01.315Z",
+  "revision": 281,
+  "updatedAt": "2026-05-13T04:54:00.307Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
     "showCategoryOnMain": false,
     "showCategoryInEditor": false,
-    "pageScale": 100,
+    "pageScaleDesktop": 110,
+    "pageScaleMobile": 100,
     "currentChecklistId": "checklist_mov5hpql_uafjfp",
     "currentTripId": "checklist_mov5hpql_uafjfp",
     "cloudflare": {
       "apiBase": "https://travel-checklist-data-worker.287418456.workers.dev",
       "appPassword": "1123"
-    }
+    },
+    "pageScale": 100
   },
   "checklists": [
     {
