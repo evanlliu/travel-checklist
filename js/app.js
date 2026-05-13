@@ -1,10 +1,11 @@
-/* v1.6.6 */
+/* v1.6.7 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.6.6";
+  const DEVICE_ID_KEY = "travelChecklist.deviceId.v1";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.6.7";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -49,8 +50,8 @@
       hideDone: "默认隐藏已完成",
       showCategoryOnMain: "主页面显示分类",
       showCategoryInEditor: "编辑页面显示填写分类",
-      pageZoomDesktop: "页面缩放（PC）",
-      pageZoomMobile: "页面缩放（移动端）",
+      pageZoomDesktop: "当前设备 PC 缩放",
+      pageZoomMobile: "当前设备移动端缩放",
       connectionSettings: "Cloudflare 同步配置",
       saveConnection: "保存配置并重新同步",
       edit: "编辑",
@@ -183,8 +184,8 @@
       hideDone: "Hide completed by default",
       showCategoryOnMain: "Show category on main page",
       showCategoryInEditor: "Show category field in editor",
-      pageZoomDesktop: "Page zoom (Desktop)",
-      pageZoomMobile: "Page zoom (Mobile)",
+      pageZoomDesktop: "This device desktop zoom",
+      pageZoomMobile: "This device mobile zoom",
       connectionSettings: "Cloudflare Sync Settings",
       saveConnection: "Save Settings and Resync",
       edit: "Edit",
@@ -312,14 +313,84 @@
     return Math.min(130, Math.max(70, Math.round(parsed / 5) * 5));
   }
 
+  function getDeviceId() {
+    let id = localStorage.getItem(DEVICE_ID_KEY);
+    if (!id) {
+      id = `device-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+      localStorage.setItem(DEVICE_ID_KEY, id);
+    }
+    return id;
+  }
+
+  function getDeviceZoomEntry(createIfMissing = true) {
+    if (!appData) return { desktop: 100, mobile: 100 };
+    const settings = appData.settings || (appData.settings = {});
+    const legacyScale = clampPageScale(settings.pageScale);
+    const fallbackDesktop = clampPageScale(settings.pageScaleDesktop ?? legacyScale);
+    const fallbackMobile = clampPageScale(settings.pageScaleMobile ?? legacyScale);
+    if (!settings.pageScaleByDevice || typeof settings.pageScaleByDevice !== "object" || Array.isArray(settings.pageScaleByDevice)) {
+      settings.pageScaleByDevice = {};
+    }
+    const deviceId = getDeviceId();
+    let entry = settings.pageScaleByDevice[deviceId];
+    if ((!entry || typeof entry !== "object") && createIfMissing) {
+      entry = {
+        desktop: fallbackDesktop,
+        mobile: fallbackMobile,
+        updatedAt: nowIso()
+      };
+      settings.pageScaleByDevice[deviceId] = entry;
+    }
+    if (!entry || typeof entry !== "object") return { desktop: fallbackDesktop, mobile: fallbackMobile };
+    entry.desktop = clampPageScale(entry.desktop ?? fallbackDesktop);
+    entry.mobile = clampPageScale(entry.mobile ?? fallbackMobile);
+    settings.pageScaleDesktop = entry.desktop;
+    settings.pageScaleMobile = entry.mobile;
+    delete settings.pageScale;
+    return entry;
+  }
+
+  function normalizePageScaleSettings(settings) {
+    if (!settings) return;
+    const legacyScale = clampPageScale(settings.pageScale);
+    const fallbackDesktop = clampPageScale(settings.pageScaleDesktop ?? legacyScale);
+    const fallbackMobile = clampPageScale(settings.pageScaleMobile ?? legacyScale);
+    if (!settings.pageScaleByDevice || typeof settings.pageScaleByDevice !== "object" || Array.isArray(settings.pageScaleByDevice)) {
+      settings.pageScaleByDevice = {};
+    }
+    Object.keys(settings.pageScaleByDevice).forEach(deviceId => {
+      const item = settings.pageScaleByDevice[deviceId];
+      if (!item || typeof item !== "object" || Array.isArray(item)) {
+        delete settings.pageScaleByDevice[deviceId];
+        return;
+      }
+      item.desktop = clampPageScale(item.desktop ?? fallbackDesktop);
+      item.mobile = clampPageScale(item.mobile ?? fallbackMobile);
+      item.updatedAt = item.updatedAt || nowIso();
+    });
+    const currentDeviceId = getDeviceId();
+    if (!settings.pageScaleByDevice[currentDeviceId]) {
+      settings.pageScaleByDevice[currentDeviceId] = {
+        desktop: fallbackDesktop,
+        mobile: fallbackMobile,
+        updatedAt: nowIso()
+      };
+    }
+    settings.pageScaleDesktop = settings.pageScaleByDevice[currentDeviceId].desktop;
+    settings.pageScaleMobile = settings.pageScaleByDevice[currentDeviceId].mobile;
+    delete settings.pageScale;
+  }
+
   function getCurrentPageScale() {
     const isMobileViewport = window.matchMedia("(max-width: 760px)").matches;
-    return clampPageScale(isMobileViewport ? appData?.settings?.pageScaleMobile : appData?.settings?.pageScaleDesktop);
+    const entry = getDeviceZoomEntry(true);
+    return clampPageScale(isMobileViewport ? entry.mobile : entry.desktop);
   }
 
   function updateZoomSettingControls() {
-    const desktopScale = clampPageScale(appData?.settings?.pageScaleDesktop);
-    const mobileScale = clampPageScale(appData?.settings?.pageScaleMobile);
+    const entry = getDeviceZoomEntry(true);
+    const desktopScale = clampPageScale(entry.desktop);
+    const mobileScale = clampPageScale(entry.mobile);
     $("#pageZoomDesktopRange").val(desktopScale);
     $("#pageZoomDesktopValue").val(desktopScale);
     $("#pageZoomDesktopDisplay").text(`${desktopScale}%`);
@@ -449,6 +520,7 @@
         showCategoryInEditor: true,
         pageScaleDesktop: 100,
         pageScaleMobile: 100,
+        pageScaleByDevice: {},
         currentChecklistId: "mexico-2026",
         currentTripId: "mexico-2026",
         cloudflare: { apiBase: "", appPassword: "" }
@@ -474,6 +546,7 @@
     result.settings.cloudflare = normalizeConnection(result.settings.cloudflare || result.settings.connection || fallback.settings.cloudflare);
     result.settings.showCategoryOnMain = result.settings.showCategoryOnMain !== false;
     result.settings.showCategoryInEditor = result.settings.showCategoryInEditor !== false;
+    normalizePageScaleSettings(result.settings);
 
     let checklistSource = Array.isArray(result.checklists) && result.checklists.length
       ? result.checklists
@@ -1810,9 +1883,13 @@
 
     function updatePageScaleSetting(device, rawValue) {
       if (!appData) return;
-      const key = device === "mobile" ? "pageScaleMobile" : "pageScaleDesktop";
+      const mode = device === "mobile" ? "mobile" : "desktop";
       const scale = clampPageScale(rawValue);
-      appData.settings[key] = scale;
+      const entry = getDeviceZoomEntry(true);
+      entry[mode] = scale;
+      entry.updatedAt = nowIso();
+      appData.settings.pageScaleDesktop = clampPageScale(entry.desktop);
+      appData.settings.pageScaleMobile = clampPageScale(entry.mobile);
       updateZoomSettingControls();
       applyPageScale();
       scheduleSave();

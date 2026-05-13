@@ -3782,3 +3782,13 @@ body.row-dragging * {
     border-radius: 8px !important;
   }
 }
+
+
+/* v1.6.7 per-device page zoom settings */
+.zoom-setting-head span {
+  font-weight: 800;
+}
+
+.zoom-setting-head strong {
+  color: #047857;
+}
