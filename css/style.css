@@ -3792,3 +3792,12 @@ body.row-dragging * {
 .zoom-setting-head strong {
   color: #047857;
 }
+
+
+/* v1.6.8 page zoom settings read latest cloud data and keep per-device values visible */
+.zoom-setting-row {
+  scroll-margin-top: 12px;
+}
+
+
+/* v1.6.9 settings modal open fix: use hidden/openModal flow */

@@ -1,11 +1,11 @@
-/* v1.6.7 */
+/* v1.6.9 */
 (function () {
   const CONFIG = window.CHECKLIST_CONFIG || {};
   const TOKEN_KEY = "travelChecklist.authToken.v1";
   const LOCAL_DATA_KEY = "travelChecklist.localData.v1";
   const CONNECTION_KEY = "travelChecklist.connection.v1";
   const DEVICE_ID_KEY = "travelChecklist.deviceId.v1";
-  const APP_VERSION = CONFIG.APP_VERSION || "v1.6.7";
+  const APP_VERSION = CONFIG.APP_VERSION || "v1.6.9";
 
   let API_BASE = sanitizeApiBase(CONFIG.API_BASE || "");
   let APP_PASSWORD_VALUE = CONFIG.APP_PASSWORD || "";
@@ -334,9 +334,11 @@
     const deviceId = getDeviceId();
     let entry = settings.pageScaleByDevice[deviceId];
     if ((!entry || typeof entry !== "object") && createIfMissing) {
+      const existingEntries = Object.values(settings.pageScaleByDevice).filter(item => item && typeof item === "object" && !Array.isArray(item));
+      const source = existingEntries.length === 1 ? existingEntries[0] : null;
       entry = {
-        desktop: fallbackDesktop,
-        mobile: fallbackMobile,
+        desktop: clampPageScale(source?.desktop ?? fallbackDesktop),
+        mobile: clampPageScale(source?.mobile ?? fallbackMobile),
         updatedAt: nowIso()
       };
       settings.pageScaleByDevice[deviceId] = entry;
@@ -1134,18 +1136,38 @@
 
   function closeItemModal() { closeModal($("#itemModal")); }
 
-  function openSettings() {
+  function fillSettingsForm() {
     $("#hideDoneSwitch").prop("checked", Boolean(appData?.settings?.hideDone));
     $("#showCategoryOnMainSwitch").prop("checked", shouldShowCategoryOnMain());
     $("#showCategoryInEditorSwitch").prop("checked", shouldShowCategoryInEditor());
+    updateZoomSettingControls();
     applyPageScale();
     applyCategoryVisibility();
     applyConnectionToForms();
-    setSettingsStatus("", false);
-    openModal($("#settingsModal"));
   }
 
-  function closeSettings() { closeModal($("#settingsModal")); }
+  async function refreshSettingsFromCloud() {
+    const conn = getCurrentConnection();
+    if (!conn.apiBase || !conn.appPassword) return;
+    try {
+      await fetchWithRelogin({ silent: true });
+      fillSettingsForm();
+    } catch (_) {
+      fillSettingsForm();
+    }
+  }
+
+  function openSettings() {
+    fillSettingsForm();
+    openModal($("#settingsModal"));
+    $("#settingsModal").attr("aria-hidden", "false");
+    refreshSettingsFromCloud();
+  }
+
+  function closeSettings() {
+    $("#settingsModal").attr("aria-hidden", "true");
+    closeModal($("#settingsModal"));
+  }
   function openChecklistModal() { renderChecklistManager(); setChecklistStatus("", false); openModal($("#checklistModal")); }
   function closeChecklistModal() { closeModal($("#checklistModal")); }
 
@@ -1893,6 +1915,7 @@
       updateZoomSettingControls();
       applyPageScale();
       scheduleSave();
+      saveData({ silent: true, action: t("pageZoomDesktop") });
     }
 
     $("#pageZoomDesktopRange, #pageZoomDesktopValue").on("input change", function () {
