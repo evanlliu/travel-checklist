@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 298,
-  "updatedAt": "2026-05-13T05:33:27.195Z",
+  "revision": 299,
+  "updatedAt": "2026-05-13T05:33:33.089Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -583,10 +583,10 @@
       "type": "buy_and_carry",
       "status": "bought",
       "priority": "must",
-      "quantity": 2,
+      "quantity": 3,
       "note": "",
       "createdAt": "2026-05-07T09:45:29.544Z",
-      "updatedAt": "2026-05-13T05:33:25.809Z",
+      "updatedAt": "2026-05-13T05:33:31.701Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
