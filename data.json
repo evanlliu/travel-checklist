@@ -1,14 +1,14 @@
 {
   "appVersion": "v1.6.6",
   "schemaVersion": 2,
-  "revision": 284,
-  "updatedAt": "2026-05-13T04:55:52.130Z",
+  "revision": 285,
+  "updatedAt": "2026-05-13T04:55:54.046Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
     "showCategoryOnMain": false,
     "showCategoryInEditor": false,
-    "pageScaleDesktop": 110,
+    "pageScaleDesktop": 120,
     "pageScaleMobile": 100,
     "currentChecklistId": "checklist_mov5hpql_uafjfp",
     "currentTripId": "checklist_mov5hpql_uafjfp",
