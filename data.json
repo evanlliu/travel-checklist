@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 335,
-  "updatedAt": "2026-05-22T15:49:55.513Z",
+  "revision": 336,
+  "updatedAt": "2026-05-22T15:50:41.524Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -1001,7 +1001,7 @@
       "id": "item_moztd7u4_lv0vsz",
       "checklistId": "checklist_mov5hpql_uafjfp",
       "tripId": "checklist_mov5hpql_uafjfp",
-      "title": "英国/墨西哥流量卡",
+      "title": "英国流量卡",
       "category": "other",
       "type": "buy_and_carry",
       "status": "bought",
@@ -1009,7 +1009,7 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-10T13:33:47.884Z",
-      "updatedAt": "2026-05-10T16:34:02.435Z",
+      "updatedAt": "2026-05-22T15:50:40.324Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
