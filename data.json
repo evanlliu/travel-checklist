@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 344,
-  "updatedAt": "2026-05-26T20:34:59.799Z",
+  "revision": 345,
+  "updatedAt": "2026-05-26T20:35:08.017Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -800,12 +800,12 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:48:08.859Z",
-      "updatedAt": "2026-05-13T06:40:24.326Z",
+      "updatedAt": "2026-05-26T20:35:07.387Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
       "sortOrder": 20000,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_movb06y3_32vjk2",
