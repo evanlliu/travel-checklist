@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 350,
-  "updatedAt": "2026-05-26T20:35:24.571Z",
+  "revision": 351,
+  "updatedAt": "2026-05-26T20:35:38.975Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -743,12 +743,12 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-05-07T09:47:26.331Z",
-      "updatedAt": "2026-05-22T15:51:11.199Z",
+      "updatedAt": "2026-05-26T20:35:38.491Z",
       "doneAt": "2026-05-22T15:51:11.199Z",
       "pinned": false,
       "pinnedAt": null,
       "sortOrder": 21000,
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "item_movayzju_6iu6cz",
