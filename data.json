@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 355,
-  "updatedAt": "2026-07-21T14:42:05.990Z",
+  "revision": 356,
+  "updatedAt": "2026-07-21T14:45:56.071Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -1102,7 +1102,7 @@
       "id": "item_mruridi7_94cl99",
       "checklistId": "checklist_mrurhexj_oa06y0",
       "tripId": "checklist_mrurhexj_oa06y0",
-      "title": "新SIM卡绑定Akbank",
+      "title": "New SIM Card Bind AKBANK",
       "category": "documents",
       "type": "carry",
       "status": "to_pack",
@@ -1110,7 +1110,7 @@
       "quantity": 1,
       "note": "",
       "createdAt": "2026-07-21T14:42:05.407Z",
-      "updatedAt": "2026-07-21T14:42:05.407Z",
+      "updatedAt": "2026-07-21T14:45:54.913Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
