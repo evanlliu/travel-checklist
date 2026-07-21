@@ -1,14 +1,14 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 359,
-  "updatedAt": "2026-07-21T14:46:26.636Z",
+  "revision": 360,
+  "updatedAt": "2026-07-21T14:46:42.004Z",
   "settings": {
     "language": "en-US",
     "hideDone": true,
     "showCategoryOnMain": false,
     "showCategoryInEditor": false,
-    "pageScaleDesktop": 105,
+    "pageScaleDesktop": 100,
     "pageScaleMobile": 110,
     "pageScaleByDevice": {
       "device-mp3llwpb-qg6obq": {
@@ -22,9 +22,9 @@
         "updatedAt": "2026-05-22T15:49:14.940Z"
       },
       "device-mrurgt3l-1mml8i": {
-        "desktop": 105,
+        "desktop": 100,
         "mobile": 110,
-        "updatedAt": "2026-07-21T14:40:53.095Z"
+        "updatedAt": "2026-07-21T14:46:41.731Z"
       }
     },
     "currentChecklistId": "checklist_mrurhexj_oa06y0",
