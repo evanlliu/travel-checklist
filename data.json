@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 367,
-  "updatedAt": "2026-07-21T14:47:11.315Z",
+  "revision": 368,
+  "updatedAt": "2026-07-21T18:01:35.553Z",
   "settings": {
     "language": "en-US",
     "hideDone": true,
@@ -25,6 +25,11 @@
         "desktop": 100,
         "mobile": 110,
         "updatedAt": "2026-07-21T14:47:09.161Z"
+      },
+      "device-mrupponj-kvoyhh": {
+        "desktop": 100,
+        "mobile": 110,
+        "updatedAt": "2026-07-21T18:00:51.723Z"
       }
     },
     "currentChecklistId": "checklist_mrurhexj_oa06y0",
@@ -1111,6 +1116,25 @@
       "note": "",
       "createdAt": "2026-07-21T14:42:05.407Z",
       "updatedAt": "2026-07-21T14:45:54.913Z",
+      "doneAt": null,
+      "pinned": false,
+      "pinnedAt": null,
+      "sortOrder": 0,
+      "deleted": false
+    },
+    {
+      "id": "item_mruymx7q_jxgru5",
+      "checklistId": "checklist_mrurhexj_oa06y0",
+      "tripId": "checklist_mrurhexj_oa06y0",
+      "title": "Babys Gene Test",
+      "category": "other",
+      "type": "carry",
+      "status": "to_pack",
+      "priority": "must",
+      "quantity": 1,
+      "note": "",
+      "createdAt": "2026-07-21T18:01:34.886Z",
+      "updatedAt": "2026-07-21T18:01:34.886Z",
       "doneAt": null,
       "pinned": false,
       "pinnedAt": null,
