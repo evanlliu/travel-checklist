@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 358,
-  "updatedAt": "2026-07-21T14:46:08.010Z",
+  "revision": 359,
+  "updatedAt": "2026-07-21T14:46:26.636Z",
   "settings": {
     "language": "en-US",
     "hideDone": true,
@@ -62,13 +62,13 @@
     {
       "id": "checklist_mrurhexj_oa06y0",
       "name": {
-        "zh-CN": "老婆土耳其",
-        "en-US": "老婆土耳其"
+        "zh-CN": "Gonca in TR",
+        "en-US": "Gonca in TR"
       },
       "type": "other",
       "status": "active",
       "createdAt": "2026-07-21T14:41:20.599Z",
-      "updatedAt": "2026-07-21T14:41:20.599Z",
+      "updatedAt": "2026-07-21T14:46:25.826Z",
       "deleted": false
     }
   ],
@@ -84,8 +84,8 @@
     {
       "id": "checklist_mrurhexj_oa06y0",
       "name": {
-        "zh-CN": "老婆土耳其",
-        "en-US": "老婆土耳其"
+        "zh-CN": "Gonca in TR",
+        "en-US": "Gonca in TR"
       },
       "createdAt": "2026-07-21T14:41:20.599Z"
     }
