@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 351,
-  "updatedAt": "2026-05-26T20:35:38.975Z",
+  "revision": 352,
+  "updatedAt": "2026-07-21T14:41:21.171Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -20,10 +20,15 @@
         "desktop": 105,
         "mobile": 110,
         "updatedAt": "2026-05-22T15:49:14.940Z"
+      },
+      "device-mrurgt3l-1mml8i": {
+        "desktop": 105,
+        "mobile": 110,
+        "updatedAt": "2026-07-21T14:40:53.095Z"
       }
     },
-    "currentChecklistId": "checklist_mov5hpql_uafjfp",
-    "currentTripId": "checklist_mov5hpql_uafjfp",
+    "currentChecklistId": "checklist_mrurhexj_oa06y0",
+    "currentTripId": "checklist_mrurhexj_oa06y0",
     "cloudflare": {
       "apiBase": "https://travel-checklist-data-worker.287418456.workers.dev",
       "appPassword": "1123"
@@ -53,6 +58,18 @@
       "createdAt": "2026-05-07T07:14:22.221Z",
       "updatedAt": "2026-05-07T10:35:57.238Z",
       "deleted": false
+    },
+    {
+      "id": "checklist_mrurhexj_oa06y0",
+      "name": {
+        "zh-CN": "老婆土耳其",
+        "en-US": "老婆土耳其"
+      },
+      "type": "other",
+      "status": "active",
+      "createdAt": "2026-07-21T14:41:20.599Z",
+      "updatedAt": "2026-07-21T14:41:20.599Z",
+      "deleted": false
     }
   ],
   "trips": [
@@ -63,6 +80,14 @@
         "en-US": "Mexico/墨西哥"
       },
       "createdAt": "2026-05-07T07:14:22.221Z"
+    },
+    {
+      "id": "checklist_mrurhexj_oa06y0",
+      "name": {
+        "zh-CN": "老婆土耳其",
+        "en-US": "老婆土耳其"
+      },
+      "createdAt": "2026-07-21T14:41:20.599Z"
     }
   ],
   "items": [
