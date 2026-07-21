@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 352,
-  "updatedAt": "2026-07-21T14:41:21.171Z",
+  "revision": 353,
+  "updatedAt": "2026-07-21T14:41:25.593Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -54,9 +54,9 @@
         "en-US": "Mexico/墨西哥"
       },
       "type": "travel",
-      "status": "active",
+      "status": "archived",
       "createdAt": "2026-05-07T07:14:22.221Z",
-      "updatedAt": "2026-05-07T10:35:57.238Z",
+      "updatedAt": "2026-07-21T14:41:24.991Z",
       "deleted": false
     },
     {
