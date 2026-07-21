@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 360,
-  "updatedAt": "2026-07-21T14:46:42.004Z",
+  "revision": 361,
+  "updatedAt": "2026-07-21T14:46:43.258Z",
   "settings": {
     "language": "en-US",
     "hideDone": true,
@@ -24,7 +24,7 @@
       "device-mrurgt3l-1mml8i": {
         "desktop": 100,
         "mobile": 110,
-        "updatedAt": "2026-07-21T14:46:41.731Z"
+        "updatedAt": "2026-07-21T14:46:42.865Z"
       }
     },
     "currentChecklistId": "checklist_mrurhexj_oa06y0",
