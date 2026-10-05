@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 372,
-  "updatedAt": "2026-10-05T03:37:40.549Z",
+  "revision": 373,
+  "updatedAt": "2026-10-05T03:38:36.676Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -32,8 +32,8 @@
         "updatedAt": "2026-07-21T18:00:51.723Z"
       }
     },
-    "currentChecklistId": "checklist_mrurhexj_oa06y0",
-    "currentTripId": "checklist_mrurhexj_oa06y0",
+    "currentChecklistId": "checklist_muup9v1m_obuklz",
+    "currentTripId": "checklist_muup9v1m_obuklz",
     "cloudflare": {
       "apiBase": "https://travel-checklist-data-worker.287418456.workers.dev",
       "appPassword": "1123"
@@ -75,6 +75,18 @@
       "createdAt": "2026-07-21T14:41:20.599Z",
       "updatedAt": "2026-07-21T14:46:25.826Z",
       "deleted": false
+    },
+    {
+      "id": "checklist_muup9v1m_obuklz",
+      "name": {
+        "zh-CN": "2027去墨西哥",
+        "en-US": "2027去墨西哥"
+      },
+      "type": "business",
+      "status": "active",
+      "createdAt": "2026-10-05T03:38:36.010Z",
+      "updatedAt": "2026-10-05T03:38:36.010Z",
+      "deleted": false
     }
   ],
   "trips": [
@@ -93,6 +105,14 @@
         "en-US": "Gonca in TR"
       },
       "createdAt": "2026-07-21T14:41:20.599Z"
+    },
+    {
+      "id": "checklist_muup9v1m_obuklz",
+      "name": {
+        "zh-CN": "2027去墨西哥",
+        "en-US": "2027去墨西哥"
+      },
+      "createdAt": "2026-10-05T03:38:36.010Z"
     }
   ],
   "items": [
