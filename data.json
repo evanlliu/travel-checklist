@@ -1,8 +1,8 @@
 {
   "appVersion": "v1.6.9",
   "schemaVersion": 2,
-  "revision": 385,
-  "updatedAt": "2026-10-29T23:32:30.824Z",
+  "revision": 386,
+  "updatedAt": "2026-10-29T23:32:58.286Z",
   "settings": {
     "language": "zh-CN",
     "hideDone": true,
@@ -79,13 +79,13 @@
     {
       "id": "checklist_muup9v1m_obuklz",
       "name": {
-        "zh-CN": "2027去墨西哥",
-        "en-US": "2027去墨西哥"
+        "zh-CN": "11.03去墨西哥",
+        "en-US": "11.03去墨西哥"
       },
       "type": "business",
       "status": "active",
       "createdAt": "2026-10-05T03:38:36.010Z",
-      "updatedAt": "2026-10-05T03:38:36.010Z",
+      "updatedAt": "2026-10-29T23:32:57.774Z",
       "deleted": false
     }
   ],
@@ -109,8 +109,8 @@
     {
       "id": "checklist_muup9v1m_obuklz",
       "name": {
-        "zh-CN": "2027去墨西哥",
-        "en-US": "2027去墨西哥"
+        "zh-CN": "11.03去墨西哥",
+        "en-US": "11.03去墨西哥"
       },
       "createdAt": "2026-10-05T03:38:36.010Z"
     }
